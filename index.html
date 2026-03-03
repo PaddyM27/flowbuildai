@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>TradeStack AI — AI Marketing for Irish Trades & Services</title>
+  <title>FlowBuild AI — AI Systems for Local Business</title>
   <link rel="preconnect" href="https://fonts.googleapis.com">
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
   <link href="https://fonts.googleapis.com/css2?family=Fraunces:ital,opsz,wght@0,9..144,300..900;1,9..144,300..900&family=Syne:wght@500;600;700;800&family=DM+Sans:ital,opsz,wght@0,9..40,300..700;1,9..40,300..700&display=swap" rel="stylesheet">
@@ -547,6 +547,7 @@
     .foot-logo {
       font-family: 'Syne', sans-serif; font-weight: 800; font-size: 22px;
       letter-spacing: -0.03em; color: white; margin-bottom: 16px;
+      display: flex; align-items: center; gap: 8px;
     }
     .foot-logo span { color: var(--amber); }
     .foot-desc { font-size: 14px; color: rgba(255,255,255,0.38); line-height: 1.72; margin-bottom: 28px; max-width: 300px; }
@@ -911,6 +912,52 @@
       .lla-input-row { flex-direction: column; align-items: flex-start; }
     }
 
+    /* ─── ABOUT ─── */
+    #about { background: var(--cream); padding: 100px 0; }
+    .about-inner { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
+    .about-head {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: clamp(32px, 4.5vw, 58px);
+      font-weight: 800; line-height: 1.06; letter-spacing: -0.025em;
+      color: var(--charcoal); margin-bottom: 16px;
+    }
+    .about-sub {
+      font-size: 17px; color: var(--charcoal-lt); line-height: 1.7;
+      max-width: 580px; margin-bottom: 64px;
+    }
+    .about-grid {
+      display: grid; grid-template-columns: 1fr 1fr; gap: 28px;
+    }
+    .about-card {
+      background: white; border-radius: 12px;
+      border: 1.5px solid rgba(28,25,23,0.07);
+      padding: 48px 40px;
+      box-shadow: 0 4px 24px rgba(28,25,23,0.05);
+    }
+    .about-initials {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 17px;
+      letter-spacing: 0.06em; color: var(--amber); margin-bottom: 20px;
+    }
+    .about-name {
+      font-family: 'Fraunces', Georgia, serif;
+      font-size: 24px; font-weight: 700; letter-spacing: -0.02em;
+      color: var(--charcoal); margin-bottom: 6px;
+    }
+    .about-role {
+      font-family: 'Syne', sans-serif; font-size: 10px; font-weight: 700;
+      letter-spacing: 0.12em; text-transform: uppercase;
+      color: var(--amber); margin-bottom: 20px;
+    }
+    .about-bio {
+      font-size: 15px; color: var(--charcoal-lt); line-height: 1.78;
+    }
+    @media (max-width: 768px) {
+      .about-grid { grid-template-columns: 1fr; }
+      .about-card { padding: 36px 24px; }
+      #about { padding: 72px 0; }
+      .about-inner { padding: 0 20px; }
+    }
+
   </style>
   <link href="https://assets.calendly.com/assets/external/widget.css" rel="stylesheet">
   <script src="https://assets.calendly.com/assets/external/widget.js" async></script>
@@ -920,11 +967,11 @@
 <!-- ══════════════════════════════════════════════════════ NAV -->
 <nav>
   <div class="nav-inner">
-    <a href="#" class="nav-logo">TRADE<span>STACK</span><span class="logo-badge">AI</span></a>
+    <a href="#" class="nav-logo">FLOW<span>BUILD</span><span class="logo-badge">AI</span></a>
     <div class="nav-links">
       <a href="#services">What We Do</a>
-      <a href="#verticals">Who We Serve</a>
-      <a href="#compare">vs. Old Agencies</a>
+      <a href="#about">About</a>
+      <a href="#compare">How We Compare</a>
       <a href="#faq">FAQ</a>
     </div>
     <div class="nav-cta">
@@ -945,14 +992,14 @@
 
   <div class="hero-inner">
     <div class="hero-content">
-      <div class="eyebrow reveal" style="margin-bottom:22px;">AI Marketing for Irish Trades &amp; Services</div>
+      <div class="eyebrow reveal" style="margin-bottom:22px;">AI Systems for Local Business</div>
 
       <h1 class="hero-h1 reveal d1">
         You're losing jobs<br>you don't even know<br><em>you're losing.</em>
       </h1>
 
       <p class="hero-sub reveal d2">
-        Missed calls. No follow-up. Invisible on Google. While you're head-down in the work, leads are going to whoever has a better system. We build yours — <strong>powered by AI, built exclusively for Irish trades and service businesses</strong> — and have it live in 72 hours.
+        Missed calls. No follow-up. Invisible online. While you're head-down in the work, leads are going to whoever has a better system. We build yours — <strong>a website, smart automations, and AI tools that work around the clock</strong> — live in 72 hours.
       </p>
 
       <div class="hero-ctas reveal d3">
@@ -969,7 +1016,7 @@
       <div class="trust-row reveal d4">
         <div class="trust-item">
           <div class="trust-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
-          Built for Irish trades
+          Built for local business
         </div>
         <div class="trust-item">
           <div class="trust-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
@@ -981,7 +1028,7 @@
         </div>
         <div class="trust-item">
           <div class="trust-check"><svg viewBox="0 0 24 24" fill="none" stroke="white" stroke-width="3"><path d="M5 13l4 4L19 7"/></svg></div>
-          Google &amp; Meta Certified
+          You deal directly with us
         </div>
       </div>
     </div>
@@ -1006,7 +1053,7 @@
     <div class="stats-grid">
       <div class="stat-block reveal d1">
         <div class="stat-num">6<span>in 10</span></div>
-        <p class="stat-desc">Leads the average Irish trades business loses — missed calls, slow replies, zero follow-up. Not because the work isn't there. Because there's no system to catch it.</p>
+        <p class="stat-desc">Leads the average local business loses — missed calls, slow replies, zero follow-up. Not because the work isn't there. Because there's no system to catch it.</p>
       </div>
       <div class="stat-block reveal d2">
         <div class="stat-num">€18<span>K+</span></div>
@@ -1017,7 +1064,7 @@
         <p class="stat-desc">Businesses with 100+ Google reviews get 3× more clicks than competitors with fewer than 20. Most Irish trades businesses have fewer than 15 reviews. Most of their competitors have fewer than 5.</p>
       </div>
     </div>
-    <p class="pain-footnote reveal">Based on avg Irish trades business · €350 avg job value · 48 working weeks · Google Local Pack CTR data 2025</p>
+    <p class="pain-footnote reveal">Based on avg local business · €500 avg job value · 48 working weeks · Google Local Pack CTR data 2025</p>
   </div>
 </section>
 
@@ -1027,8 +1074,8 @@
   <div class="services-inner">
     <div class="services-intro">
       <div class="eyebrow reveal" style="margin-bottom:16px;">What We Do</div>
-      <h2 class="s-head reveal d1" style="font-size:clamp(32px,4.5vw,58px);color:var(--charcoal);">Three outcomes.<br>Built around yours.</h2>
-      <p class="services-sub reveal d2">We don't install a standard system and walk away. We look at your specific situation — your trade, your town, your competitors — and build what's actually missing. Then we run it for you, month after month, until you're the business in your area that everyone else is trying to catch.</p>
+      <h2 class="s-head reveal d1" style="font-size:clamp(32px,4.5vw,58px);color:var(--charcoal);">Three ways we help<br>your business grow.</h2>
+      <p class="services-sub reveal d2">We keep things simple. No bloated retainers, no confusing tech. Three clear services built around what local businesses actually need.</p>
     </div>
 
     <div class="services-grid reveal">
@@ -1036,46 +1083,45 @@
       <!-- Card 1 -->
       <div class="svc-card svc-card-1">
         <div class="svc-num">01</div>
-        <div class="svc-label">More Leads</div>
-        <h3 class="svc-title">We find you customers the moment they need you</h3>
-        <p class="svc-desc">We start by mapping exactly what your competitors rank for and where the gaps are in your local market. Then we build campaigns targeted precisely at those gaps — Google Search for high-intent searches like "emergency plumber Dublin" or "electrician Cork," and Facebook campaigns for non-emergency trades reaching homeowners in your specific area.<br><br>If you need a website first, we build that too — conversion-focused, mobile-first, live in 72 hours, and wired directly into your lead system so every enquiry lands somewhere that actually does something with it. We write the copy, design the pages, and make sure your site is pulling its weight before we spend a cent on ads.</p>
+        <div class="svc-label">Website Design</div>
+        <h3 class="svc-title">A clean, fast site that turns visitors into enquiries</h3>
+        <p class="svc-desc">A professional website that represents your business properly — built to convert, not just look good. Mobile-first, fast, and wired to capture leads from day one.</p>
         <ul class="svc-features">
-          <li>Google Search &amp; Local Ads</li>
-          <li>Facebook &amp; Instagram Campaigns</li>
-          <li>Custom Ad Copy &amp; Creative</li>
-          <li>Conversion-Optimised Website (if needed)</li>
-          <li>Live Ad Performance Dashboard</li>
+          <li>3–5 page professional site</li>
+          <li>Mobile responsive design</li>
+          <li>Lead capture forms</li>
+          <li>Basic SEO setup</li>
+          <li>Live in 72 hours</li>
         </ul>
       </div>
 
       <!-- Card 2 -->
       <div class="svc-card svc-card-2">
         <div class="svc-num">02</div>
-        <div class="svc-label">Less Chasing</div>
-        <h3 class="svc-title">We follow up every lead — while you're doing the work</h3>
-        <p class="svc-desc">We build a custom automation system designed around how your business actually works. Every touchpoint a lead goes through — from first enquiry to booked job — gets mapped and automated. Missed a call? An SMS goes out in your name within 60 seconds. Gave a quote but didn't hear back? A follow-up sequence runs across SMS and email until they book or say no.<br><br>Every automation is built specifically for your trade, your customer, and your situation. Not a template — a system. After every completed job, it automatically sends a review request. Your Google profile builds itself week after week while you're on the tools.</p>
+        <div class="svc-label">AI Automations</div>
+        <h3 class="svc-title">Smart automations that handle the admin for you</h3>
+        <p class="svc-desc">We build automations around how your business actually works — so you spend less time on paperwork and more time on the work you're good at.</p>
         <ul class="svc-features">
-          <li>Instant Missed Call SMS Response</li>
-          <li>Custom Follow-Up Sequences (SMS + Email)</li>
-          <li>Automated Booking &amp; Calendar Sync</li>
-          <li>Google Review Request Automation</li>
-          <li>Review Responses Written in Your Voice</li>
-          <li>Full CRM &amp; Contact Management</li>
+          <li>Lead follow-up automation</li>
+          <li>Booking &amp; calendar systems</li>
+          <li>Email &amp; SMS notifications</li>
+          <li>Google Sheets integration</li>
+          <li>Custom workflow design</li>
         </ul>
       </div>
 
       <!-- Card 3 -->
       <div class="svc-card svc-card-3">
         <div class="svc-num">03</div>
-        <div class="svc-label">Own Your Area</div>
-        <h3 class="svc-title">We build your local dominance — one piece at a time</h3>
-        <p class="svc-desc">We research exactly what your customers are searching for in your area, what your competitors rank for, and what's missing — then we create content specifically targeting those gaps. Blog posts, social captions, Google Business updates — all written for your specific market, reviewed by a strategist, and published consistently.<br><br>The result: a growing local presence built around your specific situation, bringing in calls at zero ad spend. The longer we run it, the harder you are to beat.</p>
+        <div class="svc-label">AI Implementation</div>
+        <h3 class="svc-title">Practical AI that saves time and money</h3>
+        <p class="svc-desc">We help you actually use AI in your business — in a way that makes a real difference, not just as a buzzword. Set up, trained, and built around your workflows.</p>
         <ul class="svc-features">
-          <li>Google Business Profile Management</li>
-          <li>Local SEO &amp; Content Strategy</li>
-          <li>Custom Social Media Content (Monthly)</li>
-          <li>Competitor Gap Analysis</li>
-          <li>Monthly Strategy &amp; Reporting</li>
+          <li>AI tool setup &amp; training</li>
+          <li>Workflow optimisation</li>
+          <li>Customer communication AI</li>
+          <li>Quarterly efficiency reviews</li>
+          <li>Ongoing support</li>
         </ul>
       </div>
 
@@ -1088,8 +1134,8 @@
   <div class="compare-inner">
     <div class="compare-intro">
       <div class="eyebrow reveal" style="margin-bottom:16px;">The Comparison</div>
-      <h2 class="s-head reveal d1" style="font-size:clamp(32px,4.5vw,58px);color:var(--charcoal);">What you've been paying for vs. what actually gets you leads.</h2>
-      <p class="compare-sub reveal d2">This isn't a dig at every agency. It's an honest look at why the old model was never designed for a trades business — and what an AI-native system does differently.</p>
+      <h2 class="s-head reveal d1" style="font-size:clamp(32px,4.5vw,58px);color:var(--charcoal);">What you've been paying for vs. what actually works.</h2>
+      <p class="compare-sub reveal d2">An honest look at why the old agency model wasn't built for local businesses — and what a lean, AI-native approach does differently.</p>
     </div>
 
     <div class="compare-wrap reveal">
@@ -1100,7 +1146,7 @@
             <th class="th-bad">Old Agency Model</th>
             <th class="th-good">
               <span class="th-good-inner">
-                TRADESTACK <span class="logo-badge">AI</span>
+                FLOWBUILD <span class="logo-badge">AI</span>
               </span>
             </th>
           </tr>
@@ -1109,37 +1155,32 @@
           <tr>
             <td class="td-label">Time to first result</td>
             <td class="td-bad">8–14 weeks</td>
-            <td class="td-good accent">Live in 72 hours. Results in week one.</td>
+            <td class="td-good accent">Website live in 72 hours. Results in week one.</td>
           </tr>
           <tr>
-            <td class="td-label">Missed call handling</td>
-            <td class="td-bad">Nothing. They ring the next plumber.</td>
-            <td class="td-good">We respond by SMS on your behalf within 60 seconds, 24/7.</td>
+            <td class="td-label">Website quality</td>
+            <td class="td-bad">Generic template. Built once. Never touched again.</td>
+            <td class="td-good">Custom, conversion-focused, mobile-first. Built around your business.</td>
           </tr>
           <tr>
             <td class="td-label">Lead follow-up</td>
             <td class="td-bad">You chase manually — or you don't</td>
-            <td class="td-good">We build a custom follow-up sequence for your trade. Every lead. Every time.</td>
+            <td class="td-good">Automated sequences via SMS &amp; email. Every lead. Every time.</td>
           </tr>
           <tr>
-            <td class="td-label">Google reviews</td>
-            <td class="td-bad">Hope clients leave one</td>
-            <td class="td-good">We request one after every job. We respond to every review, in your voice.</td>
+            <td class="td-label">Admin &amp; booking</td>
+            <td class="td-bad">Spreadsheets, phone tag, back-and-forth emails</td>
+            <td class="td-good">Automated booking, calendar sync, and client notifications.</td>
           </tr>
           <tr>
-            <td class="td-label">What you're paying for</td>
-            <td class="td-bad">Account managers, coordination meetings, decks</td>
-            <td class="td-good">A custom-built marketing system + senior strategy. No middlemen.</td>
+            <td class="td-label">Who you deal with</td>
+            <td class="td-bad">Account managers, hand-offs, coordination meetings</td>
+            <td class="td-good accent">Two founders. Direct. No middlemen. Ever.</td>
           </tr>
           <tr>
             <td class="td-label">Reporting</td>
             <td class="td-bad">Monthly PDF. Arrives late. Full of vanity metrics.</td>
-            <td class="td-good">Live dashboard. Real leads, real calls, real bookings.</td>
-          </tr>
-          <tr>
-            <td class="td-label">When you know it's working</td>
-            <td class="td-bad">"Give it 3 months"</td>
-            <td class="td-good accent">Week two. Real data. Honest conversation.</td>
+            <td class="td-good">Live dashboard. Real leads, real bookings, real results.</td>
           </tr>
           <tr>
             <td class="td-label">Contract</td>
@@ -1152,29 +1193,24 @@
   </div>
 </section>
 
-<!-- ══════════════════════════════════════════════════════ VERTICALS -->
-<section id="verticals">
-  <div class="vert-inner">
-    <div class="eyebrow reveal" style="margin-bottom:16px;">Who We Serve</div>
-    <h2 class="s-head reveal d1" style="font-size:clamp(32px,4vw,54px);color:var(--charcoal);max-width:580px;">Built for Irish trades.<br>Mastered for every trade in it.</h2>
-    <p class="reveal d2" style="font-size:17px;color:var(--charcoal-lt);line-height:1.7;max-width:560px;margin-top:14px;">We don't serve everyone. We serve the Irish trades and service businesses that generalist agencies treat as an afterthought — too specialised for their one-size-fits-all campaigns, too local for their enterprise pitch.</p>
-
-    <div class="vert-grid reveal d2">
-      <div class="vert-card"><div class="vert-icon">🔧</div><div class="vert-name">Plumbing</div></div>
-      <div class="vert-card"><div class="vert-icon">⚡</div><div class="vert-name">Electrical</div></div>
-      <div class="vert-card"><div class="vert-icon">🏗️</div><div class="vert-name">Construction</div></div>
-      <div class="vert-card"><div class="vert-icon">🏠</div><div class="vert-name">Roofing</div></div>
-      <div class="vert-card"><div class="vert-icon">🌿</div><div class="vert-name">Landscaping</div></div>
-      <div class="vert-card"><div class="vert-icon">🦷</div><div class="vert-name">Dental</div></div>
-      <div class="vert-card"><div class="vert-icon">🌡️</div><div class="vert-name">HVAC</div></div>
-      <div class="vert-card"><div class="vert-icon">🐛</div><div class="vert-name">Pest Control</div></div>
-      <div class="vert-card"><div class="vert-icon">🚿</div><div class="vert-name">Bathroom Fitting</div></div>
-      <div class="vert-card ghost"><div class="vert-icon" style="font-size:22px;color:var(--charcoal-lt);">+</div><div class="vert-name">Your Trade</div></div>
-    </div>
-
-    <div class="vert-note reveal d3">
-      <svg width="20" height="20" fill="var(--amber)" viewBox="0 0 24 24" style="flex-shrink:0;"><path d="M12 2C6.48 2 2 6.48 2 12s4.48 10 10 10 10-4.48 10-10S17.52 2 12 2zm-2 14.5v-9l6 4.5-6 4.5z"/></svg>
-      <p>We work exclusively with established Irish service businesses doing <strong>€500K–€5M/year in revenue.</strong> Not startups. Not side hustles. The businesses that do serious work and deserve serious marketing.</p>
+<!-- ══════════════════════════════════════════════════════ ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <h2 class="about-head reveal">Two locals. No middlemen.</h2>
+    <p class="about-sub reveal d1">We're not an agency. When you work with FlowBuild AI, you deal directly with us — the people actually doing the work.</p>
+    <div class="about-grid">
+      <div class="about-card reveal d2">
+        <div class="about-initials">LK</div>
+        <h3 class="about-name">Liam Kieran</h3>
+        <div class="about-role">Co-Founder · Digital Strategy &amp; Websites</div>
+        <p class="about-bio">A business management graduate and experienced digital strategist specialising in website development, automation systems and practical AI implementation for small to mid-sized businesses. I've built and scaled platforms across multiple industries, designing high-converting websites and integrating automations that streamline operations and drive measurable growth. I hold a Diploma in AI for Business from UCD — combining academic grounding with real-world execution to help businesses modernise with confidence.</p>
+      </div>
+      <div class="about-card reveal d3">
+        <div class="about-initials">PM</div>
+        <h3 class="about-name">Paddy Meade</h3>
+        <div class="about-role">Co-Founder · Tech, Funnels &amp; Automations</div>
+        <p class="about-bio">A self-made online business owner and science graduate who has spent years developing full-stack tech, building lead funnels and implementing automations that bring in clients while freeing up time to focus on the actual work. I specialise in designing systems that convert — websites, funnels and automations built to minimise admin and maximise results. I've built these systems across multiple sectors, combining AI tools with smart design to create pipelines that work around the clock.</p>
+      </div>
     </div>
   </div>
 </section>
@@ -1273,27 +1309,27 @@
         <span class="faq-icon">+</span>
       </button>
       <div class="faq-panel">
-        <p>We know — that's exactly why the audit exists. You get a real piece of work built on your specific market, your specific competitors, and your specific gaps before you spend a euro or get on a call. By the time you're deciding whether to work with us, you've already seen what we can do. The audit is the proof.</p>
+        <p>We know — that's exactly why the audit exists. You get a real look at where your business is leaking leads before you spend a euro or get on a call. By the time you're deciding whether to work with us, you've already seen what we can do. The audit is the proof.</p>
       </div>
     </div>
 
     <div class="faq-item reveal d1">
       <button class="faq-btn" onclick="faq(this)" aria-expanded="false">
-        <span class="faq-q">"Won't AI marketing just sound generic?"</span>
+        <span class="faq-q">"Won't AI just produce generic, robotic work?"</span>
         <span class="faq-icon">+</span>
       </button>
       <div class="faq-panel">
-        <p>We handle everything — research, competitive mapping, content creation, follow-up sequences, ad management. We use AI tools that let a small team deliver the output of a much larger agency. But the strategy and judgment about what's right for your specific trade, your specific town, and your specific customers comes from us. We know how Irish homeowners search and what makes them pick up the phone. Generic is what you get from a template. We start from your situation — and build from there.</p>
+        <p>The strategy, the judgment, and the decisions about what's right for your business come from us. We use AI to move faster and do more — not to replace thinking. Everything we build is specific to your business, your customers, and your situation. Generic is what you get from a template agency. We start from scratch with you every time.</p>
       </div>
     </div>
 
     <div class="faq-item reveal d2">
       <button class="faq-btn" onclick="faq(this)" aria-expanded="false">
-        <span class="faq-q">"I'm a plumber, not a tech company. Is this complicated to manage?"</span>
+        <span class="faq-q">"I run a business, not a tech company. Is this hard to manage?"</span>
         <span class="faq-icon">+</span>
       </button>
       <div class="faq-panel">
-        <p>Once it's built, you don't manage it. You answer your phone, complete your jobs, and check a dashboard once a week to see your numbers. We handle everything in the background — following up leads, requesting reviews, publishing content, reporting on ads. That's the entire point of having us build it for you.</p>
+        <p>Once it's built, you don't manage it. You check a dashboard once a week to see your numbers. We handle everything in the background — automations, follow-ups, reporting. That's the entire point of having us build it for you.</p>
       </div>
     </div>
 
@@ -1303,17 +1339,17 @@
         <span class="faq-icon">+</span>
       </button>
       <div class="faq-panel">
-        <p>One setup fee to build and configure your custom marketing system — typically €1,500 to €4,000 depending on what your situation needs. Then a flat monthly fee to run, optimise, and report on it. No long-term contracts after the first 90 days — month to month after that. Ad spend goes directly from you to Google or Meta. We never mark it up.</p>
+        <p>We offer simple once-off packages starting from €500, and optional monthly care plans from €49/month to keep everything running and improving. No long-term contracts. No hidden fees. You always know exactly what you're paying for.</p>
       </div>
     </div>
 
     <div class="faq-item reveal">
       <button class="faq-btn" onclick="faq(this)" aria-expanded="false">
-        <span class="faq-q">"Why only Irish trades and service businesses?"</span>
+        <span class="faq-q">"Who do you typically work with?"</span>
         <span class="faq-icon">+</span>
       </button>
       <div class="faq-panel">
-        <p>Because that's where we do our best work. We know how Irish homeowners search, how they make decisions, and what builds trust locally. A generalist agency serving a Dublin electrician the same way they serve a London SaaS startup gets average results for both. We go deep on one market and get exceptional results in it.</p>
+        <p>Established local businesses that are serious about growth. Owners who are great at what they do but don't have time to be marketing experts too. If you're running a real business and you want a system that brings in leads without you having to think about it — that's who we're built for.</p>
       </div>
     </div>
   </div>
@@ -1324,16 +1360,16 @@
   <div class="foot-inner">
     <div class="foot-grid">
       <div>
-        <div class="foot-logo">TRADE<span>STACK</span> <span class="logo-badge">AI</span></div>
-        <p class="foot-desc">AI marketing built exclusively for Irish trades and service businesses. More leads, less chasing, own your area — live in 72 hours.</p>
+        <div class="foot-logo">FLOW<span>BUILD</span> <span class="logo-badge">AI</span></div>
+        <p class="foot-desc">AI systems for local business. Websites, automations, and AI tools — built by two founders who actually do the work.</p>
         <a href="#audit" class="btn btn-amber" style="font-size:14px;padding:14px 22px;">Get Free Audit →</a>
       </div>
       <div>
         <div class="foot-col-head">Navigation</div>
         <div class="foot-links">
           <a href="#services">What We Do</a>
-          <a href="#verticals">Who We Serve</a>
-          <a href="#compare">vs. Old Agencies</a>
+          <a href="#about">About</a>
+          <a href="#compare">How We Compare</a>
           <a href="#audit">Free Audit</a>
           <a href="#faq">FAQ</a>
         </div>
@@ -1342,7 +1378,7 @@
         <div class="foot-col-head">Contact</div>
         <div class="foot-links">
           <a href="tel:+353872666405">+353 87 266 6405</a>
-          <a href="mailto:hello@tradestack.ai">hello@tradestack.ai</a>
+          <a href="mailto:hello@flowbuild.ai">hello@flowbuild.ai</a>
         </div>
         <div style="margin-top:24px;display:flex;gap:10px;">
           <a href="#" style="width:36px;height:36px;background:rgba(255,255,255,0.07);border-radius:5px;display:flex;align-items:center;justify-content:center;transition:background 0.2s;" onmouseover="this.style.background='rgba(232,101,42,0.3)'" onmouseout="this.style.background='rgba(255,255,255,0.07)'">
@@ -1355,7 +1391,7 @@
       </div>
     </div>
     <div class="foot-bottom">
-      <p class="foot-copy">© 2026 TradeStack AI. All rights reserved. Ireland.</p>
+      <p class="foot-copy">© 2026 FlowBuild AI. All rights reserved. Ireland.</p>
       <div class="foot-legal">
         <a href="#">Privacy Policy</a>
         <a href="#">Terms of Service</a>
@@ -1675,7 +1711,7 @@
       .sort((a, b) => b.score - a.score);
 
     const lines = [
-      'LEAD LEAK REPORT — TradeStack AI',
+      'LEAD LEAK REPORT — FlowBuild AI',
       'Generated: ' + new Date().toLocaleDateString('en-IE', { day:'numeric', month:'long', year:'numeric' }),
       '═'.repeat(48),
       '',
@@ -1705,16 +1741,16 @@
     lines.push('─'.repeat(48));
     lines.push('');
     lines.push('Book a free call to see how we could help:');
-    lines.push('https://tradestack.ie');
+    lines.push('https://flowbuild.ai');
     lines.push('');
     lines.push('═'.repeat(48));
-    lines.push('TradeStack AI — AI Marketing for Irish Trades & Services');
+    lines.push('FlowBuild AI — AI Systems for Local Business');
 
     const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
     const url = URL.createObjectURL(blob);
     const a = document.createElement('a');
     a.href = url;
-    a.download = 'TradeStack-Lead-Leak-Report.txt';
+    a.download = 'FlowBuild-Lead-Leak-Report.txt';
     a.click();
     URL.revokeObjectURL(url);
   }
