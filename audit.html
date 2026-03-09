@@ -304,6 +304,15 @@
     }
     .lla-retake:hover { color: rgba(254,241,232,0.68); }
 
+    /* ─── Print / PDF Report ─── */
+    #lla-pdf { display: none; }
+    @media print {
+      *, *::before, *::after { -webkit-print-color-adjust: exact !important; print-color-adjust: exact !important; }
+      @page { margin: 0; size: A4 portrait; }
+      body > * { display: none !important; }
+      #lla-pdf { display: block !important; }
+    }
+
     /* ─── Responsive ─── */
     @media (max-width: 768px) {
       .audit-nav { padding: 16px 20px; }
@@ -682,38 +691,97 @@
     const total = llaS.scores.reduce((a, b) => a + b, 0);
     const max = LLA_Q.length * 3;
     const ratio = total / max;
-    const annualLeak = Math.round(ratio * 8) * llaS.val * 12;
+    const leaksPerMonth = Math.round(ratio * 8);
+    const annualLeak = leaksPerMonth * llaS.val * 12;
     const fmt = n => '€' + Math.round(n).toLocaleString('en-IE');
+
+    const lead = llaS.lead || {};
+    const today = new Date().toLocaleDateString('en-IE', { day:'numeric', month:'long', year:'numeric' });
+
+    let tierKey, tierLabel;
+    if (total <= 9)       { tierKey = 'solid';    tierLabel = 'Solid Foundation'; }
+    else if (total <= 19) { tierKey = 'moderate'; tierLabel = 'Moderate Leaks Detected'; }
+    else                  { tierKey = 'critical'; tierLabel = 'Significant Revenue at Risk'; }
+
+    const tierBg   = tierKey==='solid' ? '#ECFAEF' : tierKey==='moderate' ? '#FEF0E8' : '#FEECEC';
+    const tierText = tierKey==='solid' ? '#2E7D32' : tierKey==='moderate' ? '#B54B15' : '#D32F2F';
 
     const catList = Object.entries(llaS.cats)
       .map(([cat, score]) => ({ cat, score, pct: Math.round((score / 6) * 100) }))
       .sort((a, b) => b.score - a.score);
 
-    const lines = [
-      'LEAD LEAK REPORT — FlowBuild AI',
-      'Generated: ' + new Date().toLocaleDateString('en-IE', { day:'numeric', month:'long', year:'numeric' }),
-      '═'.repeat(48), '',
-      'ESTIMATED ANNUAL REVENUE AT RISK',
-      fmt(annualLeak) + ' per year', '',
-      'AUDIT SCORE: ' + total + ' / ' + max, '',
-      '─'.repeat(48), 'YOUR GAP BREAKDOWN', '─'.repeat(48),
-    ];
-    catList.forEach(({ cat, pct }) => {
-      const info = LLA_CATS[cat];
-      const status = pct >= 67 ? 'MAJOR GAP' : pct >= 34 ? 'MODERATE GAP' : 'STRONG';
-      const bar = '█'.repeat(Math.round(pct / 10)) + '░'.repeat(10 - Math.round(pct / 10));
-      lines.push('', info.label + ' — ' + status, '[' + bar + '] ' + pct + '%', 'Fixed by: ' + info.service);
-    });
-    lines.push('', '─'.repeat(48), 'NEXT STEP', '─'.repeat(48), '',
-      'Book a free call to see how we could help:', 'https://flowbuild.ai', '',
-      '═'.repeat(48), 'FlowBuild AI — AI Systems for Local Business');
+    const gapsHTML = catList.map(function(item) {
+      const info = LLA_CATS[item.cat];
+      const pct = item.pct;
+      const lbl      = pct >= 67 ? 'Major Gap'    : pct >= 34 ? 'Moderate Gap' : 'Strong';
+      const barColor = pct >= 67 ? '#E57373'       : pct >= 34 ? '#E8652A'      : '#7CCC8A';
+      const tagBg    = pct >= 67 ? '#FEECEC'       : pct >= 34 ? '#FEF0E8'      : '#ECFAEF';
+      const tagColor = pct >= 67 ? '#D32F2F'       : pct >= 34 ? '#B54B15'      : '#2E7D32';
+      return '<div style="margin-bottom:14px;padding-bottom:14px;border-bottom:1px solid #EDE8E3;">' +
+        '<div style="display:flex;justify-content:space-between;align-items:center;margin-bottom:7px;">' +
+          '<span style="font-weight:700;font-size:14px;color:#1C1917;">' + info.label + '</span>' +
+          '<span style="font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;padding:3px 8px;border-radius:3px;background:' + tagBg + ';color:' + tagColor + ';">' + lbl + '</span>' +
+        '</div>' +
+        '<div style="height:5px;background:#EDE8E3;border-radius:3px;overflow:hidden;margin-bottom:5px;">' +
+          '<div style="height:100%;width:' + pct + '%;background:' + barColor + ';border-radius:3px;"></div>' +
+        '</div>' +
+        '<div style="font-size:11px;color:#9C8D83;">Fixed by: <strong style="color:#1C1917;">' + info.service + '</strong></div>' +
+      '</div>';
+    }).join('');
 
-    const blob = new Blob([lines.join('\n')], { type: 'text/plain' });
-    const a = document.createElement('a');
-    a.href = URL.createObjectURL(blob);
-    a.download = 'FlowBuild-Lead-Leak-Report.txt';
-    a.click();
-    URL.revokeObjectURL(a.href);
+    const html =
+      '<div style="font-family:\'Inter Tight\',sans-serif;background:#FAF9F6;min-height:100vh;">' +
+        '<div style="background:#1C1917;padding:24px 40px;display:flex;justify-content:space-between;align-items:center;">' +
+          '<div style="font-family:\'Syne\',sans-serif;font-size:17px;font-weight:800;letter-spacing:-0.02em;color:white;text-transform:uppercase;">' +
+            'FLOW<span style="color:#E8652A;">BUILD</span>' +
+            '<span style="display:inline-block;background:#E8652A;color:white;font-size:8px;font-weight:800;letter-spacing:0.04em;padding:3px 6px;border-radius:2px;margin-left:5px;vertical-align:middle;position:relative;top:-1px;">AI</span>' +
+          '</div>' +
+          '<div style="font-size:9px;letter-spacing:0.12em;text-transform:uppercase;color:rgba(255,255,255,0.42);">Lead Leak Audit Report</div>' +
+        '</div>' +
+        '<div style="height:3px;background:linear-gradient(to right,#E8652A,#F5804A);"></div>' +
+        '<div style="padding:32px 40px;">' +
+          '<div style="display:flex;justify-content:space-between;align-items:flex-start;margin-bottom:26px;padding-bottom:22px;border-bottom:1px solid #EDE8E3;">' +
+            '<div>' +
+              '<div style="font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9C8D83;margin-bottom:3px;">Prepared for</div>' +
+              '<div style="font-size:22px;font-weight:800;letter-spacing:-0.02em;color:#1C1917;">' + (lead.business || 'Your Business') + '</div>' +
+              '<div style="font-size:13px;color:#9C8D83;margin-top:2px;">' + (lead.name || '') + '</div>' +
+            '</div>' +
+            '<div style="text-align:right;">' +
+              '<div style="font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9C8D83;margin-bottom:3px;">Date</div>' +
+              '<div style="font-size:13px;font-weight:600;color:#1C1917;">' + today + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div style="background:#1C1917;border-radius:6px;padding:22px 28px;margin-bottom:24px;display:flex;justify-content:space-between;align-items:center;">' +
+            '<div>' +
+              '<div style="font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(254,241,232,0.45);margin-bottom:5px;">Estimated Annual Revenue at Risk</div>' +
+              '<div style="font-size:46px;font-weight:900;letter-spacing:-0.04em;color:#E8652A;line-height:1;">' + fmt(annualLeak) + '</div>' +
+              '<div style="font-size:9px;color:rgba(254,241,232,0.38);margin-top:3px;letter-spacing:0.06em;text-transform:uppercase;">per year</div>' +
+            '</div>' +
+            '<div style="text-align:right;">' +
+              '<div style="font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:rgba(254,241,232,0.45);margin-bottom:5px;">Audit Score</div>' +
+              '<div style="font-size:30px;font-weight:800;color:white;letter-spacing:-0.02em;">' + total + '<span style="font-size:13px;opacity:0.35;font-weight:400;">/' + max + '</span></div>' +
+              '<div style="display:inline-block;margin-top:8px;padding:3px 10px;border-radius:3px;background:' + tierBg + ';color:' + tierText + ';font-size:9px;font-weight:700;letter-spacing:0.06em;text-transform:uppercase;">' + tierLabel + '</div>' +
+            '</div>' +
+          '</div>' +
+          '<div style="margin-bottom:22px;">' +
+            '<div style="font-size:9px;font-weight:700;letter-spacing:0.1em;text-transform:uppercase;color:#9C8D83;margin-bottom:14px;">Your Gap Breakdown</div>' +
+            gapsHTML +
+          '</div>' +
+          '<div style="padding:16px 20px;background:#FEF5EF;border-left:3px solid #E8652A;border-radius:3px;">' +
+            '<div style="font-size:13px;font-weight:700;color:#1C1917;margin-bottom:3px;">Ready to close these gaps?</div>' +
+            '<div style="font-size:12px;color:#6B5D55;line-height:1.6;">Book a free call at <strong style="color:#E8652A;">flowbuildai.ie</strong> — we\'ll walk you through exactly what we can fix and how fast.</div>' +
+          '</div>' +
+        '</div>' +
+        '<div style="padding:14px 40px;background:#EDE8E3;display:flex;justify-content:space-between;align-items:center;">' +
+          '<div style="font-family:\'Syne\',sans-serif;font-size:11px;font-weight:800;letter-spacing:0.01em;color:#9C8D83;text-transform:uppercase;">FLOW<span style="color:#E8652A;">BUILD</span> AI</div>' +
+          '<div style="font-size:10px;color:#9C8D83;letter-spacing:0.04em;">flowbuildai.ie · info@flowbuildai.ie</div>' +
+        '</div>' +
+      '</div>';
+
+    var pdfDiv = document.getElementById('lla-pdf');
+    if (!pdfDiv) { pdfDiv = document.createElement('div'); pdfDiv.id = 'lla-pdf'; document.body.appendChild(pdfDiv); }
+    pdfDiv.innerHTML = html;
+    window.print();
   }
 
   function llaReset() {
