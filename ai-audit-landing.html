@@ -763,22 +763,24 @@
     llaS.lead = { name, business, phone, email };
     var total = 0;
     var catScores = { response:0, followup:0, admin:0, reviews:0, visibility:0 };
-    LLA_Q.forEach(function(q, qi) {
-      var s = (llaAnswers[qi] !== undefined) ? llaAnswers[qi] : (llaS.scores[qi] || 0);
+    var scoresArr = [];
+    for (var qi = 0; qi < LLA_Q.length; qi++) {
+      var s = (llaAnswers[qi] !== undefined) ? Number(llaAnswers[qi]) : (Number(llaS.scores[qi]) || 0);
       total += s;
-      catScores[q.cat] += s;
-    });
+      catScores[LLA_Q[qi].cat] += s;
+      scoresArr.push(s);
+    }
     llaS.cats = catScores;
     var annualLeak = Math.round((total / (LLA_Q.length * 3)) * 8) * llaS.val * 12;
-    var gapLabel = function(s) { return s >= 4 ? 'Major Gap' : s >= 2 ? 'Moderate Gap' : 'Strong'; };
-    new Image().src = LLA_SHEET_URL + '?' + new URLSearchParams({
-      name: name, business: business, phone: phone, email: email, annualLeak: annualLeak,
-      response:   gapLabel(catScores.response),
-      followup:   gapLabel(catScores.followup),
-      admin:      gapLabel(catScores.admin),
-      reviews:    gapLabel(catScores.reviews),
-      visibility: gapLabel(catScores.visibility)
-    });
+    var scoreStr = scoresArr.join(',');
+    var url = LLA_SHEET_URL
+      + '?name='      + encodeURIComponent(name)
+      + '&business='  + encodeURIComponent(business)
+      + '&phone='     + encodeURIComponent(phone)
+      + '&email='     + encodeURIComponent(email)
+      + '&annualLeak='+ annualLeak
+      + '&scores='    + encodeURIComponent(scoreStr);
+    new Image().src = url;
     if (typeof fbq === 'function') { fbq('track', 'Lead', { value: llaS.val, currency: 'EUR', content_name: 'AI Audit', content_category: 'Audit Completion' }); }
     llaShowResults();
   }
