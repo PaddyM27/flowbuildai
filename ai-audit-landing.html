@@ -763,13 +763,14 @@
     const catScores = { response:0, followup:0, admin:0, reviews:0, visibility:0 };
     LLA_Q.forEach((q, qi) => { catScores[q.cat] += (llaS.scores[qi] || 0); });
     llaS.cats = catScores;
+    function toGapLabel(s) { return s >= 4 ? 'Major Gap' : s >= 2 ? 'Moderate Gap' : 'Strong'; }
     new Image().src = LLA_SHEET_URL + '?' + new URLSearchParams({
       name, business, phone, email, annualLeak,
-      response:   catScores.response,
-      followup:   catScores.followup,
-      admin:      catScores.admin,
-      reviews:    catScores.reviews,
-      visibility: catScores.visibility
+      response:   toGapLabel(catScores.response),
+      followup:   toGapLabel(catScores.followup),
+      admin:      toGapLabel(catScores.admin),
+      reviews:    toGapLabel(catScores.reviews),
+      visibility: toGapLabel(catScores.visibility)
     });
     if (typeof fbq === 'function') { fbq('track', 'Lead', { value: llaS.val, currency: 'EUR', content_name: 'AI Audit', content_category: 'Audit Completion' }); }
     llaShowResults();
