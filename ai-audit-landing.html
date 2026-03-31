@@ -760,7 +760,14 @@
     llaS.lead = { name, business, phone, email };
     const total = llaS.scores.reduce((a, b) => a + b, 0);
     const annualLeak = Math.round((total / (LLA_Q.length * 3)) * 8) * llaS.val * 12;
-    new Image().src = LLA_SHEET_URL + '?' + new URLSearchParams({ name, business, phone, email, annualLeak });
+    new Image().src = LLA_SHEET_URL + '?' + new URLSearchParams({
+      name, business, phone, email, annualLeak,
+      response:   llaS.cats.response,
+      followup:   llaS.cats.followup,
+      admin:      llaS.cats.admin,
+      reviews:    llaS.cats.reviews,
+      visibility: llaS.cats.visibility
+    });
     if (typeof fbq === 'function') { fbq('track', 'Lead', { value: llaS.val, currency: 'EUR', content_name: 'AI Audit', content_category: 'Audit Completion' }); }
     llaShowResults();
   }
