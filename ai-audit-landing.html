@@ -802,11 +802,11 @@
       reviews:        gapLabel(catScores.reviews),
       visibility:     gapLabel(catScores.visibility)
     };
-    fetch(MAKE_WEBHOOK, {
-      method: 'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).catch(function() {});
+    var qs = Object.keys(payload).map(function(k) {
+      return encodeURIComponent(k) + '=' + encodeURIComponent(payload[k]);
+    }).join('&');
+    var img = new Image();
+    img.src = MAKE_WEBHOOK + '?' + qs;
     console.log('[FlowBuild] Audit submitted to Make.com:', payload);
     if (typeof fbq === 'function') { fbq('track', 'Lead', { value: llaS.val, currency: 'EUR', content_name: 'AI Audit', content_category: 'Audit Completion' }); }
     llaShowResults();
