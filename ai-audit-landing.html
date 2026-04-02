@@ -750,7 +750,7 @@
     });
   }
 
-  var LLA_SHEET_URL = 'https://script.google.com/macros/s/AKfycbzoXdMVVCZrz-BmihivqtBKl5Bdk6IPgS2269E4tvss1NC3Y62MyFG47UINA0-C6W9Npg/exec';
+  var MAKE_WEBHOOK = 'https://hook.eu1.make.com/1thi68yaxab7xim945gs0fvbj1840jfg';
 
   function llaSubmitCapture() {
     const name     = document.getElementById('lla-cap-name').value.trim();
@@ -770,24 +770,25 @@
     }
     llaS.cats = catScores;
     var annualLeak = Math.round((total / (LLA_Q.length * 3)) * 8) * llaS.val * 12;
-    // Send raw integer scores — Apps Script does all label/ranking logic server-side
-    var url = LLA_SHEET_URL
-      + '?name='       + encodeURIComponent(name)
-      + '&business='   + encodeURIComponent(business)
-      + '&phone='      + encodeURIComponent(phone)
-      + '&email='      + encodeURIComponent(email)
-      + '&annualLeak=' + annualLeak
-      + '&response='   + catScores.response
-      + '&followup='   + catScores.followup
-      + '&admin='      + catScores.admin
-      + '&reviews='    + catScores.reviews
-      + '&visibility=' + catScores.visibility
-      + '&v=5';
-    // XHR GET — browser sends request even if CORS blocks the response read
-    var xhr = new XMLHttpRequest();
-    xhr.open('GET', url, true);
-    xhr.send();
-    console.log('[FlowBuild] Audit submitted:', url);
+    var payload = {
+      name:        name,
+      business:    business,
+      phone:       phone,
+      email:       email,
+      annualLeak:  annualLeak,
+      auditScore:  total,
+      response:    catScores.response,
+      followup:    catScores.followup,
+      admin:       catScores.admin,
+      reviews:     catScores.reviews,
+      visibility:  catScores.visibility
+    };
+    fetch(MAKE_WEBHOOK, {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify(payload)
+    }).catch(function() {});
+    console.log('[FlowBuild] Audit submitted to Make.com:', payload);
     if (typeof fbq === 'function') { fbq('track', 'Lead', { value: llaS.val, currency: 'EUR', content_name: 'AI Audit', content_category: 'Audit Completion' }); }
     llaShowResults();
   }
