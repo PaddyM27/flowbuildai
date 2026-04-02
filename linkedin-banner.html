@@ -1,0 +1,342 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=1584">
+<title>FlowBuild AI — LinkedIn Banner</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    background: #111;
+    font-family: 'Inter', sans-serif;
+    -webkit-font-smoothing: antialiased;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    min-height: 100vh;
+    padding: 40px 20px;
+  }
+
+  .banner-wrapper {
+    width: min(100%, 1584px);
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+
+  .banner-wrapper::before {
+    content: '';
+    display: block;
+    padding-top: calc(396 / 1584 * 100%);
+  }
+
+  .banner {
+    position: absolute;
+    inset: 0;
+    background: #1C1917;
+    overflow: hidden;
+  }
+
+  /* Subtle grid */
+  .grid-layer {
+    position: absolute;
+    inset: 0;
+    background-image:
+      linear-gradient(rgba(255,255,255,0.025) 1px, transparent 1px),
+      linear-gradient(90deg, rgba(255,255,255,0.025) 1px, transparent 1px);
+    background-size: 48px 48px;
+  }
+
+  /* Noise grain */
+  .noise {
+    position: absolute;
+    inset: 0;
+    background-image: url("data:image/svg+xml,%3Csvg viewBox='0 0 512 512' xmlns='http://www.w3.org/2000/svg'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='100%25' height='100%25' filter='url(%23n)' opacity='0.035'/%3E%3C/svg%3E");
+    pointer-events: none;
+    opacity: 0.5;
+  }
+
+  /* Ambient glow — right side */
+  .glow-right {
+    position: absolute;
+    right: -120px;
+    top: -100px;
+    width: 700px;
+    height: 600px;
+    background: radial-gradient(circle, rgba(232,101,42,0.18) 0%, transparent 65%);
+    pointer-events: none;
+  }
+
+  /* Ambient glow — subtle centre */
+  .glow-center {
+    position: absolute;
+    left: 40%;
+    top: 50%;
+    transform: translate(-50%, -50%);
+    width: 600px;
+    height: 400px;
+    background: radial-gradient(ellipse, rgba(232,101,42,0.06) 0%, transparent 70%);
+    pointer-events: none;
+  }
+
+  /* Left fade — blend profile pic area */
+  .left-fade {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 24%;
+    height: 100%;
+    background: linear-gradient(to right, #1C1917 0%, #1C1917 40%, transparent 100%);
+    z-index: 2;
+  }
+
+  /* Content container — pushed right */
+  .content {
+    position: absolute;
+    right: 4.5%;
+    top: 0;
+    bottom: 0;
+    width: 52%;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: flex-end;
+    gap: 0;
+    z-index: 5;
+    text-align: right;
+  }
+
+  /* Logo mark */
+  .logo-mark {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 16px;
+  }
+
+  .logo-icon {
+    width: 52px;
+    height: 52px;
+    background: #1C1917;
+    border-radius: 10px;
+    border: 1.5px solid rgba(232,101,42,0.35);
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    position: relative;
+    box-shadow: 0 0 20px rgba(232,101,42,0.15), inset 0 1px 0 rgba(255,255,255,0.05);
+    flex-shrink: 0;
+  }
+
+  .logo-icon svg {
+    width: 38px;
+    height: 38px;
+  }
+
+  .logo-wordmark {
+    font-family: 'Syne', sans-serif;
+    font-size: 22px;
+    font-weight: 800;
+    letter-spacing: -0.02em;
+    color: #fff;
+    line-height: 1;
+  }
+
+  .logo-wordmark span {
+    color: #E8652A;
+  }
+
+  /* Eyebrow */
+  .eyebrow {
+    font-size: clamp(7px, 0.65vw, 10px);
+    font-weight: 700;
+    letter-spacing: 0.16em;
+    text-transform: uppercase;
+    color: #E8652A;
+    margin-bottom: 2%;
+  }
+
+  /* Headline */
+  .headline {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(18px, 2.15vw, 34px);
+    font-weight: 800;
+    letter-spacing: -0.03em;
+    line-height: 1.1;
+    color: #fff;
+    margin-bottom: 3%;
+  }
+
+  .headline em {
+    font-style: normal;
+    color: #E8652A;
+  }
+
+  /* Sub */
+  .sub {
+    font-size: clamp(10px, 0.88vw, 14px);
+    font-weight: 400;
+    color: rgba(255,255,255,0.45);
+    line-height: 1.6;
+    margin-bottom: 5%;
+  }
+
+  /* Pills row */
+  .pills {
+    display: flex;
+    gap: clamp(4px, 0.6vw, 10px);
+    flex-wrap: wrap;
+    justify-content: flex-end;
+  }
+
+  .pill {
+    font-size: clamp(8px, 0.7vw, 11px);
+    font-weight: 600;
+    letter-spacing: 0.04em;
+    padding: clamp(3px, 0.4vw, 6px) clamp(8px, 0.9vw, 14px);
+    border-radius: 100px;
+    border: 1px solid rgba(232,101,42,0.3);
+    color: rgba(255,255,255,0.7);
+    background: rgba(232,101,42,0.07);
+    white-space: nowrap;
+  }
+
+  /* Vertical accent line */
+  .accent-line {
+    position: absolute;
+    left: 44%;
+    top: 10%;
+    bottom: 10%;
+    width: 1px;
+    background: linear-gradient(to bottom, transparent, rgba(232,101,42,0.25) 30%, rgba(232,101,42,0.25) 70%, transparent);
+    z-index: 3;
+  }
+
+  /* Dot grid decoration top-right */
+  .dot-grid {
+    position: absolute;
+    right: 0;
+    top: 0;
+    width: 200px;
+    height: 160px;
+    background-image: radial-gradient(circle, rgba(232,101,42,0.18) 1px, transparent 1px);
+    background-size: 20px 20px;
+    mask-image: radial-gradient(ellipse at top right, black 20%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at top right, black 20%, transparent 75%);
+    z-index: 1;
+  }
+
+  /* Bottom dot grid */
+  .dot-grid-bottom {
+    position: absolute;
+    right: 0;
+    bottom: 0;
+    width: 160px;
+    height: 120px;
+    background-image: radial-gradient(circle, rgba(232,101,42,0.12) 1px, transparent 1px);
+    background-size: 20px 20px;
+    mask-image: radial-gradient(ellipse at bottom right, black 20%, transparent 75%);
+    -webkit-mask-image: radial-gradient(ellipse at bottom right, black 20%, transparent 75%);
+    z-index: 1;
+  }
+
+  /* Orange bar — bottom accent */
+  .bottom-bar {
+    position: absolute;
+    bottom: 0;
+    left: 0;
+    right: 0;
+    height: 3px;
+    background: linear-gradient(to right, transparent 0%, #E8652A 30%, #F28050 60%, transparent 100%);
+    z-index: 10;
+  }
+
+  /* Website tag */
+  .website {
+    position: absolute;
+    bottom: 5.5%;
+    right: 4.5%;
+    font-size: clamp(9px, 0.8vw, 12px);
+    font-weight: 500;
+    color: rgba(255,255,255,0.3);
+    letter-spacing: 0.04em;
+    z-index: 6;
+  }
+
+  /* Top-left CTA */
+  .top-left-cta {
+    position: absolute;
+    top: 8%;
+    left: 2.5%;
+    z-index: 10;
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+
+  .top-left-cta .cta-text {
+    font-family: 'Syne', sans-serif;
+    font-size: clamp(10px, 0.95vw, 15px);
+    font-weight: 800;
+    color: #ffffff;
+    letter-spacing: -0.01em;
+  }
+
+  .top-left-cta .cta-sub {
+    font-family: 'Inter', sans-serif;
+    font-size: 12px;
+    font-weight: 400;
+    color: rgba(255,255,255,0.45);
+    margin-top: 2px;
+    display: block;
+  }
+</style>
+</head>
+<body>
+<div class="banner-wrapper">
+<div class="banner">
+  <!-- Layers -->
+  <div class="grid-layer"></div>
+  <div class="noise"></div>
+  <div class="glow-right"></div>
+  <div class="glow-center"></div>
+  <div class="dot-grid"></div>
+  <div class="dot-grid-bottom"></div>
+  <div class="left-fade"></div>
+  <div class="accent-line"></div>
+  <div class="bottom-bar"></div>
+
+  <!-- Top-left CTA -->
+  <div class="top-left-cta">
+    <div>
+      <div class="cta-text">Take our AI Audit 🔥 &nbsp;<span style="color:rgba(255,255,255,0.4);font-weight:400;font-size:13px">( link below )</span></div>
+    </div>
+  </div>
+
+  <!-- Main content -->
+  <div class="content">
+    <div class="eyebrow">AI-Powered Growth for Irish Businesses</div>
+
+    <div class="headline">
+      We Build the Systems that<br><em>Unlock your Time &amp; Revenue</em>
+    </div>
+
+    <div class="sub">
+      Automations &amp; AI Tools that streamline your business
+    </div>
+
+    <div class="pills">
+      <div class="pill">AI Automation</div>
+      <div class="pill">Lead Generation</div>
+      <div class="pill">Booking &amp; Invoicing</div>
+      <div class="pill">Speed-to-Lead Systems</div>
+    </div>
+  </div>
+
+  <div class="website">flowbuildai.ie</div>
+</div>
+</div>
+</body>
+</html>
