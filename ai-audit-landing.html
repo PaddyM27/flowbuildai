@@ -763,28 +763,26 @@
     llaS.lead = { name, business, phone, email };
     var total = 0;
     var catScores = { response:0, followup:0, admin:0, reviews:0, visibility:0 };
-    var scoresArr = [];
     for (var qi = 0; qi < LLA_Q.length; qi++) {
       var s = (llaAnswers[qi] !== undefined) ? Number(llaAnswers[qi]) : (Number(llaS.scores[qi]) || 0);
       total += s;
       catScores[LLA_Q[qi].cat] += s;
-      scoresArr.push(s);
     }
     llaS.cats = catScores;
     var annualLeak = Math.round((total / (LLA_Q.length * 3)) * 8) * llaS.val * 12;
-    var gL = function(s) { return s >= 4 ? 'Major+Gap' : s >= 2 ? 'Moderate+Gap' : 'Strong'; };
+    // Send raw integer scores — Apps Script does all label/ranking logic server-side
     var url = LLA_SHEET_URL
       + '?name='       + encodeURIComponent(name)
       + '&business='   + encodeURIComponent(business)
       + '&phone='      + encodeURIComponent(phone)
       + '&email='      + encodeURIComponent(email)
       + '&annualLeak=' + annualLeak
-      + '&response='   + gL(catScores.response)
-      + '&followup='   + gL(catScores.followup)
-      + '&admin='      + gL(catScores.admin)
-      + '&reviews='    + gL(catScores.reviews)
-      + '&visibility=' + gL(catScores.visibility)
-      + '&v=4';
+      + '&response='   + catScores.response
+      + '&followup='   + catScores.followup
+      + '&admin='      + catScores.admin
+      + '&reviews='    + catScores.reviews
+      + '&visibility=' + catScores.visibility
+      + '&v=5';
     new Image().src = url;
     if (typeof fbq === 'function') { fbq('track', 'Lead', { value: llaS.val, currency: 'EUR', content_name: 'AI Audit', content_category: 'Audit Completion' }); }
     llaShowResults();
