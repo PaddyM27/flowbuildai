@@ -805,7 +805,11 @@
     var qs = Object.keys(payload).map(function(k) {
       return encodeURIComponent(k) + '=' + encodeURIComponent(payload[k]);
     }).join('&');
-    fetch(MAKE_WEBHOOK + '?' + qs, { mode: 'no-cors' }).catch(function() {});
+    var iframe = document.createElement('iframe');
+    iframe.style.display = 'none';
+    iframe.src = MAKE_WEBHOOK + '?' + qs;
+    document.body.appendChild(iframe);
+    setTimeout(function() { try { document.body.removeChild(iframe); } catch(e) {} }, 5000);
     console.log('[FlowBuild] Audit submitted to Make.com:', payload);
     if (typeof fbq === 'function') { fbq('track', 'Lead', { value: llaS.val, currency: 'EUR', content_name: 'AI Audit', content_category: 'Audit Completion' }); }
     llaShowResults();
