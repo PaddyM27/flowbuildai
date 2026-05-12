@@ -3,13 +3,13 @@
 <head>
   <meta charset="UTF-8">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
-  <title>FlowBuild AI — Systems for Trades &amp; Home Service Businesses</title>
+  <title>FlowBuild AI — The Solar Revenue Recovery System</title>
 
   <!-- Open Graph / Social sharing -->
   <meta property="og:type"        content="website">
   <meta property="og:url"         content="https://www.flowbuildai.ie/">
-  <meta property="og:title"       content="FlowBuild AI — AI Systems for Local Business">
-  <meta property="og:description" content="Stop being the bottleneck in your own business. We build the systems that get trades and service businesses off the tools — websites, automations, and AI that work around the clock.">
+  <meta property="og:title"       content="FlowBuild AI — The Solar Revenue Recovery System">
+  <meta property="og:description" content="Stop losing installs to slow follow-up. We build the AI systems that help Irish solar installers recover lost installs, book more surveys, and eliminate lead leakage — without hiring more staff.">
   <meta property="og:image"       content="https://www.flowbuildai.ie/og-image.png">
   <meta property="og:image:width"  content="1200">
   <meta property="og:image:height" content="630">
@@ -17,8 +17,8 @@
 
   <!-- Twitter Card -->
   <meta name="twitter:card"        content="summary_large_image">
-  <meta name="twitter:title"       content="FlowBuild AI — AI Systems for Local Business">
-  <meta name="twitter:description" content="Stop losing jobs to missed calls. AI-powered systems that respond to leads, follow up automatically, and keep your calendar full — while you're on the tools.">
+  <meta name="twitter:title"       content="FlowBuild AI — The Solar Revenue Recovery System">
+  <meta name="twitter:description" content="Stop losing installs to slow follow-up. AI systems that respond to every lead in under 60 seconds, auto-book surveys, and recover cold quotes — for Irish solar installers.">
   <meta name="twitter:image"       content="https://www.flowbuildai.ie/og-image.png">
   <link rel="canonical" href="https://www.flowbuildai.ie/">
 
@@ -379,6 +379,8 @@
       position: relative;
     }
     .svc-card:last-child { border-right: none; }
+    .svc-card:nth-child(n+4) { border-top: 1.5px solid rgba(28,25,23,0.08); }
+    .svc-card:nth-child(5) { grid-column: 2 / 4; }
     .svc-card-1 { background: white; }
     .svc-card-2 { background: var(--amber-pale); }
     .svc-card-3 { background: var(--charcoal); }
@@ -738,6 +740,7 @@
       .audit-row { flex-direction: column; }
       .foot-grid { grid-template-columns: 1fr; }
       .hero-watermark { font-size: clamp(180px, 55vw, 320px); opacity: 0.5; }
+      #pricing > div > div[style*="grid-template-columns:repeat(3"] { grid-template-columns: 1fr !important; }
     }
     @media (max-width: 480px) {
       .nav-inner { padding: 0 16px; }
@@ -1123,7 +1126,7 @@
   <div class="nav-inner">
     <a href="#" class="nav-logo">FLOW<span>BUILD</span><span class="logo-badge">AI</span></a>
     <div class="nav-links">
-      <a href="#services">What We Do</a>
+      <a href="#services">The System</a>
       <a href="#about">About</a>
       <a href="#compare">How We Compare</a>
       <a href="#faq">FAQ</a>
@@ -1138,7 +1141,7 @@
   </div>
   <!-- Mobile drawer -->
   <div class="nav-mobile-drawer">
-    <a href="#services" class="nav-mob-link" onclick="closeNav()">What We Do</a>
+    <a href="#services" class="nav-mob-link" onclick="closeNav()">The System</a>
     <a href="#about" class="nav-mob-link" onclick="closeNav()">About</a>
     <a href="#compare" class="nav-mob-link" onclick="closeNav()">How We Compare</a>
     <a href="#faq" class="nav-mob-link" onclick="closeNav()">FAQ</a>
@@ -1153,29 +1156,36 @@
 <section id="hero" class="grain">
   <div class="hero-bg-grid"></div>
   <div class="hero-bg-glow"></div>
-  <div class="hero-watermark">AI</div>
+  <div class="hero-watermark">SOLAR</div>
 
   <div class="hero-inner">
     <div class="hero-content">
-      <div class="eyebrow reveal" style="margin-bottom:22px;">For Trades &amp; Home Service Businesses</div>
+      <div class="eyebrow reveal" style="margin-bottom:22px;">For Residential Solar Installers in Ireland</div>
 
       <h1 class="hero-h1 reveal d1">
-        Stop being the bottleneck in your own business.
+        Stop losing installs to slow follow-up.
       </h1>
 
       <p class="hero-sub reveal d2">
-        If you're still the one answering every call, quoting every job, and chasing every lead — your business runs on you, not for you. We build the systems that change that.
+        Every missed call is a €12,000 install walking to whichever solar company answers first. We build the AI systems that respond to every inbound lead in under 60 seconds, auto-book site surveys, and recover cold quotes — so your crews stay busy without you chasing every enquiry.
       </p>
 
-      <div class="hero-ctas reveal d3" style="margin-bottom:0;">
+      <div class="hero-ctas reveal d3" style="margin-bottom:28px;">
         <a href="#audit" class="btn btn-amber btn-amber-lg">
-          Take the AI Audit
+          Find My Revenue Leaks
           <svg width="18" height="18" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
         <a href="#services" class="btn btn-outline">
-          See what we build
+          See how it works
           <svg width="15" height="15" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </a>
+      </div>
+
+      <div class="trust-row reveal d4">
+        <div class="trust-item"><div class="trust-check"><svg viewBox="0 0 10 8" fill="none" stroke="white" stroke-width="2"><path d="M1 4l3 3 5-5"/></svg></div>Live in 14 days</div>
+        <div class="trust-item"><div class="trust-check"><svg viewBox="0 0 10 8" fill="none" stroke="white" stroke-width="2"><path d="M1 4l3 3 5-5"/></svg></div>No extra staff needed</div>
+        <div class="trust-item"><div class="trust-check"><svg viewBox="0 0 10 8" fill="none" stroke="white" stroke-width="2"><path d="M1 4l3 3 5-5"/></svg></div>30-day results guarantee</div>
+        <div class="trust-item"><div class="trust-check"><svg viewBox="0 0 10 8" fill="none" stroke="white" stroke-width="2"><path d="M1 4l3 3 5-5"/></svg></div>Responds in &lt;60 seconds</div>
       </div>
     </div>
   </div>
@@ -1192,25 +1202,25 @@
 <section id="pain">
   <div class="pain-glow"></div>
   <div class="pain-inner">
-    <div class="eyebrow reveal" style="color:var(--amber);margin-bottom:20px;">The Cost of No System</div>
+    <div class="eyebrow reveal" style="color:var(--amber);margin-bottom:20px;">The Real Problem</div>
     <h2 class="pain-head reveal d1">
-      While you're on the job, your phone keeps ringing. Most of those calls will go to whoever answers first.
+      "We need more leads." You don't. You need better systems.
     </h2>
     <div class="stats-grid">
       <div class="stat-block reveal d1">
-        <div class="stat-num">6<span>in 10</span></div>
-        <p class="stat-desc">Leads the average local business loses — missed calls, slow replies, zero follow-up.</p>
+        <div class="stat-num">78<span>%</span></div>
+        <p class="stat-desc">Of homeowners book with the first solar installer to respond to their enquiry.</p>
       </div>
       <div class="stat-block reveal d2">
-        <div class="stat-num">€18<span>K+</span></div>
-        <p class="stat-desc">Lost revenue per year from just one missed lead a week.</p>
+        <div class="stat-num">4.3<span>hrs</span></div>
+        <p class="stat-desc">Average response time for Irish solar companies to inbound enquiries. Your competitor is losing the same leads.</p>
       </div>
       <div class="stat-block reveal d3">
-        <div class="stat-num">4.7<span>★ wins</span></div>
-        <p class="stat-desc">Businesses with 100+ Google reviews get 3× more clicks than those with fewer than 20.</p>
+        <div class="stat-num">€47<span>K</span></div>
+        <p class="stat-desc">Estimated annual install revenue lost to quote follow-up failure for a mid-sized Irish solar company.</p>
       </div>
     </div>
-    <p class="pain-footnote reveal">Based on avg local business · €500 avg job value · 48 working weeks · Google Local Pack CTR data 2025</p>
+    <p class="pain-footnote reveal">Based on solar industry lead management benchmarks · Average Irish residential install value €12,000</p>
   </div>
 </section>
 
@@ -1219,59 +1229,199 @@
 <section id="services">
   <div class="services-inner">
     <div class="services-intro">
-      <div class="eyebrow reveal" style="margin-bottom:16px;">What We Do</div>
-      <h2 class="s-head reveal d1" style="font-size:clamp(32px,4.5vw,58px);color:var(--charcoal);">Three ways we help<br>your business grow.</h2>
-      <p class="services-tagline reveal d2">We handle the tech so you don't have to — building the system behind businesses that don't need the owner for every task.</p>
+      <div class="eyebrow reveal" style="margin-bottom:16px;">The System Stack</div>
+      <h2 class="s-head reveal d1" style="font-size:clamp(32px,4.5vw,58px);color:var(--charcoal);">Five systems. Zero<br>installs lost to process.</h2>
+      <p class="services-tagline reveal d2">Most solar companies lose 2–4 installs per month to slow response, cold quotes, and missed calls. We close every one of those gaps with a complete AI stack built specifically for solar installers.</p>
     </div>
 
     <div class="services-grid reveal">
 
-      <!-- Card 1 -->
+      <!-- System 1 -->
       <div class="svc-card svc-card-1">
         <div class="svc-num">01</div>
-        <div class="svc-label">Website Design</div>
-        <h3 class="svc-title">A site that works as hard as you do</h3>
-        <p class="svc-desc">Your website should be your best salesperson — online 24/7, representing your business professionally and turning visitors into paying customers.</p>
+        <div class="svc-label">AI Lead Response System</div>
+        <h3 class="svc-title">Respond to every inbound lead in under 60 seconds</h3>
+        <p class="svc-desc">The first company to respond wins the install. Our AI contacts every new lead instantly via SMS, voice callback, and WhatsApp — then books a site survey before they've even looked at a competitor.</p>
         <ul class="svc-features">
-          <li>Custom design built to convert</li>
-          <li>Mobile-first and fast-loading</li>
-          <li>Lead capture forms wired in from day one</li>
-          <li>SEO foundations so customers can find you</li>
-          <li>Live and ready in 72 hours</li>
+          <li>Instant multi-channel response (SMS + WhatsApp + voice)</li>
+          <li>Lead qualification without any manual input</li>
+          <li>Survey booking triggered automatically</li>
+          <li>Works 24/7, evenings, and weekends</li>
+          <li>Average response time: &lt;60 seconds</li>
         </ul>
       </div>
 
-      <!-- Card 2 -->
+      <!-- System 2 -->
       <div class="svc-card svc-card-2">
         <div class="svc-num">02</div>
-        <div class="svc-label">AI Booking Systems</div>
-        <h3 class="svc-title">Never miss a booking while you're on the job</h3>
-        <p class="svc-desc">An AI-powered booking system that handles enquiries, qualifies leads, and schedules appointments automatically — so you stay fully booked without lifting a finger.</p>
+        <div class="svc-label">24/7 AI Receptionist</div>
+        <h3 class="svc-title">Every missed call answered — not lost</h3>
+        <p class="svc-desc">When your team is on a roof or in a meeting, inbound calls still get answered. Our AI receptionist qualifies the homeowner, answers common questions, and books the survey — at any hour.</p>
         <ul class="svc-features">
-          <li>24/7 automated enquiry handling</li>
-          <li>Instant booking and calendar sync</li>
-          <li>Automatic confirmations and reminders</li>
-          <li>Reduces no-shows and time-wasters</li>
-          <li>Works while you sleep</li>
+          <li>Handles missed calls instantly, round the clock</li>
+          <li>Qualifies homeowners before booking</li>
+          <li>Answers FAQs (grants, timeline, process)</li>
+          <li>Syncs directly to your calendar</li>
+          <li>Zero staff required for out-of-hours calls</li>
         </ul>
       </div>
 
-      <!-- Card 3 -->
+      <!-- System 3 -->
       <div class="svc-card svc-card-3">
         <div class="svc-num">03</div>
-        <div class="svc-label">AI Time Savers</div>
-        <h3 class="svc-title">Win back hours every single week</h3>
-        <p class="svc-desc">We identify the repetitive tasks eating your time — follow-ups, admin, reporting — and automate them, so you can focus on the work that actually grows your business.</p>
+        <div class="svc-label">Quote Recovery Engine</div>
+        <h3 class="svc-title">Revive cold quotes before they go cold for good</h3>
+        <p class="svc-desc">Most installers send a quote and wait. Our system sends a timed follow-up sequence that handles objections, re-engages fence-sitters, and nudges homeowners toward a decision — automatically.</p>
         <ul class="svc-features">
-          <li>Automated lead follow-up sequences</li>
-          <li>Smart invoicing and job reminders</li>
-          <li>Customer communication on autopilot</li>
-          <li>Custom workflows built around your business</li>
-          <li>Hours saved every week, guaranteed</li>
+          <li>5-touch automated follow-up sequence</li>
+          <li>Objection handling baked in (cost, timeline, grants)</li>
+          <li>Triggers re-engagement on cold quotes at 3, 7, 14 days</li>
+          <li>Escalates hot leads to your team instantly</li>
+          <li>Tracks quote-to-install conversion rate</li>
+        </ul>
+      </div>
+
+      <!-- System 4 -->
+      <div class="svc-card svc-card-1">
+        <div class="svc-num">04</div>
+        <div class="svc-label">Review &amp; Referral Automation</div>
+        <h3 class="svc-title">Turn every install into a Google review — automatically</h3>
+        <p class="svc-desc">Post-install, most companies ask for reviews manually — and most forget. Our system triggers a review request at exactly the right moment, building your reputation without any manual effort.</p>
+        <ul class="svc-features">
+          <li>Auto-triggered review request on install completion</li>
+          <li>Personalised message with direct Google link</li>
+          <li>Referral prompt built into the same flow</li>
+          <li>Dashboard showing review volume over time</li>
+          <li>Handles 5-star routing vs. negative feedback</li>
+        </ul>
+      </div>
+
+      <!-- System 5 -->
+      <div class="svc-card svc-card-2">
+        <div class="svc-num">05</div>
+        <div class="svc-label">Admin Reduction System</div>
+        <h3 class="svc-title">Eliminate the paperwork that eats your evenings</h3>
+        <p class="svc-desc">Survey confirmations, crew notifications, pipeline updates, no-show reminders — all running automatically in the background so your team spends time on installs, not admin.</p>
+        <ul class="svc-features">
+          <li>Automated survey confirmations &amp; reminders (cuts no-shows)</li>
+          <li>Crew scheduling notifications</li>
+          <li>Pipeline stage updates without manual data entry</li>
+          <li>Weekly performance summary sent to your inbox</li>
+          <li>Integrates with your existing CRM or we build one</li>
         </ul>
       </div>
 
     </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════ COMPARE -->
+<section id="compare">
+  <div class="compare-inner">
+    <div class="compare-intro">
+      <div class="eyebrow reveal" style="margin-bottom:16px;">The Comparison</div>
+      <h2 class="s-head reveal d1" style="font-size:clamp(32px,4.5vw,58px);color:var(--charcoal);">Without FlowBuild<br>vs. with it.</h2>
+    </div>
+
+    <div class="cmp-grid reveal">
+      <div class="cmp-head bad">Without FlowBuild</div>
+      <div class="cmp-head good">
+        With
+        <span class="cmp-logo">FLOW<span>BUILD</span><span class="logo-badge">AI</span></span>
+      </div>
+
+      <div class="cmp-cell bad"><div class="cmp-x">✕</div>Lead response in 4+ hours — homeowner already booked a competitor</div>
+      <div class="cmp-cell good"><div class="cmp-chk">✓</div>Every lead contacted in under 60 seconds, day or night</div>
+
+      <div class="cmp-cell bad"><div class="cmp-x">✕</div>Missed calls go to voicemail and die there</div>
+      <div class="cmp-cell good"><div class="cmp-chk">✓</div>AI answers, qualifies, and books the survey — any hour</div>
+
+      <div class="cmp-cell bad"><div class="cmp-x">✕</div>Quotes sent, then nothing — most go cold</div>
+      <div class="cmp-cell good"><div class="cmp-chk">✓</div>5-touch follow-up sequence recovers fence-sitters automatically</div>
+
+      <div class="cmp-cell bad"><div class="cmp-x">✕</div>Survey booking by phone tag — no-shows at 20–30%</div>
+      <div class="cmp-cell good"><div class="cmp-chk">✓</div>Self-book calendar link + automated reminders — no-shows under 5%</div>
+
+      <div class="cmp-cell bad"><div class="cmp-x">✕</div>Reviews collected manually — or not at all</div>
+      <div class="cmp-cell good"><div class="cmp-chk">✓</div>Review request triggered automatically on every completed install</div>
+
+      <div class="cmp-cell bad"><div class="cmp-x">✕</div>Hours of admin, confirmations, and pipeline updates every week</div>
+      <div class="cmp-cell good"><div class="cmp-chk">✓</div>All running in the background — crew notified, pipeline updated</div>
+
+      <div class="cmp-cell bad"><div class="cmp-x">✕</div>Zero coverage evenings and weekends</div>
+      <div class="cmp-cell good"><div class="cmp-chk">✓</div>24/7 AI coverage — no install opportunity ever goes unanswered</div>
+    </div>
+  </div>
+</section>
+
+<!-- ══════════════════════════════════════════════════════ GUARANTEE + PRICING -->
+<section id="pricing" style="background:var(--charcoal);padding:96px 0;position:relative;overflow:hidden;">
+  <div style="position:absolute;pointer-events:none;width:700px;height:500px;top:-100px;left:-100px;background:radial-gradient(ellipse,rgba(232,101,42,0.06) 0%,transparent 65%);"></div>
+  <div style="max-width:1280px;margin:0 auto;padding:0 40px;">
+
+    <!-- Guarantee Block -->
+    <div style="max-width:760px;margin:0 auto 80px;text-align:center;">
+      <div class="eyebrow reveal" style="color:var(--amber);justify-content:center;margin-bottom:20px;">The Guarantee</div>
+      <h2 class="s-head reveal d1" style="font-size:clamp(32px,4.5vw,58px);color:white;margin-bottom:24px;">If we don't increase your booked<br>survey rate in 30 days, we work<br>for free until we do.</h2>
+      <p class="reveal d2" style="font-size:18px;line-height:1.65;color:rgba(254,241,232,0.65);max-width:560px;margin:0 auto;">Worst case — your systems improve for free. Best case — you never lose another install to a missed call. Either way, you win.</p>
+    </div>
+
+    <!-- Pricing Tiers -->
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto;">
+
+      <!-- Performance (anchor — shown first for anchoring effect) -->
+      <div style="background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.1);border-radius:10px;padding:40px 32px;display:flex;flex-direction:column;">
+        <div style="font-family:'Inter Tight',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(254,241,232,0.4);margin-bottom:12px;">Performance</div>
+        <div style="font-family:'Inter Tight',sans-serif;font-size:32px;font-weight:800;color:white;letter-spacing:-0.02em;line-height:1;margin-bottom:6px;">Custom</div>
+        <div style="font-family:'Inter Tight',sans-serif;font-size:14px;color:rgba(254,241,232,0.45);margin-bottom:32px;line-height:1.5;">For high-volume firms. Includes<br>per-recovered-lead upside.</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;flex:1;margin-bottom:36px;">
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:1px;">✓</span>Full 5-system stack</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:1px;">✓</span>Performance-based fee structure</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:1px;">✓</span>Dedicated account management</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:1px;">✓</span>Multi-team &amp; multi-region capable</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:1px;">✓</span>Custom integrations &amp; reporting</li>
+        </ul>
+        <button onclick="Calendly.initPopupWidget({url:'https://calendly.com/flowbuildai/30min'});return false;" style="display:block;width:100%;padding:15px 20px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);border-radius:5px;color:white;font-family:'Inter Tight',sans-serif;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.02em;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.07)'">Book a Call →</button>
+      </div>
+
+      <!-- Growth (recommended — decoy makes this obvious choice) -->
+      <div style="background:rgba(232,101,42,0.08);border:2px solid var(--amber);border-radius:10px;padding:40px 32px;display:flex;flex-direction:column;position:relative;">
+        <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--amber);color:white;font-family:'Inter Tight',sans-serif;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:4px 14px;border-radius:100px;white-space:nowrap;">Most Popular</div>
+        <div style="font-family:'Inter Tight',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:12px;">Growth</div>
+        <div style="font-family:'Inter Tight',sans-serif;font-size:32px;font-weight:800;color:white;letter-spacing:-0.02em;line-height:1;margin-bottom:2px;">€1.5k–€3k<span style="font-size:16px;font-weight:500;color:rgba(254,241,232,0.5)">/mo</span></div>
+        <div style="font-family:'Inter Tight',sans-serif;font-size:13px;color:rgba(254,241,232,0.45);margin-bottom:4px;">Setup: €5k–€10k</div>
+        <div style="font-family:'Inter Tight',sans-serif;font-size:14px;color:rgba(254,241,232,0.45);margin-bottom:32px;line-height:1.5;">For established solar companies<br>with consistent lead volume.</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;flex:1;margin-bottom:36px;">
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(254,241,232,0.82);"><span style="color:var(--amber);flex-shrink:0;margin-top:1px;">✓</span>Full 5-system stack</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(254,241,232,0.82);"><span style="color:var(--amber);flex-shrink:0;margin-top:1px;">✓</span>AI lead response + receptionist</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(254,241,232,0.82);"><span style="color:var(--amber);flex-shrink:0;margin-top:1px;">✓</span>Quote recovery + survey automation</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(254,241,232,0.82);"><span style="color:var(--amber);flex-shrink:0;margin-top:1px;">✓</span>Review &amp; referral automation</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(254,241,232,0.82);"><span style="color:var(--amber);flex-shrink:0;margin-top:1px;">✓</span>30-day results guarantee</li>
+        </ul>
+        <button onclick="Calendly.initPopupWidget({url:'https://calendly.com/flowbuildai/30min'});return false;" class="btn btn-amber" style="justify-content:center;font-size:14px;">Book a Free Call →</button>
+      </div>
+
+      <!-- Starter -->
+      <div style="background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.1);border-radius:10px;padding:40px 32px;display:flex;flex-direction:column;">
+        <div style="font-family:'Inter Tight',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(254,241,232,0.4);margin-bottom:12px;">Starter</div>
+        <div style="font-family:'Inter Tight',sans-serif;font-size:32px;font-weight:800;color:white;letter-spacing:-0.02em;line-height:1;margin-bottom:2px;">€500–€1k<span style="font-size:16px;font-weight:500;color:rgba(254,241,232,0.5)">/mo</span></div>
+        <div style="font-family:'Inter Tight',sans-serif;font-size:13px;color:rgba(254,241,232,0.45);margin-bottom:4px;">Setup: €1.5k–€3k</div>
+        <div style="font-family:'Inter Tight',sans-serif;font-size:14px;color:rgba(254,241,232,0.45);margin-bottom:32px;line-height:1.5;">For smaller operators getting<br>started with automation.</div>
+        <ul style="list-style:none;display:flex;flex-direction:column;gap:12px;flex:1;margin-bottom:36px;">
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:1px;">✓</span>AI lead response system</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:1px;">✓</span>Missed call recovery</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:1px;">✓</span>Basic quote follow-up sequence</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:1px;">✓</span>Review automation</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:14px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:1px;">✓</span>30-day results guarantee</li>
+        </ul>
+        <button onclick="Calendly.initPopupWidget({url:'https://calendly.com/flowbuildai/30min'});return false;" style="display:block;width:100%;padding:15px 20px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);border-radius:5px;color:white;font-family:'Inter Tight',sans-serif;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.02em;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.07)'">Book a Call →</button>
+      </div>
+
+    </div>
+
+    <!-- Mental accounting reframe -->
+    <p class="reveal" style="text-align:center;margin-top:36px;font-family:'Inter Tight',sans-serif;font-size:15px;color:rgba(254,241,232,0.45);max-width:580px;margin-left:auto;margin-right:auto;line-height:1.65;">The average Irish solar install is worth €12,000. Our system pays for itself the first time it recovers a quote that would have gone cold.</p>
+
   </div>
 </section>
 
@@ -1285,81 +1435,23 @@
 
     <!-- Panel: Intro -->
     <div class="lla-panel active" id="lla-p-intro">
-      <div class="lla-eyebrow-amber">AI Audit</div>
-      <h2 class="lla-h2">See what your business<br>is leaking while you're<br>on the tools.</h2>
-      <p class="lla-lead">Answer 10 questions built for trades and service businesses. Get a breakdown of where you're losing leads, wasting hours, and leaving money on the table — with a clear fix for each gap.</p>
+      <div class="lla-eyebrow-amber">Free for solar installers</div>
+      <h2 class="lla-h2">Find exactly where<br>installs are slipping<br>through the cracks.</h2>
+      <p class="lla-lead">Answer 10 questions about how your business handles inbound enquiries. We'll show you exactly where installs are slipping through the cracks — and what it's costing you per year.</p>
       <div class="lla-cats-row">
-        <span class="lla-cat-pill">Missed Calls & Enquiries</span>
+        <span class="lla-cat-pill">Speed to Lead</span>
         <span class="lla-cat-pill">Quote Follow-Up</span>
-        <span class="lla-cat-pill">Booking & Scheduling</span>
-        <span class="lla-cat-pill">Google Reviews</span>
-        <span class="lla-cat-pill">Online Visibility</span>
+        <span class="lla-cat-pill">Survey Booking</span>
+        <span class="lla-cat-pill">Missed Call Coverage</span>
+        <span class="lla-cat-pill">Reviews &amp; Pipeline</span>
       </div>
       <a href="audit.html" class="lla-btn-primary">
-        Start the Audit
+        Find My Revenue Leaks
         <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
       </a>
       <p class="lla-fine">Free · Takes 3 minutes · Personalised to your business</p>
     </div>
 
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════════════ COMPARE -->
-<section id="compare">
-  <div class="compare-inner">
-    <div class="compare-intro">
-      <div class="eyebrow reveal" style="margin-bottom:16px;">The Comparison</div>
-      <h2 class="s-head reveal d1" style="font-size:clamp(32px,4.5vw,58px);color:var(--charcoal);">What you actually get<br>vs. the old agency model.</h2>
-    </div>
-
-    <div class="cmp-grid reveal">
-      <div class="cmp-head bad">The Old Agency Way</div>
-      <div class="cmp-head good">
-        With
-        <span class="cmp-logo">FLOW<span>BUILD</span><span class="logo-badge">AI</span></span>
-      </div>
-
-      <div class="cmp-cell bad"><div class="cmp-x">✕</div>Months before you see any results</div>
-      <div class="cmp-cell good"><div class="cmp-chk">✓</div>Live and generating leads in 72 hours</div>
-
-      <div class="cmp-cell bad"><div class="cmp-x">✕</div>Enquiries fall through the cracks</div>
-      <div class="cmp-cell good"><div class="cmp-chk">✓</div>Every lead followed up automatically</div>
-
-      <div class="cmp-cell bad"><div class="cmp-x">✕</div>Missed calls cost you bookings every week</div>
-      <div class="cmp-cell good"><div class="cmp-chk">✓</div>Booked in automatically while you're on the job</div>
-
-      <div class="cmp-cell bad"><div class="cmp-x">✕</div>Hours of admin eating into your evenings</div>
-      <div class="cmp-cell good"><div class="cmp-chk">✓</div>Automated — get your evenings back</div>
-
-      <div class="cmp-cell bad"><div class="cmp-x">✕</div>12-month lock-in, results optional</div>
-      <div class="cmp-cell good"><div class="cmp-chk">✓</div>Month-to-month. Leave any time.</div>
-
-      <div class="cmp-cell bad"><div class="cmp-x">✕</div>Account managers who don't know your business</div>
-      <div class="cmp-cell good"><div class="cmp-chk">✓</div>Two founders. Direct line. No hand-offs.</div>
-    </div>
-  </div>
-</section>
-
-<!-- ══════════════════════════════════════════════════════ ABOUT -->
-<section id="about">
-  <div class="about-inner">
-    <h2 class="about-head reveal">Two locals. No middlemen.</h2>
-    <p class="about-sub reveal d1">We're not an agency. When you work with FlowBuild AI, you deal directly with us — the people actually doing the work.</p>
-    <div class="about-grid">
-      <div class="about-card reveal d2">
-        <img src="liam.jpeg" alt="Liam Kieran" class="about-headshot">
-        <h3 class="about-name">Liam Kieran</h3>
-        <div class="about-role">Co-Founder · Digital Strategy &amp; Websites</div>
-        <p class="about-bio">A business management graduate and experienced digital strategist specialising in website development, automation systems and practical AI implementation for small to mid-sized businesses. I've built and scaled platforms across multiple industries, designing high-converting websites and integrating automations that streamline operations and drive measurable growth. I hold a Diploma in AI for Business from UCD — combining academic grounding with real-world execution to help businesses modernise with confidence.</p>
-      </div>
-      <div class="about-card reveal d3">
-        <img src="paddy.jpeg" alt="Paddy Meade" class="about-headshot">
-        <h3 class="about-name">Paddy Meade</h3>
-        <div class="about-role">Co-Founder · Tech, Funnels &amp; Automations</div>
-        <p class="about-bio">A self-made online business owner and science graduate who has spent years developing full-stack tech, building lead funnels and implementing automations that bring in clients while freeing up time to focus on the actual work. I specialise in designing systems that convert — websites, funnels and automations built to minimise admin and maximise results. I've built these systems across multiple sectors, combining AI tools with smart design to create pipelines that work around the clock.</p>
-      </div>
-    </div>
   </div>
 </section>
 
@@ -1419,59 +1511,81 @@
   </div>
 </section>
 
+<!-- ══════════════════════════════════════════════════════ ABOUT -->
+<section id="about">
+  <div class="about-inner">
+    <h2 class="about-head reveal">Two locals. No middlemen.</h2>
+    <p class="about-sub reveal d1">We're not an agency. When you work with FlowBuild AI, you deal directly with us — the people actually doing the work.</p>
+    <div class="about-grid">
+      <div class="about-card reveal d2">
+        <img src="liam.jpeg" alt="Liam Kieran" class="about-headshot">
+        <h3 class="about-name">Liam Kieran</h3>
+        <div class="about-role">Co-Founder · Digital Strategy &amp; Websites</div>
+        <p class="about-bio">A business management graduate and experienced digital strategist specialising in website development, automation systems and practical AI implementation for small to mid-sized businesses. I've built and scaled platforms across multiple industries, designing high-converting websites and integrating automations that streamline operations and drive measurable growth. I hold a Diploma in AI for Business from UCD — combining academic grounding with real-world execution to help businesses modernise with confidence.</p>
+      </div>
+      <div class="about-card reveal d3">
+        <img src="paddy.jpeg" alt="Paddy Meade" class="about-headshot">
+        <h3 class="about-name">Paddy Meade</h3>
+        <div class="about-role">Co-Founder · Tech, Funnels &amp; Automations</div>
+        <p class="about-bio">A self-made online business owner and science graduate who has spent years developing full-stack tech, building lead funnels and implementing automations that bring in clients while freeing up time to focus on the actual work. I specialise in designing systems that convert — websites, funnels and automations built to minimise admin and maximise results. I've built these systems across multiple sectors, combining AI tools with smart design to create pipelines that work around the clock.</p>
+      </div>
+    </div>
+  </div>
+</section>
+
 <!-- ══════════════════════════════════════════════════════ FAQ -->
 <section id="faq">
   <div class="faq-inner">
     <div class="eyebrow reveal" style="margin-bottom:16px;">Common Questions</div>
-    <h2 class="s-head reveal d1" style="font-size:clamp(32px,4vw,52px);color:var(--charcoal);margin-bottom:56px;">You've been burned before.<br>Fair enough. Here's the truth.</h2>
+    <h2 class="s-head reveal d1" style="font-size:clamp(32px,4vw,52px);color:var(--charcoal);margin-bottom:56px;">Common questions from<br>solar installers.</h2>
 
     <div class="faq-item reveal">
       <button class="faq-btn" onclick="faq(this)" aria-expanded="false">
-        <span class="faq-q">"Sounds like every other agency promising the world."</span>
+        <span class="faq-q">"Does this work with our existing CRM?"</span>
         <span class="faq-icon">+</span>
       </button>
       <div class="faq-panel">
-        <p>We know — that's exactly why the audit exists. You get a real look at where your business is leaking leads before you spend a euro or get on a call. By the time you're deciding whether to work with us, you've already seen what we can do. The audit is the proof.</p>
+        <p>Yes. We integrate with most common CRMs used by Irish solar installers, including HubSpot, Salesforce, and industry-specific tools. If you're using spreadsheets or a basic pipeline, we can build something purpose-fit for your workflow — no extra software purchase required.</p>
       </div>
     </div>
 
     <div class="faq-item reveal d1">
       <button class="faq-btn" onclick="faq(this)" aria-expanded="false">
-        <span class="faq-q">"Won't AI just produce generic, robotic work?"</span>
+        <span class="faq-q">"How do you integrate with our lead sources (website, Facebook, Energia etc.)?"</span>
         <span class="faq-icon">+</span>
       </button>
       <div class="faq-panel">
-        <p>The strategy, the judgment, and the decisions about what's right for your business come from us. We use AI to move faster and do more — not to replace thinking. Everything we build is specific to your business, your customers, and your situation. Generic is what you get from a template agency. We start from scratch with you every time.</p>
+        <p>We connect to wherever your leads come from — website forms, Meta lead ads, Google lead forms, or third-party aggregators. Every inbound lead, regardless of source, gets the same instant response within 60 seconds. You don't need to change how you advertise.</p>
       </div>
     </div>
 
     <div class="faq-item reveal d2">
       <button class="faq-btn" onclick="faq(this)" aria-expanded="false">
-        <span class="faq-q">"I run a business, not a tech company. Is this hard to manage?"</span>
+        <span class="faq-q">"What's included in the 14-day setup?"</span>
         <span class="faq-icon">+</span>
       </button>
       <div class="faq-panel">
-        <p>Once it's built, you don't manage it. You check a dashboard once a week to see your numbers. We handle everything in the background — automations, follow-ups, reporting. That's the entire point of having us build it for you.</p>
+        <p>We handle everything — AI voice and SMS configuration, calendar integration, CRM connection, quote follow-up sequences, and review automation. You'll have a 60-minute onboarding call with us, review and approve the flows, and we're live within two weeks. Most clients need less than 2 hours of their own time during setup.</p>
       </div>
     </div>
 
     <div class="faq-item reveal d3">
       <button class="faq-btn" onclick="faq(this)" aria-expanded="false">
-        <span class="faq-q">"How does pricing work?"</span>
+        <span class="faq-q">"What if the AI says something wrong to a homeowner?"</span>
         <span class="faq-icon">+</span>
       </button>
       <div class="faq-panel">
-        <p>We work in three tiers — a Foundation package for businesses starting out, a Growth System for those ready to automate lead flow and bookings, and a Full Stack build for the complete backend. Optional monthly care plan available. No long-term lock-in, no hidden fees. Book a call and we'll talk through what fits your business.</p>
+        <p>The AI is trained on your exact business — your pricing, process, SEAI grant information, and FAQs. It doesn't guess. If a question falls outside what it knows, it takes a message and escalates to your team immediately. You review and approve all scripts before we go live.</p>
       </div>
     </div>
 
     <div class="faq-item reveal">
       <button class="faq-btn" onclick="faq(this)" aria-expanded="false">
-        <span class="faq-q">"Who do you typically work with?"</span>
+        <span class="faq-q">"We already get decent leads — why do we need this?"</span>
         <span class="faq-icon">+</span>
       </button>
       <div class="faq-panel">
-        <p>Trades and home service businesses — landscapers, electricians, builders, roofers, cleaners, pest control, and more. Owner-operators who are great at the job but haven't had time to build the systems behind it. If you're still the one handling most of the calls, quotes, and follow-ups yourself, that's exactly who we're built for.</p>
+        <p>Most solar companies that come to us aren't lead-starved — they're losing installs between the lead and the signed contract. Slow response, cold quotes, missed calls outside working hours, no-shows. The Lead Leak Audit will show you exactly how many installs you're losing right now and what it's costing you annually. Take it free — it only takes 3 minutes.</p>
       </div>
     </div>
   </div>
@@ -1483,13 +1597,13 @@
     <div class="foot-grid">
       <div>
         <div class="foot-logo">FLOW<span>BUILD</span> <span class="logo-badge">AI</span></div>
-        <p class="foot-desc">We build the foundations of your business to allow you to scale. Websites, automations, and AI — built by two founders who actually do the work.</p>
-        <a href="#audit" class="btn btn-amber" style="font-size:14px;padding:14px 22px;">Get Free Audit →</a>
+        <p class="foot-desc">We help Irish solar installers stop losing installs to slow follow-up — building the AI systems that respond instantly, book surveys, and recover cold quotes, without hiring more staff.</p>
+        <a href="#audit" class="btn btn-amber" style="font-size:14px;padding:14px 22px;">Find My Revenue Leaks →</a>
       </div>
       <div>
         <div class="foot-col-head">Navigation</div>
         <div class="foot-links">
-          <a href="#services">What We Do</a>
+          <a href="#services">The System</a>
           <a href="#about">About</a>
           <a href="#compare">How We Compare</a>
           <a href="#audit">Free Audit</a>

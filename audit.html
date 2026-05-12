@@ -361,18 +361,18 @@
 
       <!-- Panel: Intro -->
       <div class="lla-panel active" id="lla-p-intro">
-        <div class="lla-eyebrow-amber">AI Audit</div>
-        <h2 class="lla-h2">See what's costing your<br>business jobs while<br>you're on the tools.</h2>
-        <p class="lla-lead">Answer 10 questions built for trades and service businesses. You'll get a breakdown of where you're losing leads, wasting hours, and leaving money on the table — with a clear fix for each gap.</p>
+        <div class="lla-eyebrow-amber">Free for solar installers</div>
+        <h2 class="lla-h2">Find exactly where<br>installs are slipping<br>through the cracks.</h2>
+        <p class="lla-lead">Answer 10 questions about how your business handles inbound enquiries. We'll show you exactly where installs are slipping through the cracks — and what it's costing you per year.</p>
         <div class="lla-cats-row">
-          <span class="lla-cat-pill">Missed Calls & Enquiries</span>
+          <span class="lla-cat-pill">Speed to Lead</span>
           <span class="lla-cat-pill">Quote Follow-Up</span>
-          <span class="lla-cat-pill">Booking & Scheduling</span>
-          <span class="lla-cat-pill">Google Reviews</span>
-          <span class="lla-cat-pill">Online Visibility</span>
+          <span class="lla-cat-pill">Survey Booking</span>
+          <span class="lla-cat-pill">Missed Call Coverage</span>
+          <span class="lla-cat-pill">Reviews &amp; Pipeline</span>
         </div>
         <button class="lla-btn-primary" onclick="llaGoTo('value')">
-          Start the Audit
+          Find My Revenue Leaks
           <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
         <p class="lla-fine">Free · Takes 3 minutes · Personalised to your business</p>
@@ -381,18 +381,18 @@
       <!-- Panel: Customer Value -->
       <div class="lla-panel" id="lla-p-value">
         <div class="lla-eyebrow-amber">Before we start</div>
-        <h3 class="lla-qh">What's a typical job worth to your business?</h3>
-        <p class="lla-qlead">This lets us show you a real figure in your results — specific to your business, not a generic estimate.</p>
+        <h3 class="lla-qh">What's a typical install worth to your business?</h3>
+        <p class="lla-qlead">This lets us calculate the real install revenue at risk — specific to your business. Average Irish residential solar install is around €12,000.</p>
         <div class="lla-input-row">
           <div class="lla-input-wrap">
             <span class="lla-curr">€</span>
-            <input type="number" id="lla-val-input" class="lla-num-input" placeholder="e.g. 500" min="1">
+            <input type="number" id="lla-val-input" class="lla-num-input" placeholder="e.g. 12,000" min="1">
           </div>
           <button class="lla-btn-primary" onclick="llaSetValue()">
             Begin Audit →
           </button>
         </div>
-        <span class="lla-skip-link" onclick="llaSetValue(true)">Skip — use a typical estimate</span>
+        <span class="lla-skip-link" onclick="llaSetValue(true)">Skip — use €12,000 (typical Irish solar install)</span>
       </div>
 
       <!-- Panel: Quiz -->
@@ -411,20 +411,20 @@
       <!-- Panel: Lead Capture -->
       <div class="lla-panel" id="lla-p-capture">
         <div class="lla-eyebrow-amber">Your results are ready</div>
-        <h3 class="lla-qh">Where should we<br>send your report?</h3>
-        <p class="lla-qlead">We'll follow up with quick wins specific to your gaps — no generic advice.</p>
+        <h3 class="lla-qh">Where should we<br>send your results?</h3>
+        <p class="lla-qlead">We'll show you exactly which gaps are costing you installs and follow up with specific fixes — no generic advice.</p>
         <div class="lla-capture-fields">
           <input type="text" id="lla-cap-name" class="lla-text-input" placeholder="Your first name">
           <input type="text" id="lla-cap-business" class="lla-text-input" placeholder="Business name">
-          <input type="tel" id="lla-cap-phone" class="lla-text-input" placeholder="Phone number">
+          <input type="tel" id="lla-cap-phone" class="lla-text-input" placeholder="Phone number (optional)">
           <input type="email" id="lla-cap-email" class="lla-text-input" placeholder="Email address">
-          <p id="lla-cap-error" class="lla-capture-error">Please fill in all fields to see your results.</p>
+          <p id="lla-cap-error" class="lla-capture-error">Please fill in your name, business, and email to see your results.</p>
         </div>
         <button class="lla-btn-primary" onclick="llaSubmitCapture()">
-          See My Results
+          See My Revenue Leaks
           <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
         </button>
-        <p class="lla-privacy-note">No spam. We'll only use this to send your report and follow up once.</p>
+        <p class="lla-privacy-note">No spam. We'll contact you within 1 business day.</p>
       </div>
 
       <!-- Panel: Results (built dynamically) -->
@@ -435,107 +435,107 @@
 
 <script>
   const LLA_Q = [
-    { section: 'Missed Calls & Enquiries', cat: 'response',
-      text: 'When someone WhatsApps or calls about a job while you\'re out on site, what happens?',
+    { section: 'Speed to Lead', cat: 'speed',
+      text: 'When a homeowner enquires online, how fast does your team respond?',
       opts: [
-        ['An automated message goes out straight away', 0],
-        ['I reply when I get a break — usually same day', 1],
-        ['They wait until I\'m done for the day', 2],
-        ['Some fall through the cracks', 3],
+        ['AI agent contacts them in under 5 minutes', 0],
+        ['Under 1 hour', 1],
+        ['1–4 hours', 2],
+        ['Over 4 hours — or next day', 3],
       ]
     },
-    { section: 'Missed Calls & Enquiries', cat: 'response',
-      text: 'How long before a new job enquiry hears back from you?',
+    { section: 'Speed to Lead', cat: 'speed',
+      text: 'What happens when you miss an inbound call from a homeowner?',
       opts: [
-        ['Minutes — it\'s automated', 0],
-        ['Within the hour', 1],
-        ['A few hours', 2],
-        ['Next day or later', 3],
+        ['AI agent calls them back instantly', 0],
+        ['Auto SMS goes out within minutes', 1],
+        ['We call back within the hour', 2],
+        ['Nothing — they leave a voicemail and we hope for the best', 3],
       ]
     },
-    { section: 'Quote Follow-Up', cat: 'followup',
-      text: 'You send a quote and go quiet. What usually happens next?',
+    { section: 'Quote Follow-Up', cat: 'quote',
+      text: 'After you send a quote, do you have a follow-up process?',
       opts: [
-        ['A follow-up goes out automatically', 0],
-        ['I follow up manually a few days later', 1],
-        ['I wait and hope they come back', 2],
-        ['I rarely follow up', 3],
+        ['Automated multi-touch follow-up sequence', 0],
+        ['Scheduled follow-up at set intervals', 1],
+        ['Manual reminder after a few days', 2],
+        ['No — we wait to hear back', 3],
       ]
     },
-    { section: 'Quote Follow-Up', cat: 'followup',
-      text: 'Between quoting and a customer booking, how do you stay in touch?',
+    { section: 'Quote Follow-Up', cat: 'quote',
+      text: 'How many follow-up attempts do you make on a cold quote?',
       opts: [
-        ['Automated messages handle it', 0],
-        ['I message them manually', 1],
-        ['I don\'t — they either book or they don\'t', 2],
-        ['No system in place', 3],
+        ['5+ automated touchpoints', 0],
+        ['3–4 attempts', 1],
+        ['2 attempts', 2],
+        ['0–1 — if they don\'t reply, we move on', 3],
       ]
     },
-    { section: 'Booking & Scheduling', cat: 'admin',
-      text: 'How do customers get in touch to request a quote or book a job?',
+    { section: 'Survey Booking', cat: 'booking',
+      text: 'How do homeowners book their site survey with you?',
       opts: [
-        ['Online form or booking link — no back and forth', 0],
-        ['Call or WhatsApp me directly', 1],
-        ['Email — I reply manually', 2],
-        ['No consistent process', 3],
+        ['Instant self-book via calendar link', 0],
+        ['Online form — we confirm separately', 1],
+        ['We ring them back to arrange it', 2],
+        ['They ring us — phone tag', 3],
       ]
     },
-    { section: 'Booking & Scheduling', cat: 'admin',
-      text: 'How many hours per week go on calls, WhatsApp messages, and quoting?',
+    { section: 'Survey Booking', cat: 'booking',
+      text: 'What\'s your no-show rate on booked site surveys?',
       opts: [
-        ['Under 2 hours — mostly automated', 0],
-        ['2–5 hours', 1],
-        ['5–10 hours', 2],
-        ['More than 10 hours', 3],
+        ['Under 5% — automated reminders in place', 0],
+        ['5–15%', 1],
+        ['15–30%', 2],
+        ['Over 30% — or I don\'t track it', 3],
       ]
     },
-    { section: 'Google Reviews', cat: 'reviews',
-      text: 'After finishing a job, how do you ask for a Google review?',
+    { section: 'Missed Call Coverage', cat: 'calls',
+      text: 'Do you have after-hours or weekend coverage for inbound enquiries?',
       opts: [
-        ['Automated message sent after every job', 0],
-        ['I ask manually when I remember', 1],
-        ['Occasionally — not consistently', 2],
-        ['Rarely or never', 3],
+        ['Yes — AI handles calls 24/7', 0],
+        ['Auto SMS reply goes out after hours', 1],
+        ['Voicemail only', 2],
+        ['No coverage — they go unanswered', 3],
       ]
     },
-    { section: 'Google Reviews', cat: 'reviews',
-      text: 'When a customer asks about your prices, availability, or process — how do you handle it?',
+    { section: 'Missed Call Coverage', cat: 'calls',
+      text: 'How many inbound calls does your team miss per week?',
       opts: [
-        ['Automated reply handles it', 0],
-        ['I use a saved message template', 1],
-        ['I type a fresh reply each time', 2],
-        ['No system — varies each time', 3],
+        ['Near zero — AI covers us', 0],
+        ['1–2 calls', 1],
+        ['3–5 calls', 2],
+        ['5+ calls regularly', 3],
       ]
     },
-    { section: 'Online Visibility', cat: 'visibility',
-      text: 'Do you know where your best jobs are coming from — Google, word of mouth, Facebook?',
+    { section: 'Reviews & Pipeline', cat: 'reviews',
+      text: 'How do you request Google reviews after an install?',
       opts: [
-        ['Yes — I track this properly', 0],
-        ['Roughly, not with certainty', 1],
-        ['Not really', 2],
-        ['No idea', 3],
+        ['Automated review request triggered on install completion', 0],
+        ['We send a message manually after each install', 1],
+        ['We ask in person — sometimes', 2],
+        ['We don\'t — no process in place', 3],
       ]
     },
-    { section: 'Online Visibility', cat: 'visibility',
-      text: 'If you put your phone down for two weeks and couldn\'t take calls, what would happen?',
+    { section: 'Reviews & Pipeline', cat: 'reviews',
+      text: 'Can you see which leads turned into installs and where they came from?',
       opts: [
-        ['Enquiries handled automatically — no problem', 0],
-        ['Most would wait until I\'m back', 1],
-        ['Most would go cold or call a competitor', 2],
-        ['The pipeline would stop entirely', 3],
+        ['Full pipeline visibility with AI reporting', 0],
+        ['Basic CRM tracking — good enough', 1],
+        ['Roughly — spreadsheet or gut feel', 2],
+        ['No visibility at all', 3],
       ]
     },
   ];
 
   const LLA_CATS = {
-    response:   { label: 'Missed Calls & Enquiries', service: 'Instant Lead Response' },
-    followup:   { label: 'Quote Follow-Up',           service: 'Automated Follow-Up' },
-    admin:      { label: 'Booking & Scheduling',      service: 'Online Booking System' },
-    reviews:    { label: 'Google Reviews',            service: 'Review Automation' },
-    visibility: { label: 'Online Visibility',         service: 'GBP & Website' },
+    speed:   { label: 'Speed to Lead',         service: 'AI Lead Response System' },
+    quote:   { label: 'Quote Follow-Up',        service: 'Quote Recovery Engine' },
+    booking: { label: 'Survey Booking',         service: 'Admin Reduction System' },
+    calls:   { label: 'Missed Call Coverage',   service: '24/7 AI Receptionist' },
+    reviews: { label: 'Reviews & Pipeline',     service: 'Review & Referral Automation' },
   };
 
-  let llaS = { scores: [], cats: { response:0, followup:0, admin:0, reviews:0, visibility:0 }, val: 500 };
+  let llaS = { scores: [], cats: { speed:0, quote:0, booking:0, calls:0, reviews:0 }, val: 12000 };
 
   function llaGoTo(id) {
     document.querySelectorAll('.lla-panel').forEach(p => p.classList.remove('active'));
@@ -546,10 +546,10 @@
   function llaSetValue(skip) {
     if (!skip) {
       const v = parseInt(document.getElementById('lla-val-input').value);
-      llaS.val = (v && v > 0) ? v : 500;
+      llaS.val = (v && v > 0) ? v : 12000;
     }
     llaS.scores = [];
-    llaS.cats = { response:0, followup:0, admin:0, reviews:0, visibility:0 };
+    llaS.cats = { speed:0, quote:0, booking:0, calls:0, reviews:0 };
     llaGoTo('quiz');
     llaRenderQ(0);
   }
@@ -588,7 +588,7 @@
     const phone    = document.getElementById('lla-cap-phone').value.trim();
     const email    = document.getElementById('lla-cap-email').value.trim();
     const errEl = document.getElementById('lla-cap-error');
-    if (!name || !business || !phone || !email) { errEl.classList.add('show'); return; }
+    if (!name || !business || !email) { errEl.classList.add('show'); return; }
     errEl.classList.remove('show');
     llaS.lead = { name, business, phone, email };
     const total = llaS.scores.reduce((a, b) => a + b, 0);
@@ -596,11 +596,11 @@
 
     const payload = {
       name, business, phone, email, annualLeak, total,
-      score_response:   llaS.cats.response,
-      score_followup:   llaS.cats.followup,
-      score_admin:      llaS.cats.admin,
-      score_reviews:    llaS.cats.reviews,
-      score_visibility: llaS.cats.visibility,
+      score_speed:    llaS.cats.speed,
+      score_quote:    llaS.cats.quote,
+      score_booking:  llaS.cats.booking,
+      score_calls:    llaS.cats.calls,
+      score_reviews:  llaS.cats.reviews,
     };
 
     fetch('/api/submit', {
@@ -622,14 +622,14 @@
 
     let tierKey, tierLabel, tierDesc;
     if (total <= 9) {
-      tierKey = 'solid'; tierLabel = 'Running Efficiently';
-      tierDesc = 'You\'ve got some strong foundations. Here\'s where AI could still add value.';
+      tierKey = 'solid'; tierLabel = 'Strong Foundation';
+      tierDesc = 'You\'re leaving less than 20% on the table. Here\'s where targeted automation could recover the remaining installs.';
     } else if (total <= 19) {
-      tierKey = 'moderate'; tierLabel = 'Real Automation Opportunities';
-      tierDesc = 'There are clear areas where AI could save you significant time and money. Here\'s exactly where.';
+      tierKey = 'moderate'; tierLabel = 'Revenue Leakage Detected';
+      tierDesc = 'You\'re likely losing 1–3 installs per month to process gaps. Here\'s exactly where — and how to close them.';
     } else {
-      tierKey = 'critical'; tierLabel = 'High AI ROI Potential';
-      tierDesc = 'Your business has major opportunities to save time, reduce manual work, and grow revenue with AI. Here\'s the full picture.';
+      tierKey = 'critical'; tierLabel = 'Critical Leaks';
+      tierDesc = 'Your pipeline is losing installs daily. The good news: every gap below has a clear automated fix. Here\'s the full picture.';
     }
 
     const catList = Object.entries(llaS.cats)
@@ -660,7 +660,7 @@
           <div class="lla-tier-badge lla-tier-${tierKey}">${tierLabel}</div>
           <p class="lla-tier-desc">${tierDesc}</p>
           <div class="lla-leak-num" id="lla-counter">€0</div>
-          <div class="lla-leak-lbl">estimated annual value of AI automation</div>
+          <div class="lla-leak-lbl">Estimated annual install revenue at risk</div>
           <div class="lla-score-row">
             <span class="lla-score-lbl">Audit score</span>
             <span class="lla-score-val">${total}<span style="opacity:.3;font-size:.6em"> / ${max}</span></span>
@@ -670,13 +670,9 @@
           <div class="lla-gaps-title">Your gap breakdown</div>
           ${gapsHTML}
           <div class="lla-res-cta">
-            <a href="https://wa.me/353858764679" target="_blank" rel="noopener" class="lla-btn-primary lla-res-cta-btn">
-              See How We Could Help
+            <button onclick="Calendly.initPopupWidget({url:'https://calendly.com/flowbuildai/30min'});return false;" class="lla-btn-primary lla-res-cta-btn">
+              Book a Free Systems Call
               <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </a>
-            <button class="lla-btn-download" onclick="llaDownload()">
-              <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M12 3v13M5 14l7 7 7-7"/><path d="M3 21h18"/></svg>
-              Download Your Full AI Audit Report
             </button>
             <button class="lla-retake" onclick="llaReset()">← Retake the audit</button>
           </div>
@@ -800,7 +796,7 @@
   }
 
   function llaReset() {
-    llaS = { scores: [], cats: { response:0, followup:0, admin:0, reviews:0, visibility:0 }, val: 500 };
+    llaS = { scores: [], cats: { speed:0, quote:0, booking:0, calls:0, reviews:0 }, val: 12000 };
     const inp = document.getElementById('lla-val-input');
     if (inp) inp.value = '';
     ['lla-cap-name', 'lla-cap-business', 'lla-cap-phone', 'lla-cap-email'].forEach(id => {

@@ -68,11 +68,11 @@ async function writeToNotion(p) {
         'Status':               { select:       { name: 'New Lead' } },
         'Annual Leak':          { number:        Number(p.annualLeak)       || 0 },
         'Audit Score':          { number:        Number(p.total)            || 0 },
-        'Missed Calls':         { number:        Number(p.score_response)   || 0 },
-        'Quote Follow-Up':      { number:        Number(p.score_followup)   || 0 },
-        'Booking & Scheduling': { number:        Number(p.score_admin)      || 0 },
-        'Google Reviews':       { number:        Number(p.score_reviews)    || 0 },
-        'Online Visibility':    { number:        Number(p.score_visibility) || 0 },
+        'Speed to Lead':        { number:        Number(p.score_speed)      || 0 },
+        'Quote Follow-Up':      { number:        Number(p.score_quote)      || 0 },
+        'Survey Booking':       { number:        Number(p.score_booking)    || 0 },
+        'Missed Call Coverage': { number:        Number(p.score_calls)      || 0 },
+        'Reviews & Pipeline':   { number:        Number(p.score_reviews)    || 0 },
         'Lead Tier':            { select:       { name: p.leadTier || 'Nurture' } },
       },
     }),
@@ -96,13 +96,13 @@ async function notifySlack(p) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      text: `${tierEmoji} *New Audit Lead — ${p.business || 'Unknown'}*`,
+      text: `${tierEmoji} *New Lead Leak Audit — ${p.business || 'Unknown'}*`,
       blocks: [
         {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: `${tierEmoji} *New Audit Lead*\n*${p.business || 'Unknown Business'}*`,
+            text: `${tierEmoji} *New Lead Leak Audit — Solar*\n*${p.business || 'Unknown Business'}*`,
           },
         },
         {
@@ -112,7 +112,7 @@ async function notifySlack(p) {
             { type: 'mrkdwn', text: `*Phone:*\n${p.phone || '—'}` },
             { type: 'mrkdwn', text: `*Email:*\n${p.email || '—'}` },
             { type: 'mrkdwn', text: `*Lead Tier:*\n${tier}` },
-            { type: 'mrkdwn', text: `*Annual Leak:*\n€${Number(p.annualLeak || 0).toLocaleString('en-IE')}` },
+            { type: 'mrkdwn', text: `*Install Revenue at Risk:*\n€${Number(p.annualLeak || 0).toLocaleString('en-IE')}/yr` },
             { type: 'mrkdwn', text: `*Audit Score:*\n${p.total || 0}/30` },
           ],
         },
@@ -120,7 +120,7 @@ async function notifySlack(p) {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: `*Biggest gap:* ${worstCat.name} (${worstCat.score}/6)`,
+            text: `*Biggest leak:* ${worstCat.name} (${worstCat.score}/6)`,
           },
         },
       ],
@@ -141,11 +141,11 @@ async function fireMakeWebhook(p) {
 
 function getWorstCategory(p) {
   const cats = [
-    { name: 'Missed Calls & Enquiries', score: Number(p.score_response)   || 0 },
-    { name: 'Quote Follow-Up',          score: Number(p.score_followup)   || 0 },
-    { name: 'Booking & Scheduling',     score: Number(p.score_admin)      || 0 },
-    { name: 'Google Reviews',           score: Number(p.score_reviews)    || 0 },
-    { name: 'Online Visibility',        score: Number(p.score_visibility) || 0 },
+    { name: 'Speed to Lead',        score: Number(p.score_speed)   || 0 },
+    { name: 'Quote Follow-Up',      score: Number(p.score_quote)   || 0 },
+    { name: 'Survey Booking',       score: Number(p.score_booking) || 0 },
+    { name: 'Missed Call Coverage', score: Number(p.score_calls)   || 0 },
+    { name: 'Reviews & Pipeline',   score: Number(p.score_reviews) || 0 },
   ];
   return cats.sort((a, b) => b.score - a.score)[0];
 }
@@ -153,7 +153,7 @@ function getWorstCategory(p) {
 function computeLeadScore(p) {
   const raw = parseInt(p.total) || 0;
   let score = Math.round((raw / 30) * 8);
-  if ((parseInt(p.score_response)  || 0) >= 4) score++;
-  if ((parseInt(p.score_followup)  || 0) >= 4) score++;
+  if ((parseInt(p.score_speed) || 0) >= 4) score++;
+  if ((parseInt(p.score_quote) || 0) >= 4) score++;
   return Math.min(10, score);
 }
