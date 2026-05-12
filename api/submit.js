@@ -96,13 +96,13 @@ async function notifySlack(p) {
     method: 'POST',
     headers: { 'Content-Type': 'application/json' },
     body: JSON.stringify({
-      text: `${tierEmoji} *New Lead Leak Audit — ${p.business || 'Unknown'}*`,
+      text: `${tierEmoji} *New Solar Business Scan — ${p.business || 'Unknown'}*`,
       blocks: [
         {
           type: 'section',
           text: {
             type: 'mrkdwn',
-            text: `${tierEmoji} *New Lead Leak Audit — Solar*\n*${p.business || 'Unknown Business'}*`,
+            text: `${tierEmoji} *New Solar Business Scan*\n*${p.business || 'Unknown Business'}*`,
           },
         },
         {
