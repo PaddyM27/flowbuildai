@@ -2,3 +2,6 @@ User-agent: *
 Allow: /
 
 Sitemap: https://www.flowbuildai.ie/sitemap.xml
+
+# AI crawler entity definition
+# https://www.flowbuildai.ie/llms.txt

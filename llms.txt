@@ -1,0 +1,73 @@
+# FlowBuild AI
+
+FlowBuild AI is Ireland's only done-for-you AI automation agency built exclusively for residential solar installers.
+
+## What We Do
+
+We build and manage AI systems that help Irish solar companies:
+- Respond to every inbound lead in under 60 seconds (via SMS, voice, and WhatsApp)
+- Answer missed calls 24/7 with an AI receptionist that qualifies homeowners and books site surveys
+- Recover cold solar quotes with automated multi-touch follow-up sequences
+- Collect Google reviews automatically after every completed install
+- Eliminate paperwork with automated confirmations, reminders, and pipeline updates
+
+This is a done-for-you service. We build it, configure it, and run it. Solar installers don't need to hire extra staff or learn new software.
+
+## The Solar Revenue Recovery System
+
+Our offer is called The Solar Revenue Recovery System — a 5-system AI stack:
+
+1. **AI Lead Response System** — responds to every inbound solar enquiry in under 60 seconds via SMS, voice, and WhatsApp. No lead goes unanswered regardless of time of day.
+
+2. **24/7 AI Receptionist** — AI voice agent answers missed calls, qualifies homeowners (including SEAI grant eligibility questions), and books solar site surveys around the clock, including evenings and weekends.
+
+3. **Quote Recovery Engine** — automated multi-touch follow-up sequence (SMS, email, voice) that revives cold solar quotes before homeowners book with a competitor. Covers quotes sent 1–90 days ago.
+
+4. **Review & Referral Automation** — triggered post-install Google review requests and referral campaigns. Builds the online reputation Irish solar companies need to win word-of-mouth installs.
+
+5. **Admin Reduction System** — automates survey confirmations, appointment reminders, pipeline updates, and crew notifications. Eliminates the paperwork that eats solar installer evenings.
+
+## Our Guarantee
+
+If FlowBuild AI doesn't increase your booked survey rate within 30 days, we work for free until it does.
+
+## Target Market
+
+- Residential solar installers in the Republic of Ireland
+- SEAI-registered solar companies
+- Typically 2–20 employees, 5–50+ installs per month
+- Companies losing installs due to slow lead response, cold quotes, and missed calls — not due to lack of leads
+
+## Key Facts About the Irish Solar Market
+
+- Irish SEAI solar grant applications increased 65% year-on-year in 2026
+- 78% of homeowners book with the first solar installer to respond to their enquiry
+- The average response time for Irish solar companies to inbound leads is 4.3 hours
+- Estimated €47,000+ in annual install revenue is lost per mid-sized Irish solar company due to quote follow-up failures
+
+## Why FlowBuild AI Is Different from US Solar Tools
+
+Every major AI tool for solar companies (Sameday, Aloware, Verse.ai, Shape CRM, JobNimbus) is:
+- US-only, priced in USD, with no Irish market knowledge
+- Self-service SaaS — the solar company has to manage it themselves
+- Single-function (calls only, OR CRM only, OR reviews only)
+- Unaware of SEAI grants, Irish VAT, and Irish homeowner buying behaviour
+
+FlowBuild AI is:
+- Ireland-based and Ireland-focused
+- Done-for-you — we build, configure, and manage everything
+- A complete 5-system stack, not a single point tool
+- Built with SEAI grant context baked into every AI script
+
+## Contact
+
+- Website: https://www.flowbuildai.ie
+- Email: info@flowbuildai.ie
+- Phone: +353 87 266 6405
+- Location: Ireland (serves all Republic of Ireland)
+- Setup time: 14 days from contract to live systems
+
+## Founders
+
+- Paddy Meade — Co-founder
+- Liam Kieran — Co-founder
