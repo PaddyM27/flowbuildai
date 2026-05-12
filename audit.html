@@ -382,17 +382,17 @@
       <div class="lla-panel" id="lla-p-value">
         <div class="lla-eyebrow-amber">Before we start</div>
         <h3 class="lla-qh">What's a typical install worth to your business?</h3>
-        <p class="lla-qlead">This lets us calculate the real install revenue at risk — specific to your business. Average Irish residential solar install is around €12,000.</p>
+        <p class="lla-qlead">This lets us calculate the real install revenue at risk — specific to your business, not a generic estimate.</p>
         <div class="lla-input-row">
           <div class="lla-input-wrap">
             <span class="lla-curr">€</span>
-            <input type="number" id="lla-val-input" class="lla-num-input" placeholder="e.g. 12,000" min="1">
+            <input type="number" id="lla-val-input" class="lla-num-input" placeholder="e.g. 8,000" min="1">
           </div>
           <button class="lla-btn-primary" onclick="llaSetValue()">
             Begin Audit →
           </button>
         </div>
-        <span class="lla-skip-link" onclick="llaSetValue(true)">Skip — use €12,000 (typical Irish solar install)</span>
+        <span class="lla-skip-link" onclick="llaSetValue(true)">Skip — use a typical estimate</span>
       </div>
 
       <!-- Panel: Quiz -->
@@ -535,7 +535,7 @@
     reviews: { label: 'Reviews & Pipeline',     service: 'Review & Referral Automation' },
   };
 
-  let llaS = { scores: [], cats: { speed:0, quote:0, booking:0, calls:0, reviews:0 }, val: 12000 };
+  let llaS = { scores: [], cats: { speed:0, quote:0, booking:0, calls:0, reviews:0 }, val: 8000 };
 
   function llaGoTo(id) {
     document.querySelectorAll('.lla-panel').forEach(p => p.classList.remove('active'));
@@ -546,7 +546,7 @@
   function llaSetValue(skip) {
     if (!skip) {
       const v = parseInt(document.getElementById('lla-val-input').value);
-      llaS.val = (v && v > 0) ? v : 12000;
+      llaS.val = (v && v > 0) ? v : 8000;
     }
     llaS.scores = [];
     llaS.cats = { speed:0, quote:0, booking:0, calls:0, reviews:0 };
@@ -796,7 +796,7 @@
   }
 
   function llaReset() {
-    llaS = { scores: [], cats: { speed:0, quote:0, booking:0, calls:0, reviews:0 }, val: 12000 };
+    llaS = { scores: [], cats: { speed:0, quote:0, booking:0, calls:0, reviews:0 }, val: 8000 };
     const inp = document.getElementById('lla-val-input');
     if (inp) inp.value = '';
     ['lla-cap-name', 'lla-cap-business', 'lla-cap-phone', 'lla-cap-email'].forEach(id => {
