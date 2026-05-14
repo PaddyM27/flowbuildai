@@ -583,85 +583,102 @@
     }
 
     /* ─── SERVICES ─── */
-    #services { background: var(--cream); padding: 100px 0; }
-    .services-inner { max-width: 1280px; margin: 0 auto; padding: 0 40px; }
-    .services-intro { max-width: 640px; margin-bottom: 64px; }
+    #services { background: var(--cream); padding: 100px 0 0; }
+    .services-inner { max-width: 1120px; margin: 0 auto; padding: 0 40px; }
+    .services-intro { max-width: 600px; margin-bottom: 72px; }
     .services-tagline {
       font-size: 17px; color: var(--charcoal-lt); line-height: 1.72;
       margin-top: 16px;
     }
-    .services-grid {
-      display: grid; grid-template-columns: repeat(3, 1fr);
-      gap: 0; border-radius: 12px; overflow: hidden;
-      border: 1.5px solid rgba(28,25,23,0.09);
-      box-shadow: 0 8px 48px rgba(28,25,23,0.07);
+
+    /* sticky stack */
+    .svc-stack { display: flex; flex-direction: column; padding-bottom: 140px; }
+
+    .svc-sticky {
+      position: sticky;
+      display: grid; grid-template-columns: 1fr 1fr;
+      border-radius: 20px; overflow: hidden;
+      margin-bottom: 20px;
+      min-height: 420px;
+      box-shadow:
+        0 2px 4px rgba(28,25,23,0.04),
+        0 8px 24px rgba(28,25,23,0.07),
+        0 24px 64px rgba(28,25,23,0.06);
     }
-    .svc-card {
-      padding: 48px 40px;
-      display: flex; flex-direction: column;
-      border-right: 1.5px solid rgba(28,25,23,0.08);
-      position: relative;
+    .svc-sticky:nth-child(1) { top: 120px; }
+    .svc-sticky:nth-child(2) { top: 136px; }
+    .svc-sticky:nth-child(3) { top: 152px; }
+    .svc-sticky:nth-child(4) { top: 168px; }
+    .svc-sticky:nth-child(5) { top: 184px; }
+
+    .svc-sticky.s-light { background: white; }
+    .svc-sticky.s-pale  { background: var(--amber-pale); }
+    .svc-sticky.s-dark  { background: var(--charcoal); }
+
+    .svc-body {
+      padding: 56px 52px;
+      display: flex; flex-direction: column; justify-content: center;
     }
-    .svc-card:last-child { border-right: none; }
-    .svc-card:nth-child(n+4) { border-top: 1.5px solid rgba(28,25,23,0.08); }
-    .svc-card:nth-child(5) { grid-column: 2 / 4; }
-    .svc-card-1 { background: white; }
-    .svc-card-2 { background: var(--amber-pale); }
-    .svc-card-3 { background: var(--charcoal); }
-    .svc-num {
+
+    .svc-step {
       font-family: 'Inter Tight', sans-serif;
-      font-size: 72px; font-weight: 900; line-height: 1;
-      letter-spacing: -0.04em;
+      font-size: 11px; font-weight: 700;
+      letter-spacing: 0.14em; text-transform: uppercase;
+      margin-bottom: 16px;
+      display: flex; align-items: center; gap: 10px;
+    }
+    .svc-step::before {
+      content: '';
+      width: 20px; height: 1.5px;
+      flex-shrink: 0;
+    }
+    .s-light .svc-step { color: var(--amber); }
+    .s-light .svc-step::before { background: var(--amber); }
+    .s-pale  .svc-step { color: var(--amber-dk); }
+    .s-pale  .svc-step::before { background: var(--amber-dk); }
+    .s-dark  .svc-step { color: var(--amber-lt); }
+    .s-dark  .svc-step::before { background: var(--amber-lt); }
+
+    .svc-heading {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: clamp(30px, 3vw, 44px);
+      font-weight: 800; line-height: 1.05;
+      letter-spacing: -0.03em;
       margin-bottom: 20px;
     }
-    .svc-card-1 .svc-num { color: rgba(232,101,42,0.12); }
-    .svc-card-2 .svc-num { color: rgba(232,101,42,0.18); }
-    .svc-card-3 .svc-num { color: rgba(255,255,255,0.08); }
-    .svc-label {
-      font-family: 'Inter Tight', sans-serif; font-size: 11px; font-weight: 700;
-      letter-spacing: 0.15em; text-transform: uppercase;
-      margin-bottom: 14px;
-    }
-    .svc-card-1 .svc-label { color: var(--amber); }
-    .svc-card-2 .svc-label { color: var(--amber-dk); }
-    .svc-card-3 .svc-label { color: var(--amber-lt); }
-    .svc-title {
-      font-family: 'Inter Tight', sans-serif;
-      font-size: clamp(22px, 2.2vw, 30px);
-      font-weight: 700; line-height: 1.15;
-      letter-spacing: -0.02em;
-      margin-bottom: 16px;
-    }
-    .svc-card-1 .svc-title { color: var(--charcoal); }
-    .svc-card-2 .svc-title { color: var(--charcoal); }
-    .svc-card-3 .svc-title { color: white; }
-    .svc-desc {
+    .s-light .svc-heading { color: var(--charcoal); }
+    .s-pale  .svc-heading { color: var(--charcoal); }
+    .s-dark  .svc-heading { color: #fff; }
+
+    .svc-sub {
       font-size: 15px; line-height: 1.72;
-      margin-bottom: 28px;
+      max-width: 380px;
     }
-    .svc-card-1 .svc-desc { color: var(--charcoal-lt); }
-    .svc-card-2 .svc-desc { color: var(--charcoal-mid); }
-    .svc-card-3 .svc-desc { color: rgba(254,241,232,0.72); }
-    .svc-features {
-      list-style: none;
-      display: flex; flex-direction: column; gap: 10px;
+    .s-light .svc-sub { color: var(--charcoal-lt); }
+    .s-pale  .svc-sub { color: var(--charcoal-mid); }
+    .s-dark  .svc-sub { color: rgba(254,241,232,0.68); }
+
+    .svc-img { overflow: hidden; position: relative; }
+    .svc-img img { width: 100%; height: 100%; object-fit: cover; display: block; }
+
+    /* image tint overlay */
+    .s-light .svc-img::after,
+    .s-pale  .svc-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(232,101,42,0.08) 0%, transparent 60%);
+      pointer-events: none;
     }
-    .svc-features li {
-      display: flex; align-items: center; gap: 10px;
-      font-family: 'Inter Tight', sans-serif; font-size: 12px; font-weight: 600;
-      letter-spacing: 0.04em;
+    .s-dark .svc-img::after {
+      content: ''; position: absolute; inset: 0;
+      background: linear-gradient(135deg, rgba(28,25,23,0.35) 0%, transparent 60%);
+      pointer-events: none;
     }
-    .svc-card-1 .svc-features li { color: var(--charcoal); }
-    .svc-card-2 .svc-features li { color: var(--charcoal); }
-    .svc-card-3 .svc-features li { color: rgba(254,241,232,0.85); }
-    .svc-features li::before {
-      content: '';
-      width: 6px; height: 6px;
-      border-radius: 50%; flex-shrink: 0;
+
+    @media (max-width: 860px) {
+      .svc-sticky { grid-template-columns: 1fr; position: relative; top: auto !important; margin-bottom: 24px; }
+      .svc-img { height: 240px; order: -1; }
+      .svc-body { padding: 40px 32px; }
     }
-    .svc-card-1 .svc-features li::before { background: var(--amber); }
-    .svc-card-2 .svc-features li::before { background: var(--amber-dk); }
-    .svc-card-3 .svc-features li::before { background: var(--amber-lt); }
 
     /* ─── COMPARE ─── */
     #compare { background: white; padding: 100px 0; }
@@ -1456,84 +1473,69 @@
     <div class="services-intro">
       <div class="eyebrow reveal" style="margin-bottom:16px;">The System Stack</div>
       <h2 class="s-head reveal d1" style="font-size:clamp(32px,4.5vw,58px);color:var(--charcoal);">Five systems. Zero<br>installs lost to process.</h2>
-      <p class="services-tagline reveal d2">Most solar companies lose 2–4 installs per month to slow response, cold quotes, and missed calls. We close every one of those gaps with a complete AI stack built specifically for solar installers.</p>
+      <p class="services-tagline reveal d2">Most solar companies lose 2–4 installs per month to slow response, cold quotes, and missed calls. We close every one of those gaps.</p>
     </div>
 
-    <div class="services-grid reveal">
+    <div class="svc-stack reveal">
 
-      <!-- System 1 -->
-      <div class="svc-card svc-card-1">
-        <div class="svc-num">01</div>
-        <div class="svc-label">AI Lead Response System</div>
-        <h3 class="svc-title">Respond to every inbound lead in under 60 seconds</h3>
-        <p class="svc-desc">The first company to respond wins the install. Our AI contacts every new lead instantly via SMS, voice callback, and WhatsApp — then books a site survey before they've even looked at a competitor.</p>
-        <ul class="svc-features">
-          <li>Instant multi-channel response (SMS + WhatsApp + voice)</li>
-          <li>Lead qualification without any manual input</li>
-          <li>Survey booking triggered automatically</li>
-          <li>Works 24/7, evenings, and weekends</li>
-          <li>Average response time: &lt;60 seconds</li>
-        </ul>
+      <!-- 01 AI Lead Response -->
+      <div class="svc-sticky s-light">
+        <div class="svc-body">
+          <div class="svc-step">01 &middot; AI Lead Response System</div>
+          <h3 class="svc-heading">The first reply<br>wins the install.</h3>
+          <p class="svc-sub">Every new lead hears from you in under 60 seconds — via SMS, WhatsApp, and voice. Before they've looked at anyone else.</p>
+        </div>
+        <div class="svc-img">
+          <img src="https://placehold.co/700x500/E8652A/FFFFFF?text=" alt="AI Lead Response System" loading="lazy">
+        </div>
       </div>
 
-      <!-- System 2 -->
-      <div class="svc-card svc-card-2">
-        <div class="svc-num">02</div>
-        <div class="svc-label">24/7 AI Receptionist</div>
-        <h3 class="svc-title">Every missed call answered — not lost</h3>
-        <p class="svc-desc">When your team is on a roof or in a meeting, inbound calls still get answered. Our AI receptionist qualifies the homeowner, answers common questions, and books the survey — at any hour.</p>
-        <ul class="svc-features">
-          <li>Handles missed calls instantly, round the clock</li>
-          <li>Qualifies homeowners before booking</li>
-          <li>Answers FAQs (grants, timeline, process)</li>
-          <li>Syncs directly to your calendar</li>
-          <li>Zero staff required for out-of-hours calls</li>
-        </ul>
+      <!-- 02 AI Receptionist -->
+      <div class="svc-sticky s-pale">
+        <div class="svc-body">
+          <div class="svc-step">02 &middot; 24/7 AI Receptionist</div>
+          <h3 class="svc-heading">No missed call.<br>No missed install.</h3>
+          <p class="svc-sub">When you're on a roof, our AI answers every call — qualifying homeowners and booking surveys around the clock, evenings and weekends included.</p>
+        </div>
+        <div class="svc-img">
+          <img src="https://placehold.co/700x500/FEF1E8/C4501B?text=" alt="24/7 AI Receptionist" loading="lazy">
+        </div>
       </div>
 
-      <!-- System 3 -->
-      <div class="svc-card svc-card-3">
-        <div class="svc-num">03</div>
-        <div class="svc-label">Quote Recovery Engine</div>
-        <h3 class="svc-title">Revive cold quotes before they go cold for good</h3>
-        <p class="svc-desc">Most installers send a quote and wait. Our system sends a timed follow-up sequence that handles objections, re-engages fence-sitters, and nudges homeowners toward a decision — automatically.</p>
-        <ul class="svc-features">
-          <li>5-touch automated follow-up sequence</li>
-          <li>Objection handling baked in (cost, timeline, grants)</li>
-          <li>Triggers re-engagement on cold quotes at 3, 7, 14 days</li>
-          <li>Escalates hot leads to your team instantly</li>
-          <li>Tracks quote-to-install conversion rate</li>
-        </ul>
+      <!-- 03 Quote Recovery -->
+      <div class="svc-sticky s-dark">
+        <div class="svc-body">
+          <div class="svc-step">03 &middot; Quote Recovery Engine</div>
+          <h3 class="svc-heading">Cold quotes<br>come back warm.</h3>
+          <p class="svc-sub">A 5-touch sequence re-engages fence-sitters at exactly the right moment. The homeowner signs with you — not your competitor.</p>
+        </div>
+        <div class="svc-img">
+          <img src="https://placehold.co/700x500/2E2A27/E8652A?text=" alt="Quote Recovery Engine" loading="lazy">
+        </div>
       </div>
 
-      <!-- System 4 -->
-      <div class="svc-card svc-card-1">
-        <div class="svc-num">04</div>
-        <div class="svc-label">Review &amp; Referral Automation</div>
-        <h3 class="svc-title">Turn every install into a Google review — automatically</h3>
-        <p class="svc-desc">Post-install, most companies ask for reviews manually — and most forget. Our system triggers a review request at exactly the right moment, building your reputation without any manual effort.</p>
-        <ul class="svc-features">
-          <li>Auto-triggered review request on install completion</li>
-          <li>Personalised message with direct Google link</li>
-          <li>Referral prompt built into the same flow</li>
-          <li>Dashboard showing review volume over time</li>
-          <li>Handles 5-star routing vs. negative feedback</li>
-        </ul>
+      <!-- 04 Reviews & Referrals -->
+      <div class="svc-sticky s-light">
+        <div class="svc-body">
+          <div class="svc-step">04 &middot; Review &amp; Referral Automation</div>
+          <h3 class="svc-heading">Every install<br>becomes your next one.</h3>
+          <p class="svc-sub">Review requests and referral prompts trigger automatically when the job is done. Your reputation compounds without the effort.</p>
+        </div>
+        <div class="svc-img">
+          <img src="https://placehold.co/700x500/FAF9F6/E8652A?text=" alt="Review and Referral Automation" loading="lazy">
+        </div>
       </div>
 
-      <!-- System 5 -->
-      <div class="svc-card svc-card-2">
-        <div class="svc-num">05</div>
-        <div class="svc-label">Admin Reduction System</div>
-        <h3 class="svc-title">Eliminate the paperwork that eats your evenings</h3>
-        <p class="svc-desc">Survey confirmations, crew notifications, pipeline updates, no-show reminders — all running automatically in the background so your team spends time on installs, not admin.</p>
-        <ul class="svc-features">
-          <li>Automated survey confirmations &amp; reminders (cuts no-shows)</li>
-          <li>Crew scheduling notifications</li>
-          <li>Pipeline stage updates without manual data entry</li>
-          <li>Weekly performance summary sent to your inbox</li>
-          <li>Integrates with your existing CRM or we build one</li>
-        </ul>
+      <!-- 05 Admin Reduction -->
+      <div class="svc-sticky s-pale">
+        <div class="svc-body">
+          <div class="svc-step">05 &middot; Admin Reduction System</div>
+          <h3 class="svc-heading">Stop managing your<br>business from your phone.</h3>
+          <p class="svc-sub">Confirmations, crew notifications, pipeline updates — automated in the background so your team focuses on installs, not admin.</p>
+        </div>
+        <div class="svc-img">
+          <img src="https://placehold.co/700x500/FEF1E8/C4501B?text=" alt="Admin Reduction System" loading="lazy">
+        </div>
       </div>
 
     </div>
