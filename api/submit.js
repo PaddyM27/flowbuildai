@@ -1,15 +1,12 @@
-// Vercel serverless function — Solar Business Scan submission
-// 1. Relays form submission to GHL's form endpoint (fires "Form Submitted" triggers)
-// 2. Sends a full report email to the lead via Resend
+// Vercel serverless function — Solar Business Scan email report
+// Sends a full report email to the lead via Resend.
+// GHL contact capture is handled by the embedded GHL form iframe directly.
 //
-// Required env vars in Vercel:
-//   GHL_LOCATION_ID  — GHL dashboard URL: app.gohighlevel.com/location/XXXXXXXX
-//   RESEND_API_KEY   — resend.com → verify flowbuildai.ie → API Keys → Create Key
+// Required env var in Vercel:
+//   RESEND_API_KEY — resend.com → verify flowbuildai.ie → API Keys → Create Key
 
-const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID;
-const RESEND_API_KEY  = process.env.RESEND_API_KEY;
-const GHL_FORM_ID     = 'TjBxOhUyGQYUZDUE6D4e';
-const CALENDLY_URL    = 'https://links.flowbuildai.ie/widget/bookings/flowbuild-ai-strategy-session';
+const RESEND_API_KEY = process.env.RESEND_API_KEY;
+const CALENDLY_URL   = 'https://links.flowbuildai.ie/widget/bookings/flowbuild-ai-strategy-session';
 
 const NARRATIVES = {
   speed: {
@@ -73,42 +70,13 @@ export default async function handler(req, res) {
 
   const p = req.body;
 
-  const [ghlResult, emailResult] = await Promise.allSettled([
-    submitGHLForm(p),
-    sendReportEmail(p),
-  ]);
-
-  if (ghlResult.status === 'rejected') {
-    console.error('[submit] GHL error:', ghlResult.reason?.message);
-  }
-  if (emailResult.status === 'rejected') {
-    console.error('[submit] Resend error:', emailResult.reason?.message);
+  try {
+    await sendReportEmail(p);
+  } catch (err) {
+    console.error('[submit] Resend error:', err.message);
   }
 
   return res.status(200).json({ ok: true });
-}
-
-async function submitGHLForm(p) {
-  const params = new URLSearchParams({
-    location_id: GHL_LOCATION_ID,
-    formId:      GHL_FORM_ID,
-    full_name:   p.name         || '',
-    email:       p.email        || '',
-    companyName: p.organisation || '',
-  });
-  if (p.phone && p.phone.trim()) params.set('phone', p.phone.trim());
-
-  const response = await fetch('https://backend.leadconnectorhq.com/forms/submit', {
-    method:  'POST',
-    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-    body:    params.toString(),
-  });
-
-  if (!response.ok) {
-    const text = await response.text();
-    throw new Error(`GHL ${response.status}: ${text}`);
-  }
-  return response.json().catch(() => ({}));
 }
 
 async function sendReportEmail(p) {
@@ -123,7 +91,7 @@ async function sendReportEmail(p) {
     body: JSON.stringify({
       from:    'FlowBuild AI <scan@flowbuildai.ie>',
       to:      [p.email],
-      subject: `Your Solar Business Scan Results — ${p.name || 'Solar Installer'}`,
+      subject: 'Your Solar Business Scan Results — FlowBuild AI',
       html,
     }),
   });

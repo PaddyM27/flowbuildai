@@ -466,19 +466,30 @@
       <!-- Panel: Lead Capture -->
       <div class="lla-panel" id="lla-p-capture">
         <div class="lla-eyebrow-amber">Your results are ready</div>
-        <h3 class="lla-qh">Enter your details<br>to see your results</h3>
-        <p class="lla-qlead">We'll show you exactly which gaps are costing you installs — no generic advice.</p>
-        <div class="lla-capture-fields">
-          <input type="text"  id="lla-cap-name"   class="lla-text-input" placeholder="Your full name">
-          <input type="text"  id="lla-cap-org"    class="lla-text-input" placeholder="Organisation">
-          <input type="email" id="lla-cap-email"  class="lla-text-input" placeholder="Email address">
-          <input type="tel"   id="lla-cap-phone"  class="lla-text-input" placeholder="Phone number (optional)">
-          <p id="lla-cap-error" class="lla-capture-error">Please fill in your name, organisation, and email to see your results.</p>
+        <h3 class="lla-qh">Fill in your details<br>to see your results</h3>
+        <p class="lla-qlead">We'll show you exactly which gaps are costing you installs and send your full report to your inbox.</p>
+        <div style="margin-bottom:14px;">
+          <input type="email" id="lla-cap-email" class="lla-text-input" placeholder="Email address — your report goes here" style="width:100%;box-sizing:border-box;">
+          <p id="lla-cap-error" class="lla-capture-error" style="display:none;margin-top:6px;">Please enter your email address so we can send your report.</p>
         </div>
-        <button class="lla-btn-primary" onclick="llaSubmitCapture()">
-          See My Scan Results
-          <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
+        <iframe
+          src="https://links.flowbuildai.ie/widget/form/TjBxOhUyGQYUZDUE6D4e"
+          style="width:100%;height:519px;border:none;border-radius:6px;display:block;"
+          id="inline-TjBxOhUyGQYUZDUE6D4e"
+          data-layout="{'id':'INLINE'}"
+          data-trigger-type="alwaysShow"
+          data-trigger-value=""
+          data-activation-type="alwaysActivated"
+          data-activation-value=""
+          data-deactivation-type="neverDeactivate"
+          data-deactivation-value=""
+          data-form-name="Website Form"
+          data-height="519"
+          data-layout-iframe-id="inline-TjBxOhUyGQYUZDUE6D4e"
+          data-form-id="TjBxOhUyGQYUZDUE6D4e"
+          title="Website Form"
+        ></iframe>
+        <script src="https://links.flowbuildai.ie/js/form_embed.js"></script>
         <p class="lla-privacy-note">No spam. We'll contact you within 1 business day.</p>
       </div>
 
@@ -693,14 +704,27 @@
   }
 
 
-  function llaSubmitCapture() {
-    const name  = document.getElementById('lla-cap-name').value.trim();
-    const org   = document.getElementById('lla-cap-org').value.trim();
+  // GHL form submission detection — fires when the embedded GHL form is submitted
+  let ghlSubmitFired = false;
+  window.addEventListener('message', function(e) {
+    if (ghlSubmitFired) return;
+    const d = e.data;
+    if (!d) return;
+    const isSubmit =
+      (typeof d === 'string' && (d.includes('submit') || d.includes('submitted'))) ||
+      (d.type && (d.type === 'form_submitted' || d.type === 'form:submitted' || d.type === 'rjsf')) ||
+      (d.event && d.event === 'form_submitted') ||
+      (d.action && d.action === 'formSubmit');
+    if (!isSubmit) return;
+
     const email = document.getElementById('lla-cap-email').value.trim();
-    const phone = document.getElementById('lla-cap-phone').value.trim();
     const errEl = document.getElementById('lla-cap-error');
-    if (!name || !org || !email) { errEl.classList.add('show'); return; }
-    errEl.classList.remove('show');
+    if (!email) {
+      errEl.style.display = 'block';
+      return;
+    }
+    errEl.style.display = 'none';
+    ghlSubmitFired = true;
 
     const total = llaS.scores.reduce((a, b) => a + b, 0);
     const annualLeak = Math.round((total / (LLA_Q.length * 3)) * 8) * llaS.val * 12;
@@ -709,7 +733,7 @@
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
       body: JSON.stringify({
-        name, organisation: org, phone, email, annualLeak, total,
+        email, total, annualLeak,
         score_speed:   llaS.cats.speed,
         score_quote:   llaS.cats.quote,
         score_booking: llaS.cats.booking,
@@ -720,7 +744,7 @@
 
     if (typeof fbq === 'function') { fbq('track', 'Lead'); }
     llaShowResults();
-  }
+  });
 
   function llaShowResults() {
     const total = llaS.scores.reduce((a, b) => a + b, 0);
@@ -897,8 +921,10 @@
 
   function llaReset() {
     llaS = { scores: [], cats: { speed:0, quote:0, booking:0, calls:0, reviews:0 }, val: 8000 };
+    ghlSubmitFired = false;
     const inp = document.getElementById('lla-val-input');
     if (inp) inp.value = '';
+    document.getElementById('lla-cap-email').value = '';
     llaGoTo('intro');
   }
 
