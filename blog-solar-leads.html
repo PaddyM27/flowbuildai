@@ -9,14 +9,20 @@
   <script src="https://cdn.tailwindcss.com"></script>
   <style>
     :root {
-      --bg:      #0F0E0D;
-      --surface: #1C1917;
-      --orange:  #E8652A;
-      --text:    #F5F2EE;
-      --body-bg: #FAFAF8;
-      --body-text: #1E1B18;
-      --muted:   #6B6560;
-      --rule:    rgba(30,27,24,0.1);
+      --bg:          #0F0E0D;
+      --surface:     #1C1917;
+      --orange:      #E8652A;
+      --text:        #F5F2EE;
+      --body-bg:     #FAFAF8;
+      --body-text:   #1E1B18;
+      --muted:       #6B6560;
+      --rule:        rgba(30,27,24,0.1);
+      /* Main site nav tokens */
+      --cream:       #FAF9F6;
+      --charcoal:    #1C1917;
+      --charcoal-mid:#3D3835;
+      --amber:       #E8652A;
+      --amber-dk:    #C4501B;
     }
 
     * { box-sizing: border-box; margin: 0; padding: 0; }
@@ -25,61 +31,138 @@
       background: var(--body-bg);
       font-family: 'Inter Tight', sans-serif;
       color: var(--body-text);
+      padding-top: 74px;
     }
 
-    /* ── Site nav ── */
+    /* ── Site nav (matches main website exactly) ── */
     nav {
-      background: var(--bg);
-      padding: 20px 40px;
-      display: flex;
-      align-items: center;
-      justify-content: space-between;
-      position: sticky;
-      top: 0;
-      z-index: 100;
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(250,249,246,0.93);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(28,25,23,0.07);
+      height: 74px;
+      display: flex; align-items: center;
     }
-    .nav-brand {
-      display: flex;
-      align-items: center;
-      gap: 10px;
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%;
     }
-    .stacked-o {
-      display: flex;
-      flex-direction: column;
-      gap: 4px;
+    .nav-logo {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px;
+      letter-spacing: -0.03em; color: var(--charcoal); text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
     }
-    .stacked-o .line {
-      background: var(--orange);
-      border-radius: 1px;
-      height: 2px;
+    .nav-logo span { color: var(--amber); }
+    .logo-badge {
+      background: var(--amber); color: white !important;
+      font-family: 'Syne', sans-serif; font-size: 9px; font-weight: 800;
+      letter-spacing: 0.04em; padding: 4px 7px; border-radius: 3px;
+      line-height: 1;
     }
-    .l-top    { width: 13px; }
-    .l-mid    { width: 17px; position: relative; }
-    .l-bot    { width: 13px; }
-    .o-dot {
-      position: absolute;
-      right: -5px;
-      top: 50%;
-      transform: translateY(-50%);
-      width: 5px;
-      height: 5px;
-      background: var(--orange);
-      border-radius: 50%;
+    .nav-links { display: flex; align-items: center; gap: 36px; }
+    .nav-links a {
+      font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 500;
+      color: var(--charcoal-mid); text-decoration: none;
+      transition: color 0.2s;
     }
-    .nav-brand-name {
-      font-family: 'Syne', sans-serif;
-      font-weight: 700;
-      font-size: 14px;
-      letter-spacing: 0.06em;
-      color: var(--text);
+    .nav-links a:hover { color: var(--amber); }
+    .nav-cta-group { display: flex; align-items: center; gap: 16px; }
+
+    .nav-hamburger {
+      display: none; background: none; border: none; cursor: pointer;
+      padding: 6px; flex-direction: column; gap: 5px; align-items: flex-end;
     }
-    .nav-cta {
-      font-family: 'Inter Tight', sans-serif;
-      font-weight: 600;
-      font-size: 13px;
-      color: var(--orange);
-      text-decoration: none;
-      letter-spacing: 0.02em;
+    .nav-hamburger span {
+      display: block; height: 2px; background: var(--charcoal); border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.2s ease, width 0.2s ease;
+    }
+    .nav-hamburger span:nth-child(1) { width: 22px; }
+    .nav-hamburger span:nth-child(2) { width: 15px; }
+    .nav-hamburger span:nth-child(3) { width: 22px; }
+    nav.open .nav-hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    nav.open .nav-hamburger span:nth-child(2) { opacity: 0; width: 22px; }
+    nav.open .nav-hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-mobile-drawer {
+      display: none; position: fixed; top: 74px; left: 0; right: 0;
+      background: white; border-top: 1px solid rgba(28,25,23,0.08);
+      padding: 8px 24px 28px; flex-direction: column;
+      box-shadow: 0 16px 48px rgba(28,25,23,0.13); z-index: 99;
+    }
+    .nav-mobile-drawer a.nav-mob-link {
+      font-family: 'Inter Tight', sans-serif; font-size: 17px; font-weight: 500;
+      color: var(--charcoal); text-decoration: none;
+      padding: 15px 0; display: block;
+      border-bottom: 1px solid rgba(28,25,23,0.06);
+      transition: color 0.2s;
+    }
+    .nav-mobile-drawer a.nav-mob-link:hover { color: var(--amber); }
+    .nav-mob-ctas { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+    .nav-mob-ctas .btn { justify-content: center; width: 100%; }
+    nav.open .nav-mobile-drawer { display: flex; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-family: 'Inter Tight', sans-serif; font-weight: 700;
+      letter-spacing: 0.01em; border-radius: 5px;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+    .btn:active { transform: translateY(1px) !important; }
+    .btn-amber {
+      background: var(--amber); color: white;
+      font-size: 15px; padding: 15px 26px;
+      box-shadow: 0 2px 0 var(--amber-dk), 0 6px 24px rgba(232,101,42,0.28);
+    }
+    .btn-amber:hover {
+      background: var(--amber-dk); transform: translateY(-1px);
+      box-shadow: 0 3px 0 #9B3B10, 0 10px 32px rgba(232,101,42,0.38);
+    }
+    .btn-outline {
+      background: transparent; color: var(--charcoal);
+      font-size: 14px; padding: 14px 22px;
+      border: 1.5px solid rgba(28,25,23,0.18);
+    }
+    .btn-outline:hover {
+      border-color: var(--amber); color: var(--amber);
+      background: rgba(232,101,42,0.04);
+    }
+
+    .scan-short { display: none; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-cta-group { gap: 8px; }
+      .scan-long { display: none; }
+      .scan-short { display: inline; }
+      .nav-quote-text { display: none; }
+      .nav-quote-btn {
+        padding: 7px 9px; gap: 0; font-size: 0;
+        background: rgba(250,249,246,0.55);
+        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(28,25,23,0.13); border-radius: 8px;
+        box-shadow: none; color: var(--charcoal);
+      }
+      .nav-quote-icon { width: 17px; height: 17px; }
+      .nav-audit-btn {
+        font-size: 11px; font-weight: 700; padding: 7px 11px;
+        background: rgba(232,101,42,0.1);
+        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(232,101,42,0.28); border-radius: 8px;
+        color: var(--amber-dk); box-shadow: none;
+        white-space: nowrap; letter-spacing: 0.02em;
+      }
+      .nav-audit-btn svg { display: none; }
+    }
+    @media (max-width: 480px) {
+      .nav-inner { padding: 0 16px; }
+      .nav-logo { font-size: 11px; gap: 4px; }
+      .nav-logo .logo-badge { font-size: 7px; padding: 2px 4px; }
+      .nav-quote-btn { padding: 6px 8px; }
+      .nav-quote-icon { width: 16px; height: 16px; }
+      .nav-audit-btn { font-size: 10px; padding: 6px 9px; }
     }
 
     /* ── Article layout ── */
@@ -461,15 +544,41 @@
 
   <!-- Nav -->
   <nav>
-    <div class="nav-brand">
-      <div class="stacked-o">
-        <div class="line l-top"></div>
-        <div class="line l-mid"><div class="o-dot"></div></div>
-        <div class="line l-bot"></div>
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">FLOW<span>BUILD</span><span class="logo-badge">AI</span></a>
+      <div class="nav-links">
+        <a href="index.html#services">The System</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#compare">How We Compare</a>
+        <a href="index.html#faq">FAQ</a>
+        <a href="index.html#insights">Insights</a>
       </div>
-      <span class="nav-brand-name">FlowBuild AI</span>
+      <div class="nav-cta-group">
+        <a href="https://wa.me/353858764679" target="_blank" rel="noopener" class="btn btn-outline nav-quote-btn">
+          <svg class="nav-quote-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span class="nav-quote-text">Get a Quote</span>
+        </a>
+        <a href="index.html#audit" class="btn btn-amber nav-audit-btn">
+          <span class="scan-long">Take the Scan</span><span class="scan-short">Scan</span>
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <button class="nav-hamburger" onclick="toggleNav(this)" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
     </div>
-    <a href="#" class="nav-cta">Free pipeline audit →</a>
+    <!-- Mobile drawer -->
+    <div class="nav-mobile-drawer">
+      <a href="index.html#services" class="nav-mob-link" onclick="closeNav()">The System</a>
+      <a href="index.html#about" class="nav-mob-link" onclick="closeNav()">About</a>
+      <a href="index.html#compare" class="nav-mob-link" onclick="closeNav()">How We Compare</a>
+      <a href="index.html#faq" class="nav-mob-link" onclick="closeNav()">FAQ</a>
+      <a href="index.html#insights" class="nav-mob-link" onclick="closeNav()">Insights</a>
+      <div class="nav-mob-ctas">
+        <a href="https://wa.me/353858764679" target="_blank" rel="noopener" class="btn btn-outline" onclick="closeNav()">Get a Quote on WhatsApp</a>
+        <a href="index.html#audit" class="btn btn-amber" onclick="closeNav()">Take the Scan →</a>
+      </div>
+    </div>
   </nav>
 
   <!-- Article -->
@@ -650,5 +759,17 @@
     <div class="legal">© 2026 FlowBuild AI · Ireland</div>
   </footer>
 
+  <script>
+    function toggleNav() {
+      document.querySelector('nav').classList.toggle('open');
+    }
+    function closeNav() {
+      document.querySelector('nav').classList.remove('open');
+    }
+    document.addEventListener('click', function(e) {
+      const nav = document.querySelector('nav');
+      if (nav.classList.contains('open') && !nav.contains(e.target)) closeNav();
+    });
+  </script>
 </body>
 </html>
