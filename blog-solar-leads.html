@@ -1,0 +1,654 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>How Irish Solar Companies Lose Leads After Paying for Ads | FlowBuild AI</title>
+  <meta name="description" content="Most Irish solar installers have a lead problem — but it's not what they think. Here's where the revenue is leaking and how to fix it." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300..800&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg:      #0F0E0D;
+      --surface: #1C1917;
+      --orange:  #E8652A;
+      --text:    #F5F2EE;
+      --body-bg: #FAFAF8;
+      --body-text: #1E1B18;
+      --muted:   #6B6560;
+      --rule:    rgba(30,27,24,0.1);
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--body-bg);
+      font-family: 'Inter Tight', sans-serif;
+      color: var(--body-text);
+    }
+
+    /* ── Site nav ── */
+    nav {
+      background: var(--bg);
+      padding: 20px 40px;
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      position: sticky;
+      top: 0;
+      z-index: 100;
+    }
+    .nav-brand {
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .stacked-o {
+      display: flex;
+      flex-direction: column;
+      gap: 4px;
+    }
+    .stacked-o .line {
+      background: var(--orange);
+      border-radius: 1px;
+      height: 2px;
+    }
+    .l-top    { width: 13px; }
+    .l-mid    { width: 17px; position: relative; }
+    .l-bot    { width: 13px; }
+    .o-dot {
+      position: absolute;
+      right: -5px;
+      top: 50%;
+      transform: translateY(-50%);
+      width: 5px;
+      height: 5px;
+      background: var(--orange);
+      border-radius: 50%;
+    }
+    .nav-brand-name {
+      font-family: 'Syne', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.06em;
+      color: var(--text);
+    }
+    .nav-cta {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 600;
+      font-size: 13px;
+      color: var(--orange);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+
+    /* ── Article layout ── */
+    .article-wrap {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 80px 24px 120px;
+    }
+
+    /* ── Article header ── */
+    .article-category {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .article-title {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 800;
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.04;
+      letter-spacing: -0.035em;
+      color: var(--bg);
+      margin-bottom: 20px;
+    }
+    .article-deck {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 300;
+      font-size: 19px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 56px;
+    }
+    .meta-author {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--body-text);
+    }
+    .meta-detail {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .meta-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--muted);
+      opacity: 0.5;
+    }
+
+    /* ── Prose ── */
+    .prose p {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 300;
+      font-size: 17px;
+      line-height: 1.8;
+      color: #2A2520;
+      margin-bottom: 24px;
+    }
+    .prose p strong {
+      font-weight: 600;
+      color: var(--bg);
+    }
+    .prose h2 {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 800;
+      font-size: 26px;
+      line-height: 1.04;
+      letter-spacing: -0.035em;
+      color: var(--bg);
+      margin: 56px 0 20px;
+      padding-top: 48px;
+      border-top: 1px solid var(--rule);
+    }
+    .prose h3 {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 19px;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--bg);
+      margin: 36px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .prose h3 .h3-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 4px;
+      background: var(--orange);
+      color: #fff;
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      border-left: 3px solid var(--orange);
+      margin: 40px 0;
+      padding: 8px 0 8px 28px;
+    }
+    .pull-quote p {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      line-height: 1.2;
+      color: var(--bg);
+      letter-spacing: -0.035em;
+      margin: 0;
+    }
+
+    /* Stat callout */
+    .stat-callout {
+      background: var(--bg);
+      border-radius: 8px;
+      padding: 40px 48px;
+      margin: 40px 0;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+    .stat-callout .stat-num {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 800;
+      font-size: 80px;
+      line-height: 1;
+      color: var(--orange);
+      letter-spacing: -0.035em;
+    }
+    .stat-callout .stat-body h4 {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .stat-callout .stat-body p {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(245,242,238,0.55);
+      margin: 0;
+    }
+
+    /* Leak grid */
+    .leak-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin: 32px 0;
+    }
+    .leak-card {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      padding: 24px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .leak-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--orange);
+      border-radius: 3px 0 0 3px;
+    }
+    .leak-card h4 {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: -0.02em;
+      color: var(--bg);
+      margin-bottom: 8px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .leak-num {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      background: rgba(232,101,42,0.1);
+      color: var(--orange);
+      border-radius: 3px;
+      padding: 2px 7px;
+    }
+    .leak-card p {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin: 0 0 12px;
+    }
+    .leak-fix {
+      background: rgba(232,101,42,0.06);
+      border-radius: 4px;
+      padding: 10px 14px;
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--body-text);
+    }
+    .leak-fix::before {
+      content: '→ Fix: ';
+      color: var(--orange);
+    }
+
+    /* Maths box */
+    .maths-box {
+      background: var(--surface);
+      border: 1px solid rgba(245,242,238,0.06);
+      border-radius: 8px;
+      padding: 36px 40px;
+      margin: 40px 0;
+    }
+    .maths-box h4 {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 24px;
+    }
+    .maths-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(245,242,238,0.06);
+    }
+    .maths-row:last-of-type { border-bottom: none; }
+    .maths-row .label {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 300;
+      font-size: 14px;
+      color: rgba(245,242,238,0.55);
+    }
+    .maths-row .value {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .maths-row.total .label { color: rgba(245,242,238,0.8); font-weight: 600; }
+    .maths-row.total .value { color: var(--orange); font-size: 24px; }
+
+    /* CTA block */
+    .cta-block {
+      background: var(--bg);
+      border-radius: 8px;
+      padding: 48px;
+      margin: 56px 0;
+      text-align: center;
+    }
+    .cta-block h3 {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 800;
+      font-size: 28px;
+      line-height: 1.04;
+      letter-spacing: -0.035em;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+    .cta-block p {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(245,242,238,0.55);
+      margin-bottom: 28px;
+    }
+    .cta-block a {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.03em;
+      padding: 14px 32px;
+      border-radius: 4px;
+      text-decoration: none;
+    }
+
+    /* FAQ */
+    .faq-section {
+      margin-top: 64px;
+      padding-top: 48px;
+      border-top: 1px solid var(--rule);
+    }
+    .faq-section h2 {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: -0.035em;
+      color: var(--bg);
+      margin-bottom: 32px;
+      border: none;
+      padding: 0;
+      margin-top: 0;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--rule);
+      padding: 24px 0;
+    }
+    .faq-item h3 {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: -0.02em;
+      color: var(--bg);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .faq-item p {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* Site footer */
+    .site-footer {
+      background: var(--bg);
+      padding: 40px;
+      text-align: center;
+    }
+    .site-footer .slogan {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--orange);
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+    .site-footer .legal {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      color: rgba(245,242,238,0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav>
+    <div class="nav-brand">
+      <div class="stacked-o">
+        <div class="line l-top"></div>
+        <div class="line l-mid"><div class="o-dot"></div></div>
+        <div class="line l-bot"></div>
+      </div>
+      <span class="nav-brand-name">FlowBuild AI</span>
+    </div>
+    <a href="#" class="nav-cta">Free pipeline audit →</a>
+  </nav>
+
+  <!-- Article -->
+  <article class="article-wrap">
+
+    <!-- Header -->
+    <header>
+      <span class="article-category">Solar Business Operations</span>
+      <h1 class="article-title">How Irish Solar Companies Lose Leads After Paying for Ads</h1>
+      <p class="article-deck">Most Irish solar installers don't have a lead problem — they have a pipeline problem. Here's where the revenue is leaking, and how to fix it without hiring more staff.</p>
+      <div class="article-meta">
+        <span class="meta-author">FlowBuild AI</span>
+        <span class="meta-dot"></span>
+        <span class="meta-detail">May 2026</span>
+        <span class="meta-dot"></span>
+        <span class="meta-detail">7 min read</span>
+        <span class="meta-dot"></span>
+        <span class="meta-detail">Solar Operations</span>
+      </div>
+    </header>
+
+    <!-- Prose -->
+    <div class="prose">
+
+      <p>Most Irish solar companies spend between €500 and €3,000 a month on ads. The leads come in. Then — quietly — they disappear.</p>
+
+      <p>Not because the ads are bad. Not because homeowners aren't interested. Because the back-end of the business isn't built to catch them.</p>
+
+      <p>This is the single biggest growth problem we see across Irish solar businesses in 2026. Everyone's talking about lead generation. Nobody's asking what happens to the leads after they arrive.</p>
+
+      <h2>The 72-Hour Window</h2>
+
+      <p>Solar leads in Ireland have a short shelf life. A homeowner who fills out a contact form at 7pm on a Tuesday is comparing three or four installers simultaneously. They're not loyal — they're deciding.</p>
+
+      <div class="stat-callout">
+        <div class="stat-num">72</div>
+        <div class="stat-body">
+          <h4>Hours. That's the window.</h4>
+          <p>Research consistently shows that responding within the first hour increases close probability by 7x compared to responding after 24 hours. Most Irish solar businesses take 48–72 hours. By then, a competitor who replied in 30 minutes already has the appointment booked.</p>
+        </div>
+      </div>
+
+      <p>This isn't a staffing problem. It's not about hiring a dedicated follow-up person. It's a systems problem — and the fix is simpler than most business owners expect.</p>
+
+      <h2>The 4 Revenue Leaks in a Typical Solar Pipeline</h2>
+
+      <p>We've looked inside a lot of Irish solar businesses over the past year. The revenue leaks happen at the same four spots, almost every time.</p>
+
+      <div class="leak-grid">
+
+        <div class="leak-card">
+          <h4><span class="leak-num">LEAK 01</span> The Speed Gap</h4>
+          <p>A lead submits a form. Nobody responds automatically. Someone on the team picks it up tomorrow — or Monday. The homeowner, who filled out three forms in one evening, booked with the installer who replied within 20 minutes.</p>
+          <div class="leak-fix">Automated SMS + email confirmation within 3 minutes of form submission. Every time. Without any manual action required.</div>
+        </div>
+
+        <div class="leak-card">
+          <h4><span class="leak-num">LEAK 02</span> The Quote Gap</h4>
+          <p>The quote goes out. The homeowner says "we'll think about it." Silence. No follow-up sequence. No reminder at day 3, day 7. The lead goes cold. The installer assumes they lost on price. They didn't — they lost on persistence.</p>
+          <div class="leak-fix">3-touch automated follow-up sequence over 7 days, triggered when a quote status stays open. Email + WhatsApp. Personalised with their quote details.</div>
+        </div>
+
+        <div class="leak-card">
+          <h4><span class="leak-num">LEAK 03</span> The Handoff Gap</h4>
+          <p>The job is sold. But the customer experience between "yes" and install day is patchy. Miscommunication. No proactive updates. The customer feels forgotten. They don't refer anyone. They might leave a lukewarm review — or no review at all.</p>
+          <div class="leak-fix">Automated customer update sequence from deposit to install day. Job sheets auto-sent to install teams. The customer always knows what's happening and when.</div>
+        </div>
+
+        <div class="leak-card">
+          <h4><span class="leak-num">LEAK 04</span> The Review Gap</h4>
+          <p>The installation is done. Great job. The customer is delighted. Nobody asks for a Google review. The 5-star experience disappears into a void. The next homeowner searching "solar installer [county]" finds competitors with 80 reviews instead.</p>
+          <div class="leak-fix">Automated review request 48 hours post-install via text + email, with a direct link to your Google review page. 30 seconds for the customer. Compounding effect on your visibility.</div>
+        </div>
+
+      </div>
+
+      <div class="pull-quote">
+        <p>"None of these require more staff. They require a system."</p>
+      </div>
+
+      <h2>The Maths of Fixing the Leak</h2>
+
+      <p>Let's put concrete numbers to this. Say your solar business receives 20 qualified leads per month. You're currently converting 5 of them — a 25% close rate, which is about average for an unoptimised pipeline.</p>
+
+      <p>Industry best practice with a structured follow-up system is 40–45%. That's not exceptional — it's what happens when you actually follow up on every lead, every time.</p>
+
+      <div class="maths-box">
+        <h4>Pipeline maths — 20 leads/month</h4>
+        <div class="maths-row">
+          <span class="label">Current close rate</span>
+          <span class="value">25% → 5 jobs</span>
+        </div>
+        <div class="maths-row">
+          <span class="label">Average job value</span>
+          <span class="value">€10,000</span>
+        </div>
+        <div class="maths-row">
+          <span class="label">With system (45% close rate)</span>
+          <span class="value">9 jobs/month</span>
+        </div>
+        <div class="maths-row">
+          <span class="label">Additional jobs per month</span>
+          <span class="value">+4 jobs</span>
+        </div>
+        <div class="maths-row total">
+          <span class="label">Additional monthly revenue</span>
+          <span class="value">€40,000</span>
+        </div>
+      </div>
+
+      <p>That €40,000 isn't new revenue from better ads or a bigger budget. It's revenue that's already inside your pipeline — already paid for — that you're currently not capturing because no system is making sure the follow-up actually happens.</p>
+
+      <h2>What a Solar Business OS Looks Like</h2>
+
+      <p>The fix isn't a CRM in the traditional sense. Most CRM tools are databases with dashboards — they track things, but they don't <em>do</em> things unless someone is in there managing them.</p>
+
+      <p>What Irish solar businesses need is something more active — a system that initiates action automatically based on where each lead or customer sits in the pipeline. Instant lead response. Quote follow-up on a timer. Post-install review requests. Referral triggers 30 days after a completed job.</p>
+
+      <p>We call this a Solar Business OS — the connective tissue that runs between every stage of your customer journey, automatically, without your team needing to remember.</p>
+
+      <p>The business owners who build this first will have a structural cost advantage. Not because they're spending less on ads — but because they're converting more of what their ads generate. In a market heading toward Ireland's 8GW solar target by 2030, that compounding advantage is significant.</p>
+
+      <div class="cta-block">
+        <h3>Want to know exactly where your pipeline is leaking?</h3>
+        <p>We'll audit your lead flow, response times, and follow-up process — and give you the number. No pitch. Just the gap, so you can decide what to do about it.</p>
+        <a href="#">Book a free pipeline audit →</a>
+      </div>
+
+    </div><!-- /prose -->
+
+    <!-- FAQ -->
+    <section class="faq-section" itemscope itemtype="https://schema.org/FAQPage">
+
+      <h2>Frequently Asked Questions</h2>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name">How quickly can a solar pipeline automation system be set up?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">A full pipeline automation system for an Irish solar business typically takes 2–4 weeks to build, test, and deploy. The highest-impact automations — instant lead response and quote follow-up — can be live within the first 3–5 days.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name">Do I need to replace my current tools to build a solar business OS?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Not necessarily. A well-designed system works alongside WhatsApp, Gmail, Google Calendar, and most tools solar businesses already use. The goal is to connect and automate what you already have — not rip it out and start again.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name">What does a solar CRM system cost compared to what it recovers?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">For most Irish solar businesses doing 10–30 jobs per month, the investment in a proper pipeline system is recovered within the first 1–2 months through improved close rates alone. A single additional job per month typically covers the cost three to four times over.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name">Is this relevant for solar businesses using SEAI grants?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Yes — especially so. SEAI grant periods generate significant lead spikes. Solar businesses with automated pipelines handle this volume without response times slipping. Those without a system tend to lose the highest-intent leads during the busiest periods, when they can least afford to.</p>
+        </div>
+      </div>
+
+      <div class="faq-item" itemscope itemprop="mainEntity" itemtype="https://schema.org/Question">
+        <h3 itemprop="name">What's the most common reason Irish solar businesses lose leads?</h3>
+        <div itemscope itemprop="acceptedAnswer" itemtype="https://schema.org/Answer">
+          <p itemprop="text">Slow response time is the single biggest cause. Most Irish solar businesses take 24–72 hours to make first contact with a new lead. By that point, a homeowner who submitted three enquiries in one evening has typically already moved forward with the installer who replied first — often within minutes.</p>
+        </div>
+      </div>
+
+    </section>
+
+  </article>
+
+  <!-- Site footer -->
+  <footer class="site-footer">
+    <div class="slogan">The OS behind your solar.</div>
+    <div class="legal">© 2026 FlowBuild AI · Ireland</div>
+  </footer>
+
+</body>
+</html>
