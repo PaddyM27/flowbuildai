@@ -958,6 +958,9 @@
     .d3 { transition-delay: 0.24s; }
     .d4 { transition-delay: 0.32s; }
 
+    .mob-br    { display: none; }
+    .scan-short { display: none; }
+
     /* ─── Responsive ─── */
     @media (max-width: 1024px) {
       .services-grid { grid-template-columns: 1fr; }
@@ -982,17 +985,46 @@
       .foot-grid { grid-template-columns: 1fr; }
       .hero-watermark { font-size: clamp(180px, 55vw, 320px); opacity: 0.5; }
       #pricing > div > div[style*="grid-template-columns:repeat(3"] { grid-template-columns: 1fr !important; }
+      /* Mobile heading break — "Solar Companies." stays together */
+      .mob-br { display: block; }
+      /* Nav — frosted glass pill buttons on mobile */
+      .nav-cta { gap: 8px; }
+      .scan-long { display: none; }
+      .scan-short { display: inline; }
+      .nav-quote-text { display: none; }
+      .nav-quote-btn {
+        padding: 7px 9px; gap: 0; font-size: 0;
+        background: rgba(250,249,246,0.55);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(28,25,23,0.13);
+        border-radius: 8px;
+        box-shadow: none;
+        color: var(--charcoal);
+      }
+      .nav-quote-icon { width: 17px; height: 17px; }
+      .nav-audit-btn {
+        font-size: 11px; font-weight: 700; padding: 7px 11px;
+        background: rgba(232,101,42,0.1);
+        backdrop-filter: blur(10px);
+        -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(232,101,42,0.28);
+        border-radius: 8px;
+        color: var(--amber-dk);
+        box-shadow: none;
+        white-space: nowrap;
+        letter-spacing: 0.02em;
+      }
+      .nav-audit-btn svg { display: none; }
     }
     @media (max-width: 480px) {
       .nav-inner { padding: 0 16px; }
-      /* Nav — compact on mobile */
+      /* Nav — compact on small phones */
       .nav-logo { font-size: 11px; gap: 4px; }
       .nav-logo .logo-badge { font-size: 7px; padding: 2px 4px; }
-      .nav-quote-btn { padding: 8px 10px; gap: 0; font-size: 13px; }
-      .nav-quote-text { display: none; }
-      .nav-quote-icon { width: 18px; height: 18px; }
-      .nav-audit-btn { font-size: 11px; padding: 8px 11px; white-space: nowrap; }
-      .nav-audit-btn svg { display: none; }
+      .nav-quote-btn { padding: 6px 8px; }
+      .nav-quote-icon { width: 16px; height: 16px; }
+      .nav-audit-btn { font-size: 10px; padding: 6px 9px; }
       .hero-inner {
         padding: 40px 20px 56px;
       }
@@ -1340,6 +1372,307 @@
       .about-inner { padding: 0 20px; }
     }
 
+    /* ══════════════════════════════════
+       INSIGHTS / BLOG SECTION
+    ══════════════════════════════════ */
+    #insights {
+      background: var(--cream);
+      padding: 96px 0 112px;
+    }
+    .insights-inner {
+      max-width: 1160px;
+      margin: 0 auto;
+      padding: 0 40px;
+    }
+    .insights-header {
+      display: flex;
+      align-items: flex-end;
+      justify-content: space-between;
+      margin-bottom: 56px;
+      gap: 24px;
+    }
+    .insights-header-left { max-width: 560px; }
+    .insights-eyebrow {
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.15em;
+      text-transform: uppercase;
+      color: var(--amber);
+      display: flex;
+      align-items: center;
+      gap: 10px;
+      margin-bottom: 16px;
+    }
+    .insights-eyebrow::before {
+      content: '';
+      display: inline-block;
+      width: 28px;
+      height: 2px;
+      background: var(--amber);
+      flex-shrink: 0;
+    }
+    .insights-title {
+      font-size: clamp(28px, 3.5vw, 40px);
+      font-weight: 800;
+      line-height: 1.04;
+      letter-spacing: -0.035em;
+      color: var(--charcoal);
+    }
+    .insights-view-all {
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--amber);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+      white-space: nowrap;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+      padding-bottom: 4px;
+      border-bottom: 1px solid rgba(232,101,42,0.3);
+      transition: border-color 0.2s, gap 0.2s;
+    }
+    .insights-view-all:hover { gap: 10px; border-color: var(--amber); }
+
+    /* ── Featured post (large) ── */
+    .insights-grid {
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      grid-template-rows: auto auto;
+      gap: 16px;
+    }
+    .post-featured {
+      grid-column: 1 / -1;
+      background: var(--charcoal);
+      border-radius: 8px;
+      padding: 56px 60px;
+      display: grid;
+      grid-template-columns: 1fr 1fr;
+      gap: 48px;
+      align-items: center;
+      position: relative;
+      overflow: hidden;
+      text-decoration: none;
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease;
+      box-shadow: 0 8px 32px rgba(15,14,13,0.18), 0 2px 8px rgba(15,14,13,0.12);
+    }
+    .post-featured::before {
+      content: '';
+      position: absolute;
+      inset: 0;
+      background-image: url("data:image/svg+xml,%3Csvg xmlns='http://www.w3.org/2000/svg' width='300' height='300'%3E%3Cfilter id='n'%3E%3CfeTurbulence type='fractalNoise' baseFrequency='0.75' numOctaves='4' stitchTiles='stitch'/%3E%3C/filter%3E%3Crect width='300' height='300' filter='url(%23n)' opacity='0.04'/%3E%3C/svg%3E");
+      pointer-events: none;
+    }
+    .post-featured::after {
+      content: '';
+      position: absolute;
+      top: -120px;
+      right: -120px;
+      width: 400px;
+      height: 400px;
+      background: radial-gradient(circle, rgba(232,101,42,0.14) 0%, transparent 70%);
+      pointer-events: none;
+    }
+    .post-featured:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 20px 56px rgba(15,14,13,0.28), 0 4px 16px rgba(15,14,13,0.16);
+    }
+    .post-featured-left { position: relative; z-index: 1; }
+    .post-featured-right { position: relative; z-index: 1; }
+
+    .post-tag {
+      display: inline-flex;
+      align-items: center;
+      gap: 6px;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.13em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 20px;
+    }
+    .post-tag-dot {
+      width: 5px;
+      height: 5px;
+      border-radius: 50%;
+      background: var(--amber);
+      flex-shrink: 0;
+    }
+    .post-featured-title {
+      font-size: clamp(22px, 2.6vw, 34px);
+      font-weight: 800;
+      line-height: 1.06;
+      letter-spacing: -0.035em;
+      color: var(--cream);
+      margin-bottom: 20px;
+    }
+    .post-featured-deck {
+      font-size: 15px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: rgba(250,249,246,0.55);
+      margin-bottom: 32px;
+    }
+    .post-read-link {
+      display: inline-flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 13px;
+      font-weight: 700;
+      color: var(--amber);
+      text-decoration: none;
+      letter-spacing: 0.02em;
+    }
+    .post-read-link svg { transition: transform 0.2s ease; }
+    .post-featured:hover .post-read-link svg { transform: translateX(4px); }
+
+    .post-featured-meta {
+      display: flex;
+      flex-direction: column;
+      gap: 32px;
+    }
+    .post-stat {
+      border-left: 2px solid rgba(232,101,42,0.3);
+      padding-left: 20px;
+    }
+    .post-stat-num {
+      font-size: 40px;
+      font-weight: 800;
+      letter-spacing: -0.035em;
+      color: var(--amber);
+      line-height: 1;
+      margin-bottom: 6px;
+    }
+    .post-stat-label {
+      font-size: 13px;
+      font-weight: 300;
+      color: rgba(250,249,246,0.45);
+      line-height: 1.5;
+    }
+    .post-meta-row {
+      display: flex;
+      align-items: center;
+      gap: 8px;
+      font-size: 12px;
+      font-weight: 300;
+      color: rgba(250,249,246,0.35);
+      letter-spacing: 0.04em;
+    }
+    .post-meta-dot { width: 2px; height: 2px; border-radius: 50%; background: currentColor; }
+
+    /* ── Smaller cards ── */
+    .post-card {
+      background: white;
+      border: 1px solid var(--cream-dk);
+      border-radius: 8px;
+      padding: 32px 36px;
+      display: flex;
+      flex-direction: column;
+      text-decoration: none;
+      position: relative;
+      overflow: hidden;
+      transition: transform 0.25s cubic-bezier(0.34,1.56,0.64,1), box-shadow 0.25s ease, border-color 0.2s;
+      box-shadow: 0 2px 8px rgba(28,25,23,0.04);
+    }
+    .post-card:hover {
+      transform: translateY(-3px);
+      box-shadow: 0 12px 40px rgba(28,25,23,0.1);
+      border-color: rgba(232,101,42,0.2);
+    }
+    .post-card-tag {
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--amber);
+      margin-bottom: 16px;
+      display: flex;
+      align-items: center;
+      gap: 6px;
+    }
+    .post-card-tag::before {
+      content: '';
+      width: 16px;
+      height: 1.5px;
+      background: var(--amber);
+    }
+    .post-card-title {
+      font-size: 20px;
+      font-weight: 800;
+      line-height: 1.15;
+      letter-spacing: -0.025em;
+      color: var(--charcoal);
+      margin-bottom: 12px;
+      flex: 1;
+    }
+    .post-card-deck {
+      font-size: 14px;
+      font-weight: 300;
+      line-height: 1.7;
+      color: var(--charcoal-lt);
+      margin-bottom: 24px;
+    }
+    .post-card-footer {
+      display: flex;
+      align-items: center;
+      justify-content: space-between;
+      padding-top: 20px;
+      border-top: 1px solid var(--cream-dk);
+    }
+    .post-card-meta {
+      font-size: 11px;
+      font-weight: 300;
+      color: var(--charcoal-lt);
+      letter-spacing: 0.04em;
+    }
+    .post-card-arrow {
+      width: 32px;
+      height: 32px;
+      border-radius: 50%;
+      background: var(--amber-pale);
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: var(--amber);
+      transition: background 0.2s, transform 0.2s;
+    }
+    .post-card:hover .post-card-arrow {
+      background: var(--amber);
+      color: white;
+      transform: translateX(2px);
+    }
+
+    /* Coming soon card */
+    .post-card-soon {
+      background: var(--amber-xpale);
+      border: 1px dashed rgba(232,101,42,0.25);
+      pointer-events: none;
+      opacity: 0.75;
+    }
+    .soon-badge {
+      display: inline-block;
+      font-size: 10px;
+      font-weight: 700;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      background: rgba(232,101,42,0.12);
+      color: var(--amber);
+      border-radius: 3px;
+      padding: 3px 8px;
+      margin-bottom: 16px;
+    }
+
+    @media (max-width: 900px) {
+      .insights-grid { grid-template-columns: 1fr; }
+      .post-featured { grid-template-columns: 1fr; padding: 40px 32px; gap: 32px; }
+      .post-featured-right { display: none; }
+      .insights-header { flex-direction: column; align-items: flex-start; }
+    }
+    @media (max-width: 600px) {
+      #insights { padding: 72px 0; }
+      .insights-inner { padding: 0 20px; }
+    }
+
   </style>
   <!-- Meta Pixel Code -->
   <script>
@@ -1370,10 +1703,11 @@
       <a href="#about">About</a>
       <a href="#compare">How We Compare</a>
       <a href="#faq">FAQ</a>
+      <a href="#insights">Insights</a>
     </div>
     <div class="nav-cta">
       <a href="https://wa.me/353858764679" target="_blank" rel="noopener" class="btn btn-outline nav-quote-btn"><svg class="nav-quote-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg><span class="nav-quote-text">Get a Quote</span></a>
-      <a href="#audit" class="btn btn-amber nav-audit-btn">Take the Scan <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
+      <a href="#audit" class="btn btn-amber nav-audit-btn"><span class="scan-long">Take the Scan</span><span class="scan-short">Scan</span><svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg></a>
       <button class="nav-hamburger" onclick="toggleNav(this)" aria-label="Menu">
         <span></span><span></span><span></span>
       </button>
@@ -1385,6 +1719,7 @@
     <a href="#about" class="nav-mob-link" onclick="closeNav()">About</a>
     <a href="#compare" class="nav-mob-link" onclick="closeNav()">How We Compare</a>
     <a href="#faq" class="nav-mob-link" onclick="closeNav()">FAQ</a>
+    <a href="#insights" class="nav-mob-link" onclick="closeNav()">Insights</a>
     <div class="nav-mob-ctas">
       <a href="https://wa.me/353858764679" target="_blank" rel="noopener" class="btn btn-outline" onclick="closeNav()">Get a Quote on WhatsApp</a>
       <a href="#audit" class="btn btn-amber" onclick="closeNav()">Take the Scan →</a>
@@ -1401,7 +1736,7 @@
   <div class="hero-inner">
     <div class="hero-content">
       <h1 class="hero-h1 reveal d1">
-        The Definitive AI Agency for Fast-Moving Irish Solar Companies.
+        The Definitive AI Agency for Fast-Moving Irish<br class="mob-br"> Solar Companies.
       </h1>
 
       <p class="hero-sub reveal d2">
@@ -1848,6 +2183,87 @@
   </div>
 </section>
 
+<!-- ══════════════════════════════════════════════════════ INSIGHTS / BLOG -->
+<section id="insights">
+  <div class="insights-inner">
+
+    <div class="insights-header">
+      <div class="insights-header-left">
+        <div class="insights-eyebrow">Solar OS Insights</div>
+        <h2 class="insights-title reveal d1">What we're learning<br>from inside Irish solar.</h2>
+      </div>
+      <a href="blog-solar-leads.html" class="insights-view-all">
+        All articles <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </a>
+    </div>
+
+    <div class="insights-grid">
+
+      <!-- ── FEATURED POST ── -->
+      <a href="blog-solar-leads.html" class="post-featured reveal d2">
+        <div class="post-featured-left">
+          <div class="post-tag">
+            <span class="post-tag-dot"></span>
+            Solar Business Operations
+          </div>
+          <h3 class="post-featured-title">How Irish Solar Companies Lose Leads After Paying for Ads</h3>
+          <p class="post-featured-deck">Most Irish solar installers don't have a lead problem — they have a pipeline problem. Here's where the revenue is leaking, and how to fix it without hiring more staff.</p>
+          <span class="post-read-link">
+            Read the article
+            <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </span>
+        </div>
+        <div class="post-featured-right">
+          <div class="post-featured-meta">
+            <div class="post-stat">
+              <div class="post-stat-num">47</div>
+              <div class="post-stat-label">Unactioned leads found<br>in one solar company's CRM</div>
+            </div>
+            <div class="post-stat">
+              <div class="post-stat-num">72h</div>
+              <div class="post-stat-label">How long a solar lead<br>stays warm in Ireland</div>
+            </div>
+            <div class="post-stat">
+              <div class="post-stat-num">+16%</div>
+              <div class="post-stat-label">Average close rate uplift<br>from fixing the pipeline</div>
+            </div>
+          </div>
+          <div class="post-meta-row" style="margin-top: 32px;">
+            <span>May 2026</span>
+            <span class="post-meta-dot"></span>
+            <span>7 min read</span>
+            <span class="post-meta-dot"></span>
+            <span>FlowBuild AI</span>
+          </div>
+        </div>
+      </a>
+
+      <!-- ── CARD 2 — Coming soon ── -->
+      <div class="post-card post-card-soon reveal d3">
+        <div class="soon-badge">Coming soon</div>
+        <div class="post-card-tag">SEAI &amp; Irish Market</div>
+        <h3 class="post-card-title">SEAI Solar Grant 2026: What Every Installer Needs to Know Before the Rush</h3>
+        <p class="post-card-deck">Grant season creates a lead spike every spring. The installers who handle it best aren't the fastest — they're the most prepared.</p>
+        <div class="post-card-footer">
+          <span class="post-card-meta">Coming June 2026</span>
+        </div>
+      </div>
+
+      <!-- ── CARD 3 — Coming soon ── -->
+      <div class="post-card post-card-soon reveal d4">
+        <div class="soon-badge">Coming soon</div>
+        <div class="post-card-tag">AI Automation</div>
+        <h3 class="post-card-title">5 Automations That Pay for Themselves in Month One</h3>
+        <p class="post-card-deck">Not every automation is worth building. These five are the ones Irish solar businesses should have running before anything else.</p>
+        <div class="post-card-footer">
+          <span class="post-card-meta">Coming June 2026</span>
+        </div>
+      </div>
+
+    </div>
+  </div>
+</section>
+
 <!-- ══════════════════════════════════════════════════════ FOOTER -->
 <footer>
   <div class="foot-inner">
@@ -1865,6 +2281,7 @@
           <a href="#compare">How We Compare</a>
           <a href="#audit">Free Scan</a>
           <a href="#faq">FAQ</a>
+          <a href="#insights">Insights</a>
         </div>
       </div>
       <div>
