@@ -191,6 +191,61 @@
     .lla-capture-error.show { display: block; }
     .lla-privacy-note { font-size: 12px; color: rgba(254,241,232,0.40); margin-top: 14px; line-height: 1.6; }
 
+    /* ─── Report panel ─── */
+    .lla-report-wrap { max-width: 860px; width: 100%; }
+    .lla-report-header { margin-bottom: 36px; padding-bottom: 28px; border-bottom: 1px solid rgba(255,255,255,0.07); }
+    .lla-report-headline {
+      font-family: 'Inter Tight', sans-serif; font-size: clamp(24px, 4vw, 42px);
+      font-weight: 800; line-height: 1.1; letter-spacing: -0.03em;
+      color: white; margin: 12px 0 10px;
+    }
+    .lla-report-sub {
+      font-family: 'Inter Tight', sans-serif; font-size: 16px;
+      line-height: 1.6; color: rgba(254,241,232,0.56); margin: 0 0 24px;
+    }
+    .lla-score-badge {
+      display: inline-flex; align-items: center; gap: 8px;
+      background: rgba(255,255,255,0.05); border: 1px solid rgba(255,255,255,0.10);
+      border-radius: 4px; padding: 8px 16px;
+      font-family: 'Inter Tight', sans-serif; font-size: 13px;
+      color: rgba(254,241,232,0.52); margin-top: 20px;
+    }
+    .lla-score-badge strong { color: white; font-size: 18px; font-weight: 700; }
+    .lla-cat-cards { display: flex; flex-direction: column; gap: 12px; margin-bottom: 36px; }
+    .lla-cat-card {
+      background: rgba(255,255,255,0.03);
+      border: 1px solid rgba(255,255,255,0.08); border-radius: 8px; padding: 22px 26px;
+    }
+    .lla-cat-card-header {
+      display: flex; justify-content: space-between; align-items: center; margin-bottom: 10px;
+    }
+    .lla-cat-card-name {
+      font-family: 'Inter Tight', sans-serif; font-size: 14px; font-weight: 700; color: white;
+    }
+    .lla-cat-narrative {
+      font-family: 'Inter Tight', sans-serif; font-size: 14px; line-height: 1.65;
+      color: rgba(254,241,232,0.68); margin: 0 0 14px;
+    }
+    .lla-cat-callout {
+      background: rgba(232,101,42,0.10); border-left: 2px solid var(--amber);
+      padding: 9px 14px; border-radius: 3px; font-family: 'Inter Tight', sans-serif;
+      font-size: 12.5px; color: rgba(254,241,232,0.76); margin-bottom: 14px;
+    }
+    .lla-cat-bar-track { height: 3px; background: rgba(255,255,255,0.07); border-radius: 2px; overflow: hidden; }
+    .lla-cat-bar-fill { height: 100%; border-radius: 2px; width: 0%; transition: width 1.1s cubic-bezier(.4,0,.2,1); }
+    .lla-report-cta {
+      padding: 28px 0 0; border-top: 1px solid rgba(255,255,255,0.07);
+      display: flex; flex-direction: column; align-items: flex-start; gap: 14px;
+    }
+    .lla-email-sent-note {
+      font-family: 'Inter Tight', sans-serif; font-size: 12px; color: rgba(254,241,232,0.40);
+    }
+    @media (max-width: 768px) {
+      .lla-cat-card { padding: 16px; }
+      .lla-report-cta { align-items: stretch; }
+      .lla-btn-primary.lla-res-cta-btn { justify-content: center; }
+    }
+
     /* ─── Progress bar ─── */
     .lla-progress-track {
       width: 100%; height: 2px;
@@ -433,6 +488,14 @@
     </div>
   </main>
 
+  <!-- Booking modal -->
+  <div id="booking-modal" style="display:none;position:fixed;inset:0;z-index:9999;background:rgba(0,0,0,0.80);backdrop-filter:blur(6px);align-items:center;justify-content:center;">
+    <div style="position:relative;width:90%;max-width:720px;height:80vh;background:#1C1917;border-radius:12px;overflow:hidden;box-shadow:0 32px 80px rgba(0,0,0,0.6);">
+      <button onclick="closeBookingModal()" style="position:absolute;top:12px;right:14px;z-index:10;background:rgba(255,255,255,0.08);border:none;border-radius:50%;width:32px;height:32px;color:white;font-size:18px;cursor:pointer;display:flex;align-items:center;justify-content:center;line-height:1;">×</button>
+      <iframe id="booking-iframe" src="" style="width:100%;height:100%;border:none;" title="Book a Free Systems Call"></iframe>
+    </div>
+  </div>
+
 <script>
   const LLA_Q = [
     { section: 'Speed to Lead', cat: 'speed',
@@ -535,6 +598,54 @@
     reviews: { label: 'Reviews & Pipeline',     service: 'Review & Referral Automation' },
   };
 
+  const NARRATIVES = {
+    speed: {
+      major:    "You're losing enquiries before your competitors even finish their morning coffee. Most Irish homeowners book with the first installer to respond — hours of delay is handing installs away.",
+      moderate: "Your response time is inconsistent. On a good day you're quick, but evenings and weekends create gaps that competitors fill.",
+      strong:   "Your speed to lead is solid. Small optimisations here could close the remaining gap entirely.",
+    },
+    quote: {
+      major:    "Most of your sent quotes are going cold. Without a systematic follow-up process, you're leaving the majority of your pipeline to chance.",
+      moderate: "You're following up, but not consistently or persistently enough. Research shows 5+ touchpoints recovers the majority of cold quotes.",
+      strong:   "Your quote follow-up is working well. Automating it would free up time without losing effectiveness.",
+    },
+    booking: {
+      major:    "Homeowners can't self-book instantly and no-shows are costing you site visits. Every scheduling friction loses you a potential install.",
+      moderate: "Your booking process works but relies on back-and-forth. Automated self-booking and reminders would cut no-shows significantly.",
+      strong:   "Survey booking is running smoothly. Reminders and confirmations could tighten it further.",
+    },
+    calls: {
+      major:    "Missed calls after hours and on weekends are your biggest blind spot. You're invisible to homeowners at exactly the moments they decide to enquire.",
+      moderate: "You're catching most calls, but evening and weekend gaps mean some enquiries go unanswered when intent is highest.",
+      strong:   "Call coverage is good. 24/7 AI backup would eliminate the remaining missed opportunities.",
+    },
+    reviews: {
+      major:    "You have no systematic process for Google reviews or pipeline visibility. You're invisible online and flying blind on your own data.",
+      moderate: "You're getting some reviews but leaving most post-install opportunities on the table. A triggered review request would 3× your collection rate.",
+      strong:   "Reviews and pipeline are tracking well. Full automation would make this consistent without any manual effort.",
+    },
+  };
+
+  const CALLOUTS = {
+    speed:   '→ AI Lead Response System — every enquiry contacted in under 60 seconds, 24/7',
+    quote:   '→ Quote Recovery Engine — 5-touch automated follow-up on every cold quote',
+    booking: '→ Admin Reduction System — self-book calendar link, automated confirmations & reminders',
+    calls:   '→ 24/7 AI Receptionist — answers missed calls, qualifies homeowners, books surveys',
+    reviews: '→ Review & Referral Automation — triggered review request on every completed install',
+  };
+
+  const TIER_HEADLINES = {
+    solid:    "Your pipeline is mostly healthy — here's what to tighten.",
+    moderate: "You're losing installs to process gaps that are fixable in weeks.",
+    critical: "Your pipeline is losing installs daily.",
+  };
+
+  function getSeverityLevel(score) {
+    if (score >= 4) return 'major';
+    if (score >= 2) return 'moderate';
+    return 'strong';
+  }
+
   let llaS = { scores: [], cats: { speed:0, quote:0, booking:0, calls:0, reviews:0 }, val: 8000 };
 
   function llaGoTo(id) {
@@ -613,67 +724,58 @@
 
   function llaShowResults() {
     const total = llaS.scores.reduce((a, b) => a + b, 0);
-    const max = LLA_Q.length * 3;
+    const max   = LLA_Q.length * 3;
     const ratio = total / max;
-    const leaksPerMonth = Math.round(ratio * 8);
-    const annualLeak = leaksPerMonth * llaS.val * 12;
+    const annualLeak = Math.round(ratio * 8) * llaS.val * 12;
 
-    let tierKey, tierLabel, tierDesc;
-    if (total <= 9) {
-      tierKey = 'solid'; tierLabel = 'Strong Foundation';
-      tierDesc = 'You\'re leaving less than 20% on the table. Here\'s where targeted automation could recover the remaining installs.';
-    } else if (total <= 19) {
-      tierKey = 'moderate'; tierLabel = 'Revenue Leakage Detected';
-      tierDesc = 'You\'re likely losing 1–3 installs per month to process gaps. Here\'s exactly where — and how to close them.';
-    } else {
-      tierKey = 'critical'; tierLabel = 'Critical Leaks';
-      tierDesc = 'Your pipeline is losing installs daily. The good news: every gap below has a clear automated fix. Here\'s the full picture.';
-    }
+    let tierKey, tierLabel;
+    if (total <= 9)       { tierKey = 'solid';    tierLabel = 'Strong Foundation'; }
+    else if (total <= 19) { tierKey = 'moderate'; tierLabel = 'Revenue Leakage Detected'; }
+    else                  { tierKey = 'critical'; tierLabel = 'Critical Leaks'; }
 
     const catList = Object.entries(llaS.cats)
       .map(([cat, score]) => ({ cat, score, pct: Math.round((score / 6) * 100) }))
       .sort((a, b) => b.score - a.score);
 
-    const gapsHTML = catList.map(({ cat, pct }) => {
-      const info = LLA_CATS[cat];
-      const cls = pct >= 67 ? 'major' : pct >= 34 ? 'moderate' : 'strong';
-      const lbl = pct >= 67 ? 'Major Gap' : pct >= 34 ? 'Moderate Gap' : 'Strong';
-      return `<div class="lla-gap-row">
-        <div class="lla-gap-meta">
-          <span class="lla-gap-name">${info.label}</span>
-          <span class="lla-gap-tag lla-gap-tag-${cls}">${lbl}</span>
+    const cardsHTML = catList.map(({ cat, score, pct }) => {
+      const level   = getSeverityLevel(score);
+      const sevTag  = { major: 'Major Gap', moderate: 'Moderate', strong: 'Strong' }[level];
+      const barCls  = `lla-gap-fill-${level}`;
+      return `<div class="lla-cat-card">
+        <div class="lla-cat-card-header">
+          <span class="lla-cat-card-name">${LLA_CATS[cat].label}</span>
+          <span class="lla-gap-tag lla-gap-tag-${level}">${sevTag}</span>
         </div>
-        <div class="lla-gap-track">
-          <div class="lla-gap-fill lla-gap-fill-${cls}" data-pct="${pct}"></div>
+        <p class="lla-cat-narrative">${NARRATIVES[cat][level]}</p>
+        <div class="lla-cat-callout">${CALLOUTS[cat]}</div>
+        <div class="lla-cat-bar-track">
+          <div class="lla-cat-bar-fill ${barCls}" data-pct="${pct}"></div>
         </div>
-        <div class="lla-gap-svc">Fixed by: <strong>${info.service}</strong></div>
       </div>`;
     }).join('');
 
+    const capturedEmail = document.getElementById('lla-cap-email').value.trim();
+
     const resultsEl = document.getElementById('lla-p-results');
     resultsEl.innerHTML = `
-      <div class="lla-results-grid">
-        <div class="lla-res-left">
+      <div class="lla-report-wrap">
+        <div class="lla-report-header">
           <div class="lla-eyebrow-amber">Your Solar Business Scan</div>
           <div class="lla-tier-badge lla-tier-${tierKey}">${tierLabel}</div>
-          <p class="lla-tier-desc">${tierDesc}</p>
+          <h2 class="lla-report-headline">${TIER_HEADLINES[tierKey]}</h2>
+          <p class="lla-report-sub">Based on your answers, here's where revenue is slipping through the cracks.</p>
           <div class="lla-leak-num" id="lla-counter">€0</div>
           <div class="lla-leak-lbl">Estimated annual install revenue at risk</div>
-          <div class="lla-score-row">
-            <span class="lla-score-lbl">Audit score</span>
-            <span class="lla-score-val">${total}<span style="opacity:.3;font-size:.6em"> / ${max}</span></span>
-          </div>
+          <div class="lla-score-badge">Audit score &nbsp;<strong>${total}</strong><span style="opacity:.35"> / ${max}</span></div>
         </div>
-        <div class="lla-res-right">
-          <div class="lla-gaps-title">Your gap breakdown</div>
-          ${gapsHTML}
-          <div class="lla-res-cta">
-            <button onclick="Calendly.initPopupWidget({url:'https://calendly.com/flowbuildai/30min'});return false;" class="lla-btn-primary lla-res-cta-btn">
-              Book a Free Systems Call
-              <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-            </button>
-            <button class="lla-retake" onclick="llaReset()">← Retake the scan</button>
-          </div>
+        <div class="lla-cat-cards">${cardsHTML}</div>
+        <div class="lla-report-cta">
+          <button onclick="openBookingModal();return false;" class="lla-btn-primary lla-res-cta-btn">
+            Book a Free Systems Call
+            <svg width="16" height="16" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+          </button>
+          ${capturedEmail ? `<p class="lla-email-sent-note">Your full report has been sent to ${capturedEmail}</p>` : ''}
+          <button class="lla-retake" onclick="llaReset()">← Retake the scan</button>
         </div>
       </div>`;
 
@@ -690,7 +792,7 @@
     })(performance.now());
 
     setTimeout(() => {
-      document.querySelectorAll('.lla-gap-fill').forEach(b => {
+      document.querySelectorAll('.lla-cat-bar-fill').forEach(b => {
         b.style.width = b.dataset.pct + '%';
       });
     }, 150);
@@ -799,6 +901,25 @@
     if (inp) inp.value = '';
     llaGoTo('intro');
   }
+
+  const BOOKING_URL = 'https://links.flowbuildai.ie/widget/bookings/flowbuild-ai-strategy-session';
+
+  function openBookingModal() {
+    const modal = document.getElementById('booking-modal');
+    const iframe = document.getElementById('booking-iframe');
+    if (!iframe.src || iframe.src === window.location.href) iframe.src = BOOKING_URL;
+    modal.style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeBookingModal() {
+    document.getElementById('booking-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  document.getElementById('booking-modal').addEventListener('click', function(e) {
+    if (e.target === this) closeBookingModal();
+  });
 </script>
 </body>
 </html>
