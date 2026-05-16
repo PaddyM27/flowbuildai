@@ -1,12 +1,15 @@
-// Vercel serverless function — Solar Business Scan email report
-// Sends a full report email to the lead via Resend.
-// GHL contact capture is handled by the embedded GHL form iframe directly.
+// Vercel serverless function — Solar Business Scan
+// 1. Relays form data to GHL's form endpoint (fires "Form Submitted" trigger)
+// 2. Sends full report email via Resend (when scores are present)
 //
-// Required env var in Vercel:
-//   RESEND_API_KEY — resend.com → verify flowbuildai.ie → API Keys → Create Key
+// Required env vars in Vercel:
+//   GHL_LOCATION_ID — segment after /location/ in your GHL dashboard URL
+//   RESEND_API_KEY  — resend.com → verify flowbuildai.ie → API Keys → Create Key
 
-const RESEND_API_KEY = process.env.RESEND_API_KEY;
-const CALENDLY_URL   = 'https://links.flowbuildai.ie/widget/bookings/flowbuild-ai-strategy-session';
+const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID;
+const RESEND_API_KEY  = process.env.RESEND_API_KEY;
+const GHL_FORM_ID     = 'TjBxOhUyGQYUZDUE6D4e';
+const BOOKING_URL     = 'https://links.flowbuildai.ie/widget/bookings/flowbuild-ai-strategy-session';
 
 const NARRATIVES = {
   speed: {
@@ -69,14 +72,43 @@ export default async function handler(req, res) {
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
   const p = req.body;
+  const tasks = [];
 
-  try {
-    await sendReportEmail(p);
-  } catch (err) {
-    console.error('[submit] Resend error:', err.message);
-  }
+  // Relay to GHL if contact details are present
+  if (p.name || p.full_name) tasks.push(submitGHLForm(p));
+
+  // Send email report if scores are present
+  if (p.email && p.score_speed !== undefined) tasks.push(sendReportEmail(p));
+
+  const results = await Promise.allSettled(tasks);
+  results.forEach((r, i) => {
+    if (r.status === 'rejected') console.error(`[submit] task ${i} failed:`, r.reason?.message);
+  });
 
   return res.status(200).json({ ok: true });
+}
+
+async function submitGHLForm(p) {
+  const params = new URLSearchParams({
+    location_id: GHL_LOCATION_ID,
+    formId:      GHL_FORM_ID,
+    full_name:   p.name || p.full_name || '',
+    email:       p.email        || '',
+    companyName: p.organisation || p.company || '',
+  });
+  if (p.phone && p.phone.trim()) params.set('phone', p.phone.trim());
+
+  const response = await fetch('https://backend.leadconnectorhq.com/forms/submit', {
+    method:  'POST',
+    headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+    body:    params.toString(),
+  });
+
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(`GHL ${response.status}: ${text}`);
+  }
+  return response.json().catch(() => ({}));
 }
 
 async function sendReportEmail(p) {
@@ -104,9 +136,8 @@ async function sendReportEmail(p) {
 }
 
 function buildEmailHTML(p) {
-  const fmt = n => '€' + Math.round(n).toLocaleString('en-IE');
+  const fmt        = n => '€' + Math.round(n).toLocaleString('en-IE');
   const total      = p.total      || 0;
-  const maxScore   = 30;
   const annualLeak = p.annualLeak || 0;
 
   let tierKey, tierLabel, tierHeadline;
@@ -166,11 +197,7 @@ function buildEmailHTML(p) {
 
   return `<!DOCTYPE html>
 <html lang="en">
-<head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width,initial-scale=1.0">
-  <title>Your Solar Business Scan Results</title>
-</head>
+<head><meta charset="UTF-8"><meta name="viewport" content="width=device-width,initial-scale=1.0"></head>
 <body style="margin:0;padding:0;background:#1C1917;font-family:'Helvetica Neue',Arial,sans-serif;">
 <table width="100%" cellpadding="0" cellspacing="0" style="background:#1C1917;">
 <tr><td align="center" style="padding:32px 16px;">
@@ -206,29 +233,24 @@ function buildEmailHTML(p) {
 
   <tr><td style="padding-bottom:32px;">
     <div style="display:inline-block;background:rgba(255,255,255,0.05);border:1px solid rgba(255,255,255,0.10);border-radius:4px;padding:8px 16px;font-size:13px;color:rgba(254,241,232,0.48);">
-      Audit score &nbsp;<strong style="color:#ffffff;font-size:17px;">${total}</strong><span style="opacity:0.35;"> / ${maxScore}</span>
+      Audit score &nbsp;<strong style="color:#ffffff;font-size:17px;">${total}</strong><span style="opacity:0.35;"> / 30</span>
     </div>
   </td></tr>
 
   <tr><td style="height:1px;background:rgba(255,255,255,0.07);padding:0;"></td></tr>
-
   <tr><td style="padding:24px 0 14px 0;">
     <p style="margin:0;font-size:10px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(254,241,232,0.36);">Your Gap Breakdown</p>
   </td></tr>
-
   <tr><td>${catBlocks}</td></tr>
-
   <tr><td style="height:1px;background:rgba(255,255,255,0.07);padding:0;"></td></tr>
 
   <tr><td align="center" style="padding:32px 0;">
-    <a href="${CALENDLY_URL}"
-       style="display:inline-block;background:#E8652A;color:#ffffff;font-size:15px;font-weight:700;letter-spacing:0.02em;padding:16px 36px;border-radius:4px;text-decoration:none;">
+    <a href="${BOOKING_URL}" style="display:inline-block;background:#E8652A;color:#ffffff;font-size:15px;font-weight:700;letter-spacing:0.02em;padding:16px 36px;border-radius:4px;text-decoration:none;">
       Book a Free Systems Call →
     </a>
   </td></tr>
 
   <tr><td style="height:1px;background:rgba(255,255,255,0.07);padding:0;"></td></tr>
-
   <tr><td align="center" style="padding:28px 0 0 0;">
     <p style="margin:0 0 4px 0;font-size:11px;font-weight:700;letter-spacing:0.04em;text-transform:uppercase;color:rgba(255,255,255,0.32);">FlowBuild AI — Ireland's AI Agency for Solar Installers</p>
     <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.20);">flowbuildai.ie</p>
