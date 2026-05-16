@@ -74,7 +74,8 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const p = req.body;
+  const p = req.body || {};
+  console.log('[submit] body keys:', Object.keys(p).join(','), '| GHL_API_KEY set:', !!GHL_API_KEY, '| GHL_LOCATION_ID:', GHL_LOCATION_ID);
   const hasContact = p.name || p.full_name;
   const hasScores  = p.score_speed !== undefined;
 
@@ -93,11 +94,16 @@ export default async function handler(req, res) {
   }
 
   const results = await Promise.allSettled(tasks);
-  results.forEach((r, i) => {
-    if (r.status === 'rejected') console.error(`[submit] task ${i} failed:`, r.reason?.message);
+  const diag = results.map((r, i) => ({
+    task: i === 0 ? 'ghl' : 'email',
+    ok: r.status === 'fulfilled',
+    error: r.status === 'rejected' ? r.reason?.message : null,
+  }));
+  diag.forEach(d => {
+    if (!d.ok) console.error(`[submit] ${d.task} failed:`, d.error);
   });
 
-  return res.status(200).json({ ok: true });
+  return res.status(200).json({ ok: true, diag });
 }
 
 async function createGHLContact(p) {

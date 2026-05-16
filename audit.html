@@ -718,7 +718,9 @@
         score_calls:   llaS.cats.calls,
         score_reviews: llaS.cats.reviews,
       }),
-    }).catch(err => console.error('[scan] submit error:', err));
+    })
+    .then(r => r.json().then(d => console.log('[scan] submit response:', JSON.stringify(d))))
+    .catch(err => console.error('[scan] submit error:', err));
 
     if (typeof fbq === 'function') { fbq('track', 'Lead'); }
     llaShowResults();
