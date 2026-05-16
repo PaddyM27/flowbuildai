@@ -66,6 +66,8 @@ function getSeverityLevel(score) {
   return 'strong';
 }
 
+export const config = { api: { bodyParser: { sizeLimit: '1mb' } } };
+
 export default async function handler(req, res) {
   res.setHeader('Access-Control-Allow-Origin', '*');
   res.setHeader('Access-Control-Allow-Methods', 'POST, OPTIONS');
@@ -74,7 +76,16 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  const p = req.body || {};
+  // Vercel should auto-parse JSON bodies; fall back to manual stream reading if not
+  let p = req.body;
+  if (!p || typeof p !== 'object' || Array.isArray(p)) {
+    try {
+      const chunks = [];
+      for await (const chunk of req) chunks.push(Buffer.from(chunk));
+      p = JSON.parse(Buffer.concat(chunks).toString() || '{}');
+    } catch { p = {}; }
+  }
+  p = p || {};
   console.log('[submit] body keys:', Object.keys(p).join(','), '| GHL_API_KEY set:', !!GHL_API_KEY, '| GHL_LOCATION_ID:', GHL_LOCATION_ID);
   const hasContact = p.name || p.full_name;
   const hasScores  = p.score_speed !== undefined;
