@@ -470,6 +470,7 @@
         <p class="lla-qlead">We'll show you exactly which gaps are costing you installs.</p>
         <div id="lla-ghl-form-wrap" style="width:100%;min-height:460px;margin-top:8px;"></div>
         <p class="lla-privacy-note" style="margin-top:12px;">No spam. We'll be in touch within 1 business day.</p>
+        <button id="lla-manual-results-btn" onclick="if(!_ghlSubmitted){_ghlSubmitted=true;onGHLFormSubmitted();}" style="display:none;margin-top:16px;background:none;border:1px solid rgba(232,101,42,0.4);color:#E8652A;padding:10px 20px;border-radius:4px;font-size:13px;cursor:pointer;width:100%;">Already submitted? Click here to see your results →</button>
       </div>
 
       <!-- Panel: Results (built dynamically) -->
@@ -645,9 +646,14 @@
     if (id === 'capture') llaInjectGHLForm();
   }
 
+  var _ghlSubmitted = false;
+  var _captureTime  = 0;
+
   function llaInjectGHLForm() {
     const wrap = document.getElementById('lla-ghl-form-wrap');
     if (!wrap || wrap.querySelector('iframe')) return;
+    _captureTime = Date.now();
+
     const f = document.createElement('iframe');
     f.src = 'https://links.flowbuildai.ie/widget/form/TjBxOhUyGQYUZDUE6D4e';
     f.id = 'inline-TjBxOhUyGQYUZDUE6D4e';
@@ -664,19 +670,43 @@
     f.setAttribute('data-layout-iframe-id', 'inline-TjBxOhUyGQYUZDUE6D4e');
     f.setAttribute('data-form-id', 'TjBxOhUyGQYUZDUE6D4e');
     f.setAttribute('title', 'Website Form');
+
+    // Detect thank-you page via iframe onload (fires on each navigation)
+    // Skip the initial load (< 3s), catch the thank-you load (>= 3s)
+    f.addEventListener('load', function() {
+      if (!_ghlSubmitted && _captureTime && Date.now() - _captureTime > 3000) {
+        _ghlSubmitted = true;
+        onGHLFormSubmitted();
+      }
+    });
+
     wrap.appendChild(f);
-    if (window.iFrameResize) {
-      window.iFrameResize({ log: false, checkOrigin: false, scrolling: true, sizeHeight: true, autoResize: true }, f);
-    }
+
+    // Show manual fallback button after 8s (form has loaded by then)
+    setTimeout(function() {
+      if (!_ghlSubmitted) {
+        var btn = document.getElementById('lla-manual-results-btn');
+        if (btn) btn.style.display = 'block';
+      }
+    }, 8000);
   }
 
-  // GHL fires set-sticky-contacts postMessage when a form is submitted
-  var _ghlSubmitted = false;
+  // Multiple detection signals for GHL form submission
   window.addEventListener('message', function(e) {
     if (_ghlSubmitted) return;
+    // Signal 1: set-sticky-contacts (fires on some GHL form configs)
     if (Array.isArray(e.data) && e.data[0] === 'set-sticky-contacts') {
       _ghlSubmitted = true;
       onGHLFormSubmitted();
+      return;
+    }
+    // Signal 2: iframeLoaded fires when iframe navigates (thank-you page load)
+    // Guard: only trigger if 5s+ after capture panel was shown (skips initial form load)
+    if (Array.isArray(e.data) && e.data[0] === 'iframeLoaded') {
+      if (_captureTime && Date.now() - _captureTime > 5000) {
+        _ghlSubmitted = true;
+        onGHLFormSubmitted();
+      }
     }
   });
 
@@ -697,7 +727,7 @@
         score_reviews: llaS.cats.reviews,
       }),
     }).catch(e => console.error('[scan] note error:', e));
-    setTimeout(llaShowResults, 1000);
+    llaShowResults();
   }
 
   function llaSetValue(skip) {
