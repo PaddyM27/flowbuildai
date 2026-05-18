@@ -639,6 +639,20 @@
 
   let llaS = { scores: [], cats: { speed:0, quote:0, booking:0, calls:0, reviews:0 }, val: 8000 };
 
+  // If returning from GHL redirect → restore scores and show results immediately
+  (function() {
+    if (new URLSearchParams(window.location.search).get('results') !== '1') return;
+    var saved = JSON.parse(localStorage.getItem('flowbuild_scan') || 'null');
+    if (!saved) return;
+    llaS.scores = saved.scores;
+    llaS.cats   = saved.cats;
+    llaS.val    = saved.val;
+    localStorage.removeItem('flowbuild_scan');
+    history.replaceState(null, '', window.location.pathname); // clean URL
+    window.addEventListener('DOMContentLoaded', llaShowResults);
+    if (document.readyState !== 'loading') llaShowResults();
+  })();
+
   function llaGoTo(id) {
     document.querySelectorAll('.lla-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('lla-p-' + id).classList.add('active');
@@ -653,6 +667,11 @@
     const wrap = document.getElementById('lla-ghl-form-wrap');
     if (!wrap || wrap.querySelector('iframe')) return;
     _captureTime = Date.now();
+
+    // Save scores to localStorage — survives a full-page redirect from GHL
+    localStorage.setItem('flowbuild_scan', JSON.stringify({
+      scores: llaS.scores, cats: llaS.cats, val: llaS.val,
+    }));
 
     const f = document.createElement('iframe');
     f.src = 'https://links.flowbuildai.ie/widget/form/TjBxOhUyGQYUZDUE6D4e';
