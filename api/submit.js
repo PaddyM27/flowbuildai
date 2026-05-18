@@ -86,7 +86,18 @@ export default async function handler(req, res) {
     } catch { p = {}; }
   }
   p = p || {};
-  console.log('[submit] body keys:', Object.keys(p).join(','), '| GHL_API_KEY set:', !!GHL_API_KEY, '| GHL_LOCATION_ID:', GHL_LOCATION_ID);
+
+  // Note-only path: GHL form handles contact creation; we just add the scan note
+  if (p.action === 'add-note') {
+    try {
+      const contactId = await getMostRecentContact();
+      if (contactId) await addGHLNote(contactId, p);
+    } catch (e) {
+      console.error('[submit] add-note failed:', e.message);
+    }
+    return res.status(200).json({ ok: true });
+  }
+
   const hasContact = p.name || p.full_name;
   const hasScores  = p.score_speed !== undefined;
 
@@ -115,6 +126,22 @@ export default async function handler(req, res) {
   });
 
   return res.status(200).json({ ok: true, diag });
+}
+
+async function getMostRecentContact() {
+  const url = `https://services.leadconnectorhq.com/contacts/?locationId=${GHL_LOCATION_ID}&limit=1&sortBy=dateAdded&sortOrder=desc`;
+  const response = await fetch(url, {
+    headers: {
+      'Authorization': `Bearer ${GHL_API_KEY}`,
+      'Version':       '2021-07-28',
+    },
+  });
+  if (!response.ok) {
+    const text = await response.text();
+    throw new Error(`GHL contacts lookup ${response.status}: ${text}`);
+  }
+  const data = await response.json();
+  return data.contacts?.[0]?.id;
 }
 
 async function createGHLContact(p) {

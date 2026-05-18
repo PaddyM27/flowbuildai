@@ -466,20 +466,10 @@
       <!-- Panel: Lead Capture -->
       <div class="lla-panel" id="lla-p-capture">
         <div class="lla-eyebrow-amber">Your results are ready</div>
-        <h3 class="lla-qh">Enter your details<br>to see your results</h3>
-        <p class="lla-qlead">We'll show you exactly which gaps are costing you installs — and send your full report to your inbox.</p>
-        <div class="lla-capture-fields">
-          <input type="text"  id="lla-cap-name"  class="lla-text-input" placeholder="Your full name">
-          <input type="text"  id="lla-cap-org"   class="lla-text-input" placeholder="Company name">
-          <input type="email" id="lla-cap-email" class="lla-text-input" placeholder="Email address">
-          <input type="tel"   id="lla-cap-phone" class="lla-text-input" placeholder="Phone number (optional)">
-          <p id="lla-cap-error" class="lla-capture-error">Please fill in your name, company, and email.</p>
-        </div>
-        <button class="lla-btn-primary" onclick="llaSubmitCapture()">
-          See My Scan Results
-          <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-        </button>
-        <p class="lla-privacy-note">No spam. We'll be in touch within 1 business day.</p>
+        <h3 class="lla-qh">Enter your details<br>to unlock your results</h3>
+        <p class="lla-qlead">We'll show you exactly which gaps are costing you installs.</p>
+        <div id="lla-ghl-form-wrap" style="width:100%;min-height:460px;margin-top:8px;"></div>
+        <p class="lla-privacy-note" style="margin-top:12px;">No spam. We'll be in touch within 1 business day.</p>
       </div>
 
       <!-- Panel: Results (built dynamically) -->
@@ -652,6 +642,62 @@
     document.querySelectorAll('.lla-panel').forEach(p => p.classList.remove('active'));
     document.getElementById('lla-p-' + id).classList.add('active');
     window.scrollTo({ top: 0, behavior: 'smooth' });
+    if (id === 'capture') llaInjectGHLForm();
+  }
+
+  function llaInjectGHLForm() {
+    const wrap = document.getElementById('lla-ghl-form-wrap');
+    if (!wrap || wrap.querySelector('iframe')) return;
+    const f = document.createElement('iframe');
+    f.src = 'https://links.flowbuildai.ie/widget/form/TjBxOhUyGQYUZDUE6D4e';
+    f.id = 'inline-TjBxOhUyGQYUZDUE6D4e';
+    f.style.cssText = 'width:100%;height:460px;border:none;border-radius:4px;display:block;';
+    f.setAttribute('data-layout', "{'id':'INLINE'}");
+    f.setAttribute('data-trigger-type', 'alwaysShow');
+    f.setAttribute('data-trigger-value', '');
+    f.setAttribute('data-activation-type', 'alwaysActivated');
+    f.setAttribute('data-activation-value', '');
+    f.setAttribute('data-deactivation-type', 'neverDeactivate');
+    f.setAttribute('data-deactivation-value', '');
+    f.setAttribute('data-form-name', 'Website Form');
+    f.setAttribute('data-height', '460');
+    f.setAttribute('data-layout-iframe-id', 'inline-TjBxOhUyGQYUZDUE6D4e');
+    f.setAttribute('data-form-id', 'TjBxOhUyGQYUZDUE6D4e');
+    f.setAttribute('title', 'Website Form');
+    wrap.appendChild(f);
+    if (window.iFrameResize) {
+      window.iFrameResize({ log: false, checkOrigin: false, scrolling: true, sizeHeight: true, autoResize: true }, f);
+    }
+  }
+
+  // GHL fires set-sticky-contacts postMessage when a form is submitted
+  var _ghlSubmitted = false;
+  window.addEventListener('message', function(e) {
+    if (_ghlSubmitted) return;
+    if (Array.isArray(e.data) && e.data[0] === 'set-sticky-contacts') {
+      _ghlSubmitted = true;
+      onGHLFormSubmitted();
+    }
+  });
+
+  function onGHLFormSubmitted() {
+    if (typeof fbq === 'function') fbq('track', 'Lead');
+    const total      = llaS.scores.reduce((a, b) => a + b, 0);
+    const annualLeak = Math.round((total / (LLA_Q.length * 3)) * 8) * llaS.val * 12;
+    fetch('/api/submit', {
+      method: 'POST',
+      headers: { 'Content-Type': 'application/json' },
+      body: JSON.stringify({
+        action:        'add-note',
+        total,         annualLeak,
+        score_speed:   llaS.cats.speed,
+        score_quote:   llaS.cats.quote,
+        score_booking: llaS.cats.booking,
+        score_calls:   llaS.cats.calls,
+        score_reviews: llaS.cats.reviews,
+      }),
+    }).catch(e => console.error('[scan] note error:', e));
+    setTimeout(llaShowResults, 1000);
   }
 
   function llaSetValue(skip) {
@@ -693,38 +739,6 @@
   }
 
 
-  function llaSubmitCapture() {
-    const name  = document.getElementById('lla-cap-name').value.trim();
-    const org   = document.getElementById('lla-cap-org').value.trim();
-    const email = document.getElementById('lla-cap-email').value.trim();
-    const phone = document.getElementById('lla-cap-phone').value.trim();
-    const errEl = document.getElementById('lla-cap-error');
-
-    if (!name || !org || !email) { errEl.classList.add('show'); return; }
-    errEl.classList.remove('show');
-
-    const total      = llaS.scores.reduce((a, b) => a + b, 0);
-    const annualLeak = Math.round((total / (LLA_Q.length * 3)) * 8) * llaS.val * 12;
-
-    fetch('/api/submit', {
-      method:  'POST',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        name, organisation: org, email, phone,
-        total, annualLeak,
-        score_speed:   llaS.cats.speed,
-        score_quote:   llaS.cats.quote,
-        score_booking: llaS.cats.booking,
-        score_calls:   llaS.cats.calls,
-        score_reviews: llaS.cats.reviews,
-      }),
-    })
-    .then(r => r.json().then(d => console.log('[scan] submit response:', JSON.stringify(d))))
-    .catch(err => console.error('[scan] submit error:', err));
-
-    if (typeof fbq === 'function') { fbq('track', 'Lead'); }
-    llaShowResults();
-  }
 
   function llaShowResults() {
     const total = llaS.scores.reduce((a, b) => a + b, 0);
@@ -929,5 +943,6 @@
     if (e.target === this) closeBookingModal();
   });
 </script>
+<script src="https://links.flowbuildai.ie/js/form_embed.js"></script>
 </body>
 </html>
