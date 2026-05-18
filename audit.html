@@ -694,7 +694,13 @@
   // Multiple detection signals for GHL form submission
   window.addEventListener('message', function(e) {
     if (_ghlSubmitted) return;
-    // Signal 1: set-sticky-contacts (fires on some GHL form configs)
+    // Signal 1: scan-submitted.html redirect (most reliable — GHL redirects iframe here on submit)
+    if (e.data && e.data.type === 'scan_form_submitted') {
+      _ghlSubmitted = true;
+      onGHLFormSubmitted();
+      return;
+    }
+    // Signal 2: set-sticky-contacts (fires on some GHL form configs)
     if (Array.isArray(e.data) && e.data[0] === 'set-sticky-contacts') {
       _ghlSubmitted = true;
       onGHLFormSubmitted();
