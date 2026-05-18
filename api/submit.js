@@ -153,7 +153,7 @@ async function createGHLContact(p) {
     firstName,
     lastName,
     email:       p.email,
-    companyName: p.organisation || p.company || '',
+    companyName: p.organisation || p.company || p.business || '',
     locationId:  GHL_LOCATION_ID,
     tags:        ['solar-scan-lead'],
   };
