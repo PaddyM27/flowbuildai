@@ -560,24 +560,8 @@
       <div class="lla-opts" id="lla-opts"></div>
     </div>
 
-    <!-- Panel: Lead Capture -->
-    <div class="lla-panel" id="lla-p-capture">
-      <div class="lla-eyebrow-amber">Your results are ready</div>
-      <h3 class="lla-qh">Where should we<br>send your report?</h3>
-      <p class="lla-qlead">We'll follow up with quick wins specific to your gaps — no generic advice.</p>
-      <div class="lla-capture-fields">
-        <input type="text" id="lla-cap-name" class="lla-text-input" placeholder="Your first name">
-        <input type="text" id="lla-cap-business" class="lla-text-input" placeholder="Business name">
-        <input type="tel" id="lla-cap-phone" class="lla-text-input" placeholder="Phone number">
-        <input type="email" id="lla-cap-email" class="lla-text-input" placeholder="Email address">
-        <p id="lla-cap-error" class="lla-capture-error">Please fill in all fields to see your results.</p>
-      </div>
-      <button class="lla-btn-primary" onclick="llaSubmitCapture()">
-        See My Results
-        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
-      </button>
-      <p class="lla-privacy-note">No spam. We'll only use this to send your report and follow up once.</p>
-    </div>
+    <!-- Panel: Results -->
+    <div class="lla-panel" id="lla-p-capture" style="display:none;"></div>
 
     <!-- Panel: Results -->
     <div class="lla-panel" id="lla-p-results"></div>
@@ -743,74 +727,68 @@
         llaS.cats[q.cat] += score;
         setTimeout(() => {
           if (i + 1 < total) { llaRenderQ(i + 1); }
-          else { llaGoTo('capture'); }
+          else { llaShowResultsWithCapture(); }
         }, 380);
       });
       optsEl.appendChild(btn);
     });
   }
 
-  var MAKE_WEBHOOK = 'https://hook.eu1.make.com/1thi68yaxab7xim945gs0fvbj1840jfg';
+  function llaShowResultsWithCapture() {
+    llaShowResults();
+    showCaptureModal();
+  }
 
-  function llaSubmitCapture() {
-    const name     = document.getElementById('lla-cap-name').value.trim();
-    const business = document.getElementById('lla-cap-business').value.trim();
-    const phone    = document.getElementById('lla-cap-phone').value.trim();
-    const email    = document.getElementById('lla-cap-email').value.trim();
-    const errEl = document.getElementById('lla-cap-error');
-    if (!name || !business || !phone || !email) { errEl.classList.add('show'); return; }
-    errEl.classList.remove('show');
-    llaS.lead = { name, business, phone, email };
-    var total = 0;
-    var catScores = { response:0, followup:0, admin:0, reviews:0, visibility:0 };
-    for (var qi = 0; qi < LLA_Q.length; qi++) {
-      var s = (llaAnswers[qi] !== undefined) ? Number(llaAnswers[qi]) : (Number(llaS.scores[qi]) || 0);
-      total += s;
-      catScores[LLA_Q[qi].cat] += s;
-    }
-    llaS.cats = catScores;
-    var annualLeak = Math.round((total / (LLA_Q.length * 3)) * 8) * llaS.val * 12;
-    var gapLabel = function(s) {
-      return s >= 4 ? 'Major Gap' : s >= 2 ? 'Moderate Gap' : 'Strong';
-    };
-    var cats = [
-      { label: 'Lead Response',         score: catScores.response },
-      { label: 'Follow-Up Automation',  score: catScores.followup },
-      { label: 'Admin & Booking',        score: catScores.admin },
-      { label: 'Reviews & Reputation',  score: catScores.reviews },
-      { label: 'Visibility & Tracking', score: catScores.visibility }
-    ];
-    cats.sort(function(a, b) { return b.score - a.score; });
-    var majorGaps  = cats.filter(function(c) { return c.score >= 4; }).map(function(c) { return c.label; });
-    var modGaps    = cats.filter(function(c) { return c.score >= 2 && c.score < 4; }).map(function(c) { return c.label; });
-    var strongAreas = cats.filter(function(c) { return c.score < 2; }).map(function(c) { return c.label; });
-    var payload = {
-      name:           name,
-      business:       business,
-      phone:          phone,
-      email:          email,
-      annualLeak:     annualLeak,
-      auditScore:     total,
-      biggestGap:     cats[0].label,
-      strongestArea:  cats[cats.length - 1].label,
-      majorGaps:      majorGaps.join(', ')   || 'None',
-      moderateGaps:   modGaps.join(', ')     || 'None',
-      strongAreas:    strongAreas.join(', ') || 'None',
-      leadResponse:   gapLabel(catScores.response),
-      followUp:       gapLabel(catScores.followup),
-      adminBooking:   gapLabel(catScores.admin),
-      reviews:        gapLabel(catScores.reviews),
-      visibility:     gapLabel(catScores.visibility)
-    };
+  function showCaptureModal() {
+    document.getElementById('capture-modal').style.display = 'flex';
+    document.body.style.overflow = 'hidden';
+  }
+
+  function closeCaptureModal() {
+    document.getElementById('capture-modal').style.display = 'none';
+    document.body.style.overflow = '';
+  }
+
+  function submitCapture() {
+    const name     = document.getElementById('cap-name').value.trim();
+    const business = document.getElementById('cap-business').value.trim();
+    const phone    = document.getElementById('cap-phone').value.trim();
+    const email    = document.getElementById('cap-email').value.trim();
+    const errEl    = document.getElementById('cap-error');
+    const btn      = document.getElementById('cap-submit-btn');
+
+    if (!name || !business || !phone || !email) { errEl.style.display = 'block'; return; }
+    errEl.style.display = 'none';
+
+    btn.disabled = true;
+    btn.style.opacity = '0.6';
+    btn.textContent = 'Loading your results…';
+
+    const total      = llaS.scores.reduce((a, b) => a + b, 0);
+    const annualLeak = Math.round((total / (LLA_Q.length * 3)) * 8) * llaS.val * 12;
+
     fetch('/api/submit', {
       method: 'POST',
       headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify(payload)
-    }).catch(function() {});
-    console.log('[FlowBuild] Audit submitted to Make.com:', payload);
-    if (typeof fbq === 'function') { fbq('track', 'Lead', { value: llaS.val, currency: 'EUR', content_name: 'AI Audit', content_category: 'Audit Completion' }); }
-    llaShowResults();
+      body: JSON.stringify({
+        name,
+        organisation:  business,
+        phone,
+        email,
+        total,
+        annualLeak,
+        score_speed:   llaS.cats.response,
+        score_quote:   llaS.cats.followup,
+        score_booking: llaS.cats.admin,
+        score_calls:   llaS.cats.reviews,
+        score_reviews: llaS.cats.visibility,
+      }),
+    }).catch(() => {});
+
+    if (typeof fbq === 'function') fbq('track', 'Lead', { value: llaS.val, currency: 'EUR', content_name: 'AI Audit', content_category: 'Audit Completion' });
+    closeCaptureModal();
   }
+
 
   function llaShowResults() {
     const total = llaS.scores.reduce((a, b) => a + b, 0);
@@ -999,17 +977,36 @@
   }
 
   function llaReset() {
+    closeCaptureModal();
     llaS = { scores: [], cats: { response:0, followup:0, admin:0, reviews:0, visibility:0 }, val: 500 };
+    llaAnswers = {};
     const inp = document.getElementById('lla-val-input');
     if (inp) inp.value = '';
-    ['lla-cap-name', 'lla-cap-business', 'lla-cap-phone', 'lla-cap-email'].forEach(id => {
-      const el = document.getElementById(id); if (el) el.value = '';
-    });
-    const errEl = document.getElementById('lla-cap-error');
-    if (errEl) errEl.classList.remove('show');
     llaGoTo('value');
     window.scrollTo({ top: 0, behavior: 'smooth' });
   }
 </script>
+
+<!-- Capture modal -->
+<div id="capture-modal" style="position:fixed;inset:0;z-index:500;background:rgba(28,25,23,0.94);backdrop-filter:blur(10px);display:none;align-items:center;justify-content:center;padding:20px;">
+  <div style="background:#242120;border:1px solid rgba(255,255,255,0.1);border-radius:12px;width:100%;max-width:480px;padding:32px 32px 24px;box-shadow:0 32px 80px rgba(0,0,0,0.6);">
+    <div style="font-family:'Inter Tight',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:#E8652A;margin-bottom:16px;">Your results are ready</div>
+    <h3 style="font-family:'Inter Tight',sans-serif;font-size:26px;font-weight:700;line-height:1.15;letter-spacing:-0.02em;color:white;margin-bottom:8px;">Enter your details<br>to unlock your results</h3>
+    <p style="font-family:'Inter Tight',sans-serif;font-size:15px;line-height:1.6;color:rgba(254,241,232,0.56);margin-bottom:20px;">We'll show you exactly where gaps are costing you installs.</p>
+    <div style="display:flex;flex-direction:column;gap:12px;">
+      <input id="cap-name"     type="text"  placeholder="Your name"     style="background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.14);border-radius:4px;color:white;font-family:'Inter Tight',sans-serif;font-size:15px;padding:14px 16px;outline:none;width:100%;" onfocus="this.style.borderColor='#E8652A'" onblur="this.style.borderColor='rgba(255,255,255,0.14)'">
+      <input id="cap-business" type="text"  placeholder="Business name" style="background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.14);border-radius:4px;color:white;font-family:'Inter Tight',sans-serif;font-size:15px;padding:14px 16px;outline:none;width:100%;" onfocus="this.style.borderColor='#E8652A'" onblur="this.style.borderColor='rgba(255,255,255,0.14)'">
+      <input id="cap-phone"    type="tel"   placeholder="Phone number"  style="background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.14);border-radius:4px;color:white;font-family:'Inter Tight',sans-serif;font-size:15px;padding:14px 16px;outline:none;width:100%;" onfocus="this.style.borderColor='#E8652A'" onblur="this.style.borderColor='rgba(255,255,255,0.14)'">
+      <input id="cap-email"    type="email" placeholder="Email address" style="background:rgba(255,255,255,0.06);border:1.5px solid rgba(255,255,255,0.14);border-radius:4px;color:white;font-family:'Inter Tight',sans-serif;font-size:15px;padding:14px 16px;outline:none;width:100%;" onfocus="this.style.borderColor='#E8652A'" onblur="this.style.borderColor='rgba(255,255,255,0.14)'">
+      <p id="cap-error" style="color:#e05a5a;font-size:13px;display:none;margin:0;">Please fill in all fields to continue.</p>
+      <button id="cap-submit-btn" onclick="submitCapture()" style="display:flex;align-items:center;justify-content:center;gap:10px;background:#E8652A;color:white;font-family:'Inter Tight',sans-serif;font-size:15px;font-weight:700;border:none;border-radius:4px;padding:16px 28px;cursor:pointer;width:100%;margin-top:4px;transition:opacity 0.2s;">
+        See My Results
+        <svg width="17" height="17" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+      </button>
+    </div>
+    <p style="font-family:'Inter Tight',sans-serif;font-size:12px;color:rgba(254,241,232,0.32);margin-top:14px;line-height:1.6;">No spam. We'll be in touch within 1 business day.</p>
+  </div>
+</div>
+<script src="https://widgets.leadconnectorhq.com/loader.js" data-resources-url="https://widgets.leadconnectorhq.com/chat-widget/loader.js" data-widget-id="6a040bc50d6444c6be238ac6"></script>
 </body>
 </html>
