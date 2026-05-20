@@ -985,6 +985,7 @@
       .foot-grid { grid-template-columns: 1fr; }
       .hero-watermark { font-size: clamp(180px, 55vw, 320px); opacity: 0.5; }
       #pricing > div > div[style*="grid-template-columns:repeat(3"] { grid-template-columns: 1fr !important; }
+      #pricing > div > div[style*="grid-template-columns:repeat(3"] > div[style*="translateY(-8px)"] { transform: none !important; }
       /* Mobile heading break — "Solar Companies." stays together */
       .mob-br { display: block; }
       /* Nav — frosted glass pill buttons on mobile */
@@ -1941,58 +1942,83 @@
     </div>
 
     <!-- Pricing Tiers -->
-    <div class="reveal" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto;align-items:start;">
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto;align-items:center;">
 
-      <!-- Starter -->
-      <div style="background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.1);border-radius:10px;padding:40px 32px;display:flex;flex-direction:column;">
-        <div style="font-family:'Inter Tight',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(254,241,232,0.4);margin-bottom:10px;">Entry Level</div>
-        <div style="font-family:'Inter Tight',sans-serif;font-size:32px;font-weight:800;color:white;letter-spacing:-0.02em;line-height:1;margin-bottom:10px;">Starter</div>
-        <div style="font-family:'Inter Tight',sans-serif;font-size:14px;color:rgba(254,241,232,0.45);margin-bottom:28px;line-height:1.6;">Your solar business online and capturing leads from day one — with AI responding before your competitors even see the enquiry.</div>
+      <!-- Foundations -->
+      <div style="background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:40px 32px;display:flex;flex-direction:column;">
+        <div style="font-family:'Inter Tight',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(254,241,232,0.4);margin-bottom:10px;">Getting Started</div>
+        <div style="font-family:'Inter Tight',sans-serif;font-size:32px;font-weight:800;color:white;letter-spacing:-0.02em;line-height:1;margin-bottom:12px;">Foundations</div>
+        <div style="font-family:'Inter Tight',sans-serif;font-size:14px;color:rgba(254,241,232,0.45);margin-bottom:28px;line-height:1.65;">Your business online and generating leads — with two core AI systems installed and running from day one.</div>
+
+        <!-- Systems included callout -->
+        <div style="display:flex;align-items:center;gap:8px;background:rgba(232,101,42,0.08);border:1px solid rgba(232,101,42,0.2);border-radius:6px;padding:10px 14px;margin-bottom:24px;">
+          <span style="font-size:18px;line-height:1;">⚡</span>
+          <span style="font-family:'Inter Tight',sans-serif;font-size:12px;font-weight:700;color:var(--amber);letter-spacing:0.04em;text-transform:uppercase;">2 of 5 systems installed</span>
+        </div>
+
         <ul style="list-style:none;display:flex;flex-direction:column;gap:11px;flex:1;margin-bottom:32px;">
-          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Solar-ready website, built for lead capture</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Custom-built website, designed for lead capture</li>
           <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>AI Lead Response System — replies in &lt;60 seconds</li>
-          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Instant SMS alert to your team on every new lead</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>24/7 AI Receptionist — missed calls answered instantly</li>
           <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Lead form integration (website, Facebook, Google)</li>
-          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Basic CRM pipeline setup</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>CRM pipeline setup</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Monthly performance reporting</li>
           <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Live in 14 days</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>30-day results guarantee</li>
         </ul>
-        <button onclick="openBookingModal();return false;" style="display:block;width:100%;padding:15px 20px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);border-radius:5px;color:white;font-family:'Inter Tight',sans-serif;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.02em;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.07)'">Book a Call →</button>
+        <button onclick="openBookingModal();return false;" style="display:block;width:100%;padding:15px 20px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);border-radius:6px;color:white;font-family:'Inter Tight',sans-serif;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.02em;transition:background 0.2s,border-color 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.borderColor='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.07)';this.style.borderColor='rgba(255,255,255,0.15)'">Book a Call →</button>
       </div>
 
-      <!-- Growth (recommended — most popular) -->
-      <div style="background:rgba(232,101,42,0.08);border:2px solid var(--amber);border-radius:10px;padding:40px 32px;display:flex;flex-direction:column;position:relative;">
-        <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--amber);color:white;font-family:'Inter Tight',sans-serif;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:4px 14px;border-radius:100px;white-space:nowrap;">Most Popular</div>
+      <!-- Growth (Most Popular — elevated) -->
+      <div style="background:rgba(232,101,42,0.09);border:2px solid var(--amber);border-radius:12px;padding:48px 36px;display:flex;flex-direction:column;position:relative;box-shadow:0 0 0 1px rgba(232,101,42,0.15),0 24px 48px -12px rgba(232,101,42,0.2),0 8px 24px -8px rgba(0,0,0,0.4);transform:translateY(-8px);">
+        <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--amber);color:white;font-family:'Inter Tight',sans-serif;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:5px 16px;border-radius:100px;white-space:nowrap;">Most Popular</div>
         <div style="font-family:'Inter Tight',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;">Core System</div>
-        <div style="font-family:'Inter Tight',sans-serif;font-size:32px;font-weight:800;color:white;letter-spacing:-0.02em;line-height:1;margin-bottom:10px;">Growth</div>
-        <div style="font-family:'Inter Tight',sans-serif;font-size:14px;color:rgba(254,241,232,0.55);margin-bottom:28px;line-height:1.6;">The full AI lead and survey system — every inbound enquiry handled instantly, every missed call answered, every cold quote followed up.</div>
+        <div style="font-family:'Inter Tight',sans-serif;font-size:34px;font-weight:800;color:white;letter-spacing:-0.02em;line-height:1;margin-bottom:12px;">Growth</div>
+        <div style="font-family:'Inter Tight',sans-serif;font-size:14px;color:rgba(254,241,232,0.6);margin-bottom:28px;line-height:1.65;">The full system — every inbound enquiry handled, every missed call answered, every cold quote followed up automatically.</div>
+
+        <!-- Systems included callout -->
+        <div style="display:flex;align-items:center;gap:8px;background:rgba(232,101,42,0.15);border:1px solid rgba(232,101,42,0.35);border-radius:6px;padding:10px 14px;margin-bottom:24px;">
+          <span style="font-size:18px;line-height:1;">⚡</span>
+          <span style="font-family:'Inter Tight',sans-serif;font-size:12px;font-weight:700;color:var(--amber);letter-spacing:0.04em;text-transform:uppercase;">All 5 systems installed</span>
+        </div>
+
         <ul style="list-style:none;display:flex;flex-direction:column;gap:11px;flex:1;margin-bottom:32px;">
-          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.88);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>AI Lead Response System — &lt;60 seconds via SMS, voice &amp; WhatsApp</li>
-          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.88);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>24/7 AI Receptionist — missed calls answered, surveys booked</li>
-          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.88);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Quote Recovery Engine — 5-touch follow-up on every cold quote</li>
-          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.88);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Survey booking automation + no-show reminders</li>
-          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.88);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Monthly performance reporting</li>
-          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.88);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>30-day results guarantee</li>
-          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.88);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Live in 14 days</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.9);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Custom-built website, designed for lead capture</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.9);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>AI Lead Response System — &lt;60 seconds, SMS, voice &amp; WhatsApp</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.9);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>24/7 AI Receptionist — missed calls answered, surveys booked</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.9);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Quote Recovery Engine — 5-touch follow-up on every cold quote</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.9);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Review &amp; Referral Automation — Google reviews on every install</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.9);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Admin Reduction System — confirmations, reminders, crew alerts</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.9);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Monthly performance reporting</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.9);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Live in 14 days</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.9);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>30-day results guarantee</li>
         </ul>
         <button onclick="openBookingModal();return false;" class="btn btn-amber" style="justify-content:center;font-size:14px;">Book a Free Call →</button>
       </div>
 
-      <!-- Performance -->
-      <div style="background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.1);border-radius:10px;padding:40px 32px;display:flex;flex-direction:column;">
-        <div style="font-family:'Inter Tight',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(254,241,232,0.4);margin-bottom:10px;">Full Stack</div>
-        <div style="font-family:'Inter Tight',sans-serif;font-size:32px;font-weight:800;color:white;letter-spacing:-0.02em;line-height:1;margin-bottom:10px;">Performance</div>
-        <div style="font-family:'Inter Tight',sans-serif;font-size:14px;color:rgba(254,241,232,0.45);margin-bottom:28px;line-height:1.6;">Every system running. Every gap closed. Ongoing optimisation so your pipeline keeps improving month after month.</div>
+      <!-- Custom -->
+      <div style="background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:40px 32px;display:flex;flex-direction:column;">
+        <div style="font-family:'Inter Tight',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:rgba(254,241,232,0.4);margin-bottom:10px;">Enterprise</div>
+        <div style="font-family:'Inter Tight',sans-serif;font-size:32px;font-weight:800;color:white;letter-spacing:-0.02em;line-height:1;margin-bottom:12px;">Custom</div>
+        <div style="font-family:'Inter Tight',sans-serif;font-size:14px;color:rgba(254,241,232,0.45);margin-bottom:28px;line-height:1.65;">Every system running — plus any custom builds scoped specifically to how your business operates.</div>
+
+        <!-- Systems included callout -->
+        <div style="display:flex;align-items:center;gap:8px;background:rgba(232,101,42,0.08);border:1px solid rgba(232,101,42,0.2);border-radius:6px;padding:10px 14px;margin-bottom:24px;">
+          <span style="font-size:18px;line-height:1;">⚡</span>
+          <span style="font-family:'Inter Tight',sans-serif;font-size:12px;font-weight:700;color:var(--amber);letter-spacing:0.04em;text-transform:uppercase;">All 5 systems + custom builds</span>
+        </div>
+
         <ul style="list-style:none;display:flex;flex-direction:column;gap:11px;flex:1;margin-bottom:32px;">
-          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>AI Lead Response System — &lt;60 seconds, all channels</li>
-          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>24/7 AI Receptionist — evenings, weekends, bank holidays</li>
-          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Quote Recovery Engine — objection handling &amp; CRM sync</li>
-          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Review &amp; Referral Automation — Google reviews on every install</li>
-          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Admin Reduction System — confirmations, reminders, crew notifications</li>
-          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Ongoing Growth System Integration — new builds &amp; continuous optimisation</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Custom-built website, designed for lead capture</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>All 5 core AI systems installed &amp; configured</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Bespoke system builds scoped to your workflow</li>
           <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Dedicated account management &amp; priority support</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Ongoing optimisation &amp; new system rollouts</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Monthly performance reporting</li>
           <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>30-day results guarantee</li>
+          <li style="display:flex;align-items:flex-start;gap:10px;font-size:13.5px;color:rgba(254,241,232,0.72);"><span style="color:var(--amber);flex-shrink:0;margin-top:2px;">✓</span>Scoped &amp; priced per project</li>
         </ul>
-        <button onclick="openBookingModal();return false;" style="display:block;width:100%;padding:15px 20px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);border-radius:5px;color:white;font-family:'Inter Tight',sans-serif;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.02em;transition:background 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.12)'" onmouseout="this.style.background='rgba(255,255,255,0.07)'">Book a Call →</button>
+        <button onclick="openBookingModal();return false;" style="display:block;width:100%;padding:15px 20px;background:rgba(255,255,255,0.07);border:1.5px solid rgba(255,255,255,0.15);border-radius:6px;color:white;font-family:'Inter Tight',sans-serif;font-size:14px;font-weight:700;cursor:pointer;letter-spacing:0.02em;transition:background 0.2s,border-color 0.2s;" onmouseover="this.style.background='rgba(255,255,255,0.12)';this.style.borderColor='rgba(255,255,255,0.25)'" onmouseout="this.style.background='rgba(255,255,255,0.07)';this.style.borderColor='rgba(255,255,255,0.15)'">Get in Touch →</button>
       </div>
 
     </div>
