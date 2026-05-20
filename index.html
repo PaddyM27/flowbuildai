@@ -985,7 +985,6 @@
       .foot-grid { grid-template-columns: 1fr; }
       .hero-watermark { font-size: clamp(180px, 55vw, 320px); opacity: 0.5; }
       #pricing > div > div[style*="grid-template-columns:repeat(3"] { grid-template-columns: 1fr !important; }
-      #pricing > div > div[style*="grid-template-columns:repeat(3"] > div[style*="translateY(-8px)"] { transform: none !important; }
       /* Mobile heading break — "Solar Companies." stays together */
       .mob-br { display: block; }
       /* Nav — frosted glass pill buttons on mobile */
@@ -1942,7 +1941,7 @@
     </div>
 
     <!-- Pricing Tiers -->
-    <div class="reveal" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto;align-items:center;">
+    <div class="reveal" style="display:grid;grid-template-columns:repeat(3,1fr);gap:24px;max-width:1100px;margin:0 auto;align-items:stretch;">
 
       <!-- Foundations -->
       <div style="background:rgba(255,255,255,0.03);border:1.5px solid rgba(255,255,255,0.1);border-radius:12px;padding:40px 32px;display:flex;flex-direction:column;">
@@ -1970,7 +1969,7 @@
       </div>
 
       <!-- Growth (Most Popular — elevated) -->
-      <div style="background:rgba(232,101,42,0.09);border:2px solid var(--amber);border-radius:12px;padding:48px 36px;display:flex;flex-direction:column;position:relative;box-shadow:0 0 0 1px rgba(232,101,42,0.15),0 24px 48px -12px rgba(232,101,42,0.2),0 8px 24px -8px rgba(0,0,0,0.4);transform:translateY(-8px);">
+      <div style="background:rgba(232,101,42,0.09);border:2px solid var(--amber);border-radius:12px;padding:40px 32px;display:flex;flex-direction:column;position:relative;box-shadow:0 0 0 1px rgba(232,101,42,0.15),0 24px 48px -12px rgba(232,101,42,0.2),0 8px 24px -8px rgba(0,0,0,0.4);">
         <div style="position:absolute;top:-13px;left:50%;transform:translateX(-50%);background:var(--amber);color:white;font-family:'Inter Tight',sans-serif;font-size:10px;font-weight:800;letter-spacing:0.1em;text-transform:uppercase;padding:5px 16px;border-radius:100px;white-space:nowrap;">Most Popular</div>
         <div style="font-family:'Inter Tight',sans-serif;font-size:11px;font-weight:700;letter-spacing:0.12em;text-transform:uppercase;color:var(--amber);margin-bottom:10px;">Core System</div>
         <div style="font-family:'Inter Tight',sans-serif;font-size:34px;font-weight:800;color:white;letter-spacing:-0.02em;line-height:1;margin-bottom:12px;">Growth</div>
