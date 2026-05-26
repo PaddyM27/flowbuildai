@@ -1,0 +1,850 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>SEAI Solar Grant 2026: What Every Irish Installer Needs to Know Before the Rush | FlowBuild AI</title>
+  <meta name="description" content="Grant season creates the biggest lead spike of the year for Irish solar installers. Here's what the businesses converting the most are doing differently." />
+  <link href="https://fonts.googleapis.com/css2?family=Inter+Tight:wght@300..800&family=Syne:wght@700;800&display=swap" rel="stylesheet" />
+  <script src="https://cdn.tailwindcss.com"></script>
+  <style>
+    :root {
+      --bg:          #0F0E0D;
+      --surface:     #1C1917;
+      --orange:      #E8652A;
+      --text:        #F5F2EE;
+      --body-bg:     #FAFAF8;
+      --body-text:   #1E1B18;
+      --muted:       #6B6560;
+      --rule:        rgba(30,27,24,0.1);
+      --cream:       #FAF9F6;
+      --charcoal:    #1C1917;
+      --charcoal-mid:#3D3835;
+      --amber:       #E8652A;
+      --amber-dk:    #C4501B;
+    }
+
+    * { box-sizing: border-box; margin: 0; padding: 0; }
+
+    body {
+      background: var(--body-bg);
+      font-family: 'Inter Tight', sans-serif;
+      color: var(--body-text);
+      padding-top: 74px;
+    }
+
+    /* ── Nav (matches main site) ── */
+    nav {
+      position: fixed; top: 0; left: 0; right: 0; z-index: 200;
+      background: rgba(250,249,246,0.93);
+      backdrop-filter: blur(16px);
+      -webkit-backdrop-filter: blur(16px);
+      border-bottom: 1px solid rgba(28,25,23,0.07);
+      height: 74px;
+      display: flex; align-items: center;
+    }
+    .nav-inner {
+      max-width: 1280px; margin: 0 auto; padding: 0 40px;
+      display: flex; align-items: center; justify-content: space-between;
+      width: 100%;
+    }
+    .nav-logo {
+      font-family: 'Syne', sans-serif; font-weight: 800; font-size: 20px;
+      letter-spacing: -0.03em; color: var(--charcoal); text-decoration: none;
+      display: flex; align-items: center; gap: 8px;
+    }
+    .nav-logo span { color: var(--amber); }
+    .logo-badge {
+      background: var(--amber); color: white !important;
+      font-family: 'Syne', sans-serif; font-size: 9px; font-weight: 800;
+      letter-spacing: 0.04em; padding: 4px 7px; border-radius: 3px;
+      line-height: 1;
+    }
+    .nav-links { display: flex; align-items: center; gap: 36px; }
+    .nav-links a {
+      font-family: 'Inter Tight', sans-serif; font-size: 15px; font-weight: 500;
+      color: var(--charcoal-mid); text-decoration: none;
+      transition: color 0.2s;
+    }
+    .nav-links a:hover { color: var(--amber); }
+    .nav-cta-group { display: flex; align-items: center; gap: 16px; }
+
+    .nav-hamburger {
+      display: none; background: none; border: none; cursor: pointer;
+      padding: 6px; flex-direction: column; gap: 5px; align-items: flex-end;
+    }
+    .nav-hamburger span {
+      display: block; height: 2px; background: var(--charcoal); border-radius: 2px;
+      transition: transform 0.25s ease, opacity 0.2s ease, width 0.2s ease;
+    }
+    .nav-hamburger span:nth-child(1) { width: 22px; }
+    .nav-hamburger span:nth-child(2) { width: 15px; }
+    .nav-hamburger span:nth-child(3) { width: 22px; }
+    nav.open .nav-hamburger span:nth-child(1) { transform: translateY(7px) rotate(45deg); }
+    nav.open .nav-hamburger span:nth-child(2) { opacity: 0; width: 22px; }
+    nav.open .nav-hamburger span:nth-child(3) { transform: translateY(-7px) rotate(-45deg); }
+
+    .nav-mobile-drawer {
+      display: none; position: fixed; top: 74px; left: 0; right: 0;
+      background: white; border-top: 1px solid rgba(28,25,23,0.08);
+      padding: 8px 24px 28px; flex-direction: column;
+      box-shadow: 0 16px 48px rgba(28,25,23,0.13); z-index: 99;
+    }
+    .nav-mobile-drawer a.nav-mob-link {
+      font-family: 'Inter Tight', sans-serif; font-size: 17px; font-weight: 500;
+      color: var(--charcoal); text-decoration: none;
+      padding: 15px 0; display: block;
+      border-bottom: 1px solid rgba(28,25,23,0.06);
+      transition: color 0.2s;
+    }
+    .nav-mobile-drawer a.nav-mob-link:hover { color: var(--amber); }
+    .nav-mob-ctas { display: flex; flex-direction: column; gap: 10px; margin-top: 20px; }
+    .nav-mob-ctas .btn { justify-content: center; width: 100%; }
+    nav.open .nav-mobile-drawer { display: flex; }
+
+    .btn {
+      display: inline-flex; align-items: center; gap: 9px;
+      font-family: 'Inter Tight', sans-serif; font-weight: 700;
+      letter-spacing: 0.01em; border-radius: 5px;
+      text-decoration: none; border: none; cursor: pointer;
+      transition: transform 0.15s ease, box-shadow 0.15s ease, background 0.15s ease;
+    }
+    .btn:active { transform: translateY(1px) !important; }
+    .btn-amber {
+      background: var(--amber); color: white;
+      font-size: 15px; padding: 15px 26px;
+      box-shadow: 0 2px 0 var(--amber-dk), 0 6px 24px rgba(232,101,42,0.28);
+    }
+    .btn-amber:hover {
+      background: var(--amber-dk); transform: translateY(-1px);
+      box-shadow: 0 3px 0 #9B3B10, 0 10px 32px rgba(232,101,42,0.38);
+    }
+    .btn-outline {
+      background: transparent; color: var(--charcoal);
+      font-size: 14px; padding: 14px 22px;
+      border: 1.5px solid rgba(28,25,23,0.18);
+    }
+    .btn-outline:hover {
+      border-color: var(--amber); color: var(--amber);
+      background: rgba(232,101,42,0.04);
+    }
+
+    .scan-short { display: none; }
+    @media (max-width: 768px) {
+      .nav-links { display: none; }
+      .nav-hamburger { display: flex; }
+      .nav-cta-group { gap: 8px; }
+      .scan-long { display: none; }
+      .scan-short { display: inline; }
+      .nav-quote-text { display: none; }
+      .nav-quote-btn {
+        padding: 7px 9px; gap: 0; font-size: 0;
+        background: rgba(250,249,246,0.55);
+        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(28,25,23,0.13); border-radius: 8px;
+        box-shadow: none; color: var(--charcoal);
+      }
+      .nav-quote-icon { width: 17px; height: 17px; }
+      .nav-audit-btn {
+        font-size: 11px; font-weight: 700; padding: 7px 11px;
+        background: rgba(232,101,42,0.1);
+        backdrop-filter: blur(10px); -webkit-backdrop-filter: blur(10px);
+        border: 1px solid rgba(232,101,42,0.28); border-radius: 8px;
+        color: var(--amber-dk); box-shadow: none;
+        white-space: nowrap; letter-spacing: 0.02em;
+      }
+      .nav-audit-btn svg { display: none; }
+    }
+    @media (max-width: 480px) {
+      .nav-inner { padding: 0 16px; }
+      .nav-logo { font-size: 11px; gap: 4px; }
+      .nav-logo .logo-badge { font-size: 7px; padding: 2px 4px; }
+      .nav-quote-btn { padding: 6px 8px; }
+      .nav-quote-icon { width: 16px; height: 16px; }
+      .nav-audit-btn { font-size: 10px; padding: 6px 9px; }
+    }
+
+    /* ── Article layout ── */
+    .article-wrap {
+      max-width: 740px;
+      margin: 0 auto;
+      padding: 80px 24px 120px;
+    }
+
+    /* ── Article header ── */
+    .article-category {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 11px;
+      letter-spacing: 0.18em;
+      text-transform: uppercase;
+      color: var(--orange);
+      display: inline-block;
+      margin-bottom: 20px;
+    }
+    .article-title {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 800;
+      font-size: clamp(32px, 5vw, 52px);
+      line-height: 1.04;
+      letter-spacing: -0.035em;
+      color: var(--bg);
+      margin-bottom: 20px;
+    }
+    .article-deck {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 300;
+      font-size: 19px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin-bottom: 32px;
+    }
+    .article-meta {
+      display: flex;
+      align-items: center;
+      gap: 20px;
+      padding: 20px 0;
+      border-top: 1px solid var(--rule);
+      border-bottom: 1px solid var(--rule);
+      margin-bottom: 56px;
+      flex-wrap: wrap;
+    }
+    .meta-author {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--body-text);
+    }
+    .meta-detail {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 300;
+      font-size: 13px;
+      color: var(--muted);
+    }
+    .meta-dot {
+      width: 3px;
+      height: 3px;
+      border-radius: 50%;
+      background: var(--muted);
+      opacity: 0.5;
+    }
+
+    /* ── Prose ── */
+    .prose p {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 300;
+      font-size: 17px;
+      line-height: 1.8;
+      color: #2A2520;
+      margin-bottom: 24px;
+    }
+    .prose p strong {
+      font-weight: 600;
+      color: var(--bg);
+    }
+    .prose h2 {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 800;
+      font-size: 26px;
+      line-height: 1.04;
+      letter-spacing: -0.035em;
+      color: var(--bg);
+      margin: 56px 0 20px;
+      padding-top: 48px;
+      border-top: 1px solid var(--rule);
+    }
+    .prose h3 {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 19px;
+      line-height: 1.2;
+      letter-spacing: -0.02em;
+      color: var(--bg);
+      margin: 36px 0 12px;
+      display: flex;
+      align-items: center;
+      gap: 10px;
+    }
+    .prose h3 .h3-tag {
+      display: inline-flex;
+      align-items: center;
+      justify-content: center;
+      width: 26px;
+      height: 26px;
+      border-radius: 4px;
+      background: var(--orange);
+      color: #fff;
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      flex-shrink: 0;
+    }
+
+    /* Pull quote */
+    .pull-quote {
+      border-left: 3px solid var(--orange);
+      margin: 40px 0;
+      padding: 8px 0 8px 28px;
+    }
+    .pull-quote p {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      line-height: 1.2;
+      color: var(--bg);
+      letter-spacing: -0.035em;
+      margin: 0;
+    }
+
+    /* Stat callout */
+    .stat-callout {
+      background: var(--bg);
+      border-radius: 8px;
+      padding: 40px 48px;
+      margin: 40px 0;
+      display: grid;
+      grid-template-columns: auto 1fr;
+      gap: 32px;
+      align-items: center;
+    }
+    .stat-callout .stat-num {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 800;
+      font-size: 80px;
+      line-height: 1;
+      color: var(--orange);
+      letter-spacing: -0.035em;
+    }
+    .stat-callout .stat-body h4 {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 800;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+      color: var(--text);
+      margin-bottom: 8px;
+    }
+    .stat-callout .stat-body p {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      color: rgba(245,242,238,0.55);
+      margin: 0;
+    }
+
+    @media (max-width: 560px) {
+      .stat-callout { grid-template-columns: 1fr; padding: 28px 24px; gap: 16px; }
+      .stat-callout .stat-num { font-size: 56px; }
+    }
+
+    /* Leak/bottleneck grid */
+    .leak-grid {
+      display: grid;
+      grid-template-columns: 1fr;
+      gap: 16px;
+      margin: 32px 0;
+    }
+    .leak-card {
+      background: #fff;
+      border: 1px solid var(--rule);
+      border-radius: 6px;
+      padding: 24px 28px;
+      position: relative;
+      overflow: hidden;
+    }
+    .leak-card::before {
+      content: '';
+      position: absolute;
+      left: 0;
+      top: 0;
+      bottom: 0;
+      width: 3px;
+      background: var(--orange);
+      border-radius: 3px 0 0 3px;
+    }
+    .leak-card h4 {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: -0.02em;
+      color: var(--bg);
+      margin-bottom: 8px;
+      display: flex;
+      gap: 10px;
+      align-items: center;
+    }
+    .leak-num {
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 11px;
+      font-weight: 700;
+      letter-spacing: 0.1em;
+      background: rgba(232,101,42,0.1);
+      color: var(--orange);
+      border-radius: 3px;
+      padding: 2px 7px;
+    }
+    .leak-card p {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin: 0 0 12px;
+    }
+    .leak-fix {
+      background: rgba(232,101,42,0.06);
+      border-radius: 4px;
+      padding: 10px 14px;
+      font-family: 'Inter Tight', sans-serif;
+      font-size: 13px;
+      font-weight: 600;
+      color: var(--body-text);
+    }
+    .leak-fix::before {
+      content: '→ Fix: ';
+      color: var(--orange);
+    }
+
+    /* Maths box */
+    .maths-box {
+      background: var(--surface);
+      border: 1px solid rgba(245,242,238,0.06);
+      border-radius: 8px;
+      padding: 36px 40px;
+      margin: 40px 0;
+    }
+    .maths-box h4 {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 12px;
+      letter-spacing: 0.14em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 24px;
+    }
+    .maths-row {
+      display: flex;
+      justify-content: space-between;
+      align-items: baseline;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(245,242,238,0.06);
+    }
+    .maths-row:last-of-type { border-bottom: none; }
+    .maths-row .label {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 300;
+      font-size: 14px;
+      color: rgba(245,242,238,0.55);
+    }
+    .maths-row .value {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 18px;
+      letter-spacing: -0.02em;
+      color: var(--text);
+    }
+    .maths-row.total .label { color: rgba(245,242,238,0.8); font-weight: 600; }
+    .maths-row.total .value { color: var(--orange); font-size: 24px; }
+
+    /* Grant info box */
+    .grant-box {
+      background: rgba(232,101,42,0.05);
+      border: 1px solid rgba(232,101,42,0.2);
+      border-radius: 8px;
+      padding: 28px 32px;
+      margin: 32px 0;
+    }
+    .grant-box h4 {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 13px;
+      letter-spacing: 0.12em;
+      text-transform: uppercase;
+      color: var(--orange);
+      margin-bottom: 16px;
+    }
+    .grant-item {
+      display: flex;
+      align-items: flex-start;
+      gap: 12px;
+      padding: 10px 0;
+      border-bottom: 1px solid rgba(232,101,42,0.1);
+    }
+    .grant-item:last-child { border-bottom: none; padding-bottom: 0; }
+    .grant-item-label {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 300;
+      font-size: 14px;
+      color: var(--muted);
+      flex: 1;
+    }
+    .grant-item-value {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--bg);
+      text-align: right;
+      flex-shrink: 0;
+    }
+
+    /* CTA block */
+    .cta-block {
+      background: var(--bg);
+      border-radius: 8px;
+      padding: 48px;
+      margin: 56px 0;
+      text-align: center;
+    }
+    .cta-block h3 {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 800;
+      font-size: 28px;
+      line-height: 1.04;
+      letter-spacing: -0.035em;
+      color: var(--text);
+      margin-bottom: 14px;
+    }
+    .cta-block p {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 300;
+      font-size: 16px;
+      line-height: 1.7;
+      color: rgba(245,242,238,0.55);
+      margin-bottom: 28px;
+    }
+    .cta-block a {
+      display: inline-block;
+      background: var(--orange);
+      color: #fff;
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      letter-spacing: 0.03em;
+      padding: 14px 32px;
+      border-radius: 4px;
+      text-decoration: none;
+      transition: background 0.15s ease, transform 0.15s ease;
+    }
+    .cta-block a:hover {
+      background: var(--amber-dk);
+      transform: translateY(-1px);
+    }
+
+    /* FAQ */
+    .faq-section {
+      margin-top: 64px;
+      padding-top: 48px;
+      border-top: 1px solid var(--rule);
+    }
+    .faq-section h2 {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 800;
+      font-size: 22px;
+      letter-spacing: -0.035em;
+      color: var(--bg);
+      margin-bottom: 32px;
+      border: none;
+      padding: 0;
+      margin-top: 0;
+    }
+    .faq-item {
+      border-bottom: 1px solid var(--rule);
+      padding: 24px 0;
+    }
+    .faq-item h3 {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 16px;
+      letter-spacing: -0.02em;
+      color: var(--bg);
+      margin-bottom: 10px;
+      display: block;
+    }
+    .faq-item p {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 300;
+      font-size: 15px;
+      line-height: 1.7;
+      color: var(--muted);
+      margin: 0;
+    }
+
+    /* Site footer */
+    .site-footer {
+      background: var(--bg);
+      padding: 40px;
+      text-align: center;
+    }
+    .site-footer .slogan {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 700;
+      font-size: 14px;
+      color: var(--orange);
+      letter-spacing: 0.04em;
+      margin-bottom: 10px;
+    }
+    .site-footer .legal {
+      font-family: 'Inter Tight', sans-serif;
+      font-weight: 300;
+      font-size: 12px;
+      color: rgba(245,242,238,0.3);
+    }
+  </style>
+</head>
+<body>
+
+  <!-- Nav -->
+  <nav id="site-nav">
+    <div class="nav-inner">
+      <a href="index.html" class="nav-logo">FLOW<span>BUILD</span><span class="logo-badge">AI</span></a>
+      <div class="nav-links">
+        <a href="index.html#services">The System</a>
+        <a href="index.html#about">About</a>
+        <a href="index.html#compare">How We Compare</a>
+        <a href="index.html#faq">FAQ</a>
+        <a href="index.html#insights">Insights</a>
+      </div>
+      <div class="nav-cta-group">
+        <a href="https://wa.me/353858764679" target="_blank" rel="noopener" class="btn btn-outline nav-quote-btn">
+          <svg class="nav-quote-icon" width="15" height="15" viewBox="0 0 24 24" fill="currentColor"><path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51-.173-.008-.371-.01-.57-.01-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 01-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 01-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 012.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0012.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 005.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 00-3.48-8.413z"/></svg>
+          <span class="nav-quote-text">Get a Quote</span>
+        </a>
+        <a href="index.html#audit" class="btn btn-amber nav-audit-btn">
+          <span class="scan-long">Take the Scan</span><span class="scan-short">Scan</span>
+          <svg width="14" height="14" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><path d="M5 12h14M12 5l7 7-7 7"/></svg>
+        </a>
+        <button class="nav-hamburger" onclick="toggleNav(this)" aria-label="Menu">
+          <span></span><span></span><span></span>
+        </button>
+      </div>
+    </div>
+    <div class="nav-mobile-drawer">
+      <a href="index.html#services" class="nav-mob-link" onclick="closeNav()">The System</a>
+      <a href="index.html#about" class="nav-mob-link" onclick="closeNav()">About</a>
+      <a href="index.html#compare" class="nav-mob-link" onclick="closeNav()">How We Compare</a>
+      <a href="index.html#faq" class="nav-mob-link" onclick="closeNav()">FAQ</a>
+      <a href="index.html#insights" class="nav-mob-link" onclick="closeNav()">Insights</a>
+      <div class="nav-mob-ctas">
+        <a href="https://wa.me/353858764679" target="_blank" rel="noopener" class="btn btn-outline" onclick="closeNav()">Get a Quote on WhatsApp</a>
+        <a href="index.html#audit" class="btn btn-amber" onclick="closeNav()">Take the Scan →</a>
+      </div>
+    </div>
+  </nav>
+
+  <!-- Article -->
+  <article class="article-wrap">
+
+    <header>
+      <span class="article-category">SEAI &amp; Irish Market</span>
+      <h1 class="article-title">SEAI Solar Grant 2026: What Every Irish Installer Needs to Know Before the Rush</h1>
+      <p class="article-deck">Grant season creates the biggest lead spike of the year for Irish solar businesses. The installers who convert the most aren't the fastest — they're the most prepared. Here's what they're doing differently.</p>
+      <div class="article-meta">
+        <span class="meta-author">FlowBuild AI</span>
+        <span class="meta-dot"></span>
+        <span class="meta-detail">May 2026</span>
+        <span class="meta-dot"></span>
+        <span class="meta-detail">6 min read</span>
+        <span class="meta-dot"></span>
+        <span class="meta-detail">Irish Market</span>
+      </div>
+    </header>
+
+    <div class="prose">
+
+      <p>Every spring, the same thing happens across Irish solar. Homeowners start researching. SEAI grant information spreads through neighbourhood WhatsApp groups. Energy bills are still fresh in people's minds from winter. The phone starts ringing — and then it starts ringing a lot.</p>
+
+      <p>For most solar businesses, this feels like a win. Volume is up. The pipeline looks full. But by August, when the dust settles, many of those same businesses are looking at a close rate that never matched the enquiry volume — and they can't quite figure out why.</p>
+
+      <p>The answer, almost always, is the same: <strong>they weren't ready for the spike.</strong></p>
+
+      <h2>What the 2026 SEAI Grant Actually Covers</h2>
+
+      <p>Before getting into what readiness looks like, it's worth being precise about the 2026 grant structure — because a surprising number of installers are still quoting outdated figures to homeowners, which damages trust before a job is even sold.</p>
+
+      <div class="grant-box">
+        <h4>SEAI Better Energy Home Grant — Solar PV (2026)</h4>
+        <div class="grant-item">
+          <span class="grant-item-label">Solar PV grant (up to 4kWp)</span>
+          <span class="grant-item-value">Up to €2,100</span>
+        </div>
+        <div class="grant-item">
+          <span class="grant-item-label">Battery storage (where eligible)</span>
+          <span class="grant-item-value">Additional support available</span>
+        </div>
+        <div class="grant-item">
+          <span class="grant-item-label">Installer requirement</span>
+          <span class="grant-item-value">Must be SEAI-registered</span>
+        </div>
+        <div class="grant-item">
+          <span class="grant-item-label">BER improvement requirement</span>
+          <span class="grant-item-value">Must achieve B3 or above</span>
+        </div>
+        <div class="grant-item">
+          <span class="grant-item-label">Who processes the application</span>
+          <span class="grant-item-value">The registered installer, on behalf of the homeowner</span>
+        </div>
+      </div>
+
+      <p>That last point matters more than most installers realise. <strong>The grant application is your responsibility, not the homeowner's.</strong> Which means your back-end admin — quote accuracy, compliance documentation, BER assessment coordination — is part of the product they're paying for.</p>
+
+      <p>When that admin is slow, manual, or inconsistent, it shows. And homeowners who feel the process is disorganised will tell their neighbours.</p>
+
+      <h2>Why Grant Season Exposes Your Ops Gaps</h2>
+
+      <p>At normal volume — say, 8–12 enquiries a month — a solar business can function with a reasonably manual process. The owner quotes, follows up, keeps track in a spreadsheet, answers calls. It's not efficient, but it works.</p>
+
+      <p>Grant season changes that equation completely.</p>
+
+      <div class="stat-callout">
+        <div class="stat-num">3×</div>
+        <div class="stat-body">
+          <h4>The enquiry multiplier.</h4>
+          <p>During peak grant season, Irish solar businesses typically see enquiry volume triple. The businesses that handle this well aren't bigger — they're more systematised. The same ops that creak at 10 enquiries a month collapse at 30.</p>
+        </div>
+      </div>
+
+      <p>The painful irony is that grant season is when solar businesses have their highest potential revenue — and it's also when the most business gets left on the table. Leads go unanswered for 72 hours. Quotes are sent without follow-up. Homeowners who were ready to book wait a week for a call back, then go with someone who called them first.</p>
+
+      <div class="pull-quote">
+        <p>"The leads are there. The homeowners are motivated. The grant makes the decision easy. The only thing standing between a full summer schedule and a quiet one is how quickly and professionally your pipeline responds."</p>
+      </div>
+
+      <h2>The 3 Bottlenecks That Kill Solar Businesses in Grant Season</h2>
+
+      <p>After working inside a number of Irish solar operations, the same three bottlenecks appear every time volume spikes.</p>
+
+      <div class="leak-grid">
+
+        <div class="leak-card">
+          <h4><span class="leak-num">BOTTLENECK 01</span> First Response Speed</h4>
+          <p>A homeowner submits a form at 7pm on a Wednesday. They're comparing three or four installers simultaneously. The first business to reply — professionally, with context — wins the pole position. Most Irish solar businesses reply within 24–72 hours. That's too late. By then, a competitor who has automated their first response has already booked a site survey.</p>
+          <div class="leak-fix">Automated first response within 3 minutes of form submission — personalised SMS and email, triggered every time, without any manual action required.</div>
+        </div>
+
+        <div class="leak-card">
+          <h4><span class="leak-num">BOTTLENECK 02</span> Quote Follow-Up</h4>
+          <p>The quote goes out. The homeowner says "we'll think about it." Then nothing — no follow-up at day 3, no reminder at day 7, no final check-in at day 10. The installer assumes they lost on price. They almost never did. They lost because they went quiet. Another business followed up three times and felt more trustworthy.</p>
+          <div class="leak-fix">Automated 3-touch follow-up sequence over 10 days, triggered when a quote status stays open. WhatsApp + email, personalised with the homeowner's name and job details.</div>
+        </div>
+
+        <div class="leak-card">
+          <h4><span class="leak-num">BOTTLENECK 03</span> Admin Backlog</h4>
+          <p>At 3× volume, manual admin compounds. Quotes take longer to produce. Grant paperwork piles up. The owner becomes the bottleneck — spending evenings on spreadsheets instead of planning installs. The business doesn't scale; it stresses. And quality, inevitably, slips.</p>
+          <div class="leak-fix">Quote generation from a templated system, pre-survey questionnaire sent automatically on booking, grant documentation triggered at the install stage — the owner's job becomes approval, not data entry.</div>
+        </div>
+
+      </div>
+
+      <h2>What a System-Ready Solar Business Looks Like</h2>
+
+      <p>The businesses that will convert the most this grant season aren't the ones with the best panels or the lowest prices. They're the ones who built their back-end before the summer rush started.</p>
+
+      <p>Here's what that looks like in practice:</p>
+
+      <p><strong>Lead comes in.</strong> Within 3 minutes, the homeowner receives a personalised SMS and email confirming their enquiry, with a link to book a pre-survey call. No human involved — it's automatic, every time, even at 11pm on a Friday.</p>
+
+      <p><strong>Pre-survey call is booked.</strong> A structured questionnaire is automatically sent in advance — roof type, orientation, current energy usage. The installer arrives at the site with context, not a blank page. The survey takes half the time.</p>
+
+      <p><strong>Quote is sent.</strong> Branded, accurate, with SEAI grant pre-applied and a simple next step. If the homeowner doesn't respond within 3 days, a follow-up message goes out automatically. Then again at day 7. Then a final one at day 10.</p>
+
+      <p><strong>Job is won.</strong> Deposit link sent. Install scheduled. The customer receives automated updates from deposit to install day. They feel looked after without anyone on the team making extra calls.</p>
+
+      <p><strong>Job is complete.</strong> Review request sent automatically 48 hours after install. SEAI paperwork triggered. Referral prompt follows a week later.</p>
+
+      <p>The owner's job through all of this: run the surveys, manage the install team, sign off on quotes. Not manage a CRM, chase follow-ups, or manually send grant paperwork.</p>
+
+      <h2>The Maths of Being Ready</h2>
+
+      <p>This isn't hypothetical. The difference between a system-ready business and an unready one — given the same lead volume — is measurable.</p>
+
+      <div class="maths-box">
+        <h4>Grant Season Revenue — Ready vs. Unready</h4>
+        <div class="maths-row">
+          <span class="label">Enquiries during grant season (June–Aug)</span>
+          <span class="value">45</span>
+        </div>
+        <div class="maths-row">
+          <span class="label">Close rate — unready business (manual ops)</span>
+          <span class="value">15%</span>
+        </div>
+        <div class="maths-row">
+          <span class="label">Close rate — system-ready business</span>
+          <span class="value">32%</span>
+        </div>
+        <div class="maths-row">
+          <span class="label">Average job value (installed, inc. battery)</span>
+          <span class="value">€9,200</span>
+        </div>
+        <div class="maths-row">
+          <span class="label">Jobs closed — unready (≈7 jobs)</span>
+          <span class="value">€64,400</span>
+        </div>
+        <div class="maths-row total">
+          <span class="label">Jobs closed — ready (≈14 jobs)</span>
+          <span class="value">€128,800</span>
+        </div>
+      </div>
+
+      <p>Same leads. Same market. Same SEAI grant available to every homeowner. The difference is entirely in how the pipeline handles the volume.</p>
+
+      <p>The businesses that close at 32% aren't doing anything magical. They're just responding faster, following up consistently, and making the process feel effortless for the homeowner. With the right systems, all of that happens automatically.</p>
+
+      <h2>When to Start Building</h2>
+
+      <p>The honest answer is: before you need it. Grant season enquiry volume starts climbing in late April and peaks through June and July. If you're reading this in May or June, you're not too late — but you need to move quickly.</p>
+
+      <p>The businesses that will be best positioned this summer started in March. The businesses that start now will still outperform the ones that don't start at all.</p>
+
+      <p>If you're not sure whether your current pipeline is set up to handle the volume — or if you suspect there are leads going quiet that you're not even aware of — the best first step is an audit. Not a sales call. Just an honest look at where the gaps are, what they're costing, and what order to fix them in.</p>
+
+      <div class="cta-block">
+        <h3>Find out if your pipeline is grant-season ready.</h3>
+        <p>We audit Irish solar businesses for free. You'll know exactly what needs to be in place before the summer spike — and what it's worth to fix it.</p>
+        <a href="index.html#audit">Take the Free Pipeline Scan →</a>
+      </div>
+
+      <div class="faq-section">
+        <h2>Common Questions</h2>
+
+        <div class="faq-item">
+          <h3>Do I need to be SEAI-registered to use any of these systems?</h3>
+          <p>The automations and pipeline systems FlowBuild AI builds work for any registered solar installer. SEAI registration is a requirement for grant processing — not for CRM, follow-up, or quoting systems.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>How long does it take to build a system like this?</h3>
+          <p>For a full pipeline — first response, follow-up sequence, quote templates, install coordination — typically 3–4 weeks from kick-off to live. A first-response automation alone can be live in days. Which is why starting before the summer rush matters.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>What if I already have a CRM?</h3>
+          <p>Most of what we build integrates with existing CRMs (GoHighLevel, HubSpot, JobNimbus, and others). We're not replacing your tools — we're making sure they actually run automatically, instead of requiring someone to manually update them.</p>
+        </div>
+
+        <div class="faq-item">
+          <h3>Is this only relevant for large solar businesses?</h3>
+          <p>The smaller the team, the higher the impact. A 3–8 person solar business doesn't have the admin headcount to handle a summer spike manually. Systems are how you scale without hiring — and the ROI on a first-response automation alone is immediate.</p>
+        </div>
+
+      </div>
+
+    </div>
+  </article>
+
+  <!-- Footer -->
+  <footer class="site-footer">
+    <div class="slogan">The OS behind your solar.</div>
+    <div class="legal">© 2026 FlowBuild AI · flowbuildai.ie</div>
+  </footer>
+
+  <script>
+    function toggleNav(btn) {
+      btn.closest('nav').classList.toggle('open');
+    }
+    function closeNav() {
+      document.getElementById('site-nav').classList.remove('open');
+    }
+  </script>
+
+</body>
+</html>
