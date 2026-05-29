@@ -1,18 +1,14 @@
-// Vercel serverless function — Solar Business Scan
-// 1. Creates contact in GHL via Contacts API (reliable, no Cloudflare issues)
-// 2. Adds a note to the contact with full scan results + scores
-// 3. Tags contact as solar-scan-lead (trigger your GHL workflow on this tag)
-// 4. Sends full report email via Resend
+// Vercel serverless function — Solar Scaling Roadmap
+// 1. POSTs contact to GHL via Inbound Webhook (no auth required)
+// 2. Sends full report email via Resend
 //
 // Required env vars in Vercel:
-//   GHL_API_KEY      — GHL → Settings → Integrations → API Keys
-//   GHL_LOCATION_ID  — segment after /location/ in your GHL dashboard URL
+//   GHL_WEBHOOK_URL  — GHL Workflow Inbound Webhook URL
 //   RESEND_API_KEY   — resend.com → verify flowbuildai.ie → API Keys
 
-const GHL_API_KEY     = process.env.GHL_API_KEY;
-const GHL_LOCATION_ID = process.env.GHL_LOCATION_ID;
+const GHL_WEBHOOK_URL = process.env.GHL_WEBHOOK_URL;
 const RESEND_API_KEY  = process.env.RESEND_API_KEY;
-const BOOKING_URL     = 'https://links.flowbuildai.ie/widget/bookings/flowbuild-ai-strategy-session';
+const BOOKING_URL      = 'https://links.flowbuildai.ie/widget/bookings/flowbuild-ai-strategy-session';
 
 const CAT_LABELS = {
   speed:   'Speed to Lead',
@@ -76,7 +72,6 @@ export default async function handler(req, res) {
   if (req.method === 'OPTIONS') return res.status(200).end();
   if (req.method !== 'POST') return res.status(405).json({ error: 'Method not allowed' });
 
-  // Vercel should auto-parse JSON bodies; fall back to manual stream reading if not
   let p = req.body;
   if (!p || typeof p !== 'object' || Array.isArray(p)) {
     try {
@@ -87,28 +82,13 @@ export default async function handler(req, res) {
   }
   p = p || {};
 
-  // Note-only path: GHL form handles contact creation; we just add the scan note
-  if (p.action === 'add-note') {
-    try {
-      const contactId = await getMostRecentContact();
-      if (contactId) await addGHLNote(contactId, p);
-    } catch (e) {
-      console.error('[submit] add-note failed:', e.message);
-    }
-    return res.status(200).json({ ok: true });
-  }
-
   const hasContact = p.name || p.full_name;
   const hasScores  = p.score_speed !== undefined;
 
   const tasks = [];
 
   if (hasContact) {
-    tasks.push(
-      createGHLContact(p).then(contactId => {
-        if (contactId && hasScores) return addGHLNote(contactId, p);
-      })
-    );
+    tasks.push(postToGHLWebhook(p));
   }
 
   if (p.email && hasScores) {
@@ -128,102 +108,29 @@ export default async function handler(req, res) {
   return res.status(200).json({ ok: true, diag });
 }
 
-async function getMostRecentContact() {
-  const url = `https://services.leadconnectorhq.com/contacts/?locationId=${GHL_LOCATION_ID}&limit=1&sortBy=dateAdded&sortOrder=desc`;
-  const response = await fetch(url, {
-    headers: {
-      'Authorization': `Bearer ${GHL_API_KEY}`,
-      'Version':       '2021-07-28',
-    },
-  });
-  if (!response.ok) {
-    const text = await response.text();
-    throw new Error(`GHL contacts lookup ${response.status}: ${text}`);
-  }
-  const data = await response.json();
-  return data.contacts?.[0]?.id;
-}
-
-async function createGHLContact(p) {
+async function postToGHLWebhook(p) {
   const parts     = (p.name || p.full_name || '').trim().split(' ');
   const firstName = parts[0] || '';
   const lastName  = parts.slice(1).join(' ') || '';
 
-  const body = {
-    firstName,
-    lastName,
-    email:       p.email,
-    companyName: p.organisation || p.company || p.business || '',
-    locationId:  GHL_LOCATION_ID,
-    tags:        ['solar-scan-lead'],
-  };
-  if (p.phone && p.phone.trim()) body.phone = p.phone.trim();
-
-  const response = await fetch('https://services.leadconnectorhq.com/contacts/', {
+  const response = await fetch(GHL_WEBHOOK_URL, {
     method:  'POST',
-    headers: {
-      'Authorization': `Bearer ${GHL_API_KEY}`,
-      'Content-Type':  'application/json',
-      'Version':       '2021-07-28',
-    },
-    body: JSON.stringify(body),
+    headers: { 'Content-Type': 'application/json' },
+    body:    JSON.stringify({
+      firstName,
+      lastName,
+      email:       p.email || '',
+      phone:       p.phone || '',
+      companyName: p.organisation || p.company || p.business || '',
+      tags:        'solar-scan-lead',
+      score:       p.total || 0,
+      annualLeak:  p.annualLeak || 0,
+    }),
   });
 
   if (!response.ok) {
     const text = await response.text();
-    throw new Error(`GHL Contacts ${response.status}: ${text}`);
-  }
-
-  const data = await response.json();
-  return data.contact?.id;
-}
-
-async function addGHLNote(contactId, p) {
-  const scores = {
-    speed:   p.score_speed   || 0,
-    quote:   p.score_quote   || 0,
-    booking: p.score_booking || 0,
-    calls:   p.score_calls   || 0,
-    reviews: p.score_reviews || 0,
-  };
-
-  const total      = p.total      || 0;
-  const annualLeak = p.annualLeak || 0;
-
-  let tier;
-  if (total <= 9)       tier = 'Strong Foundation';
-  else if (total <= 19) tier = 'Revenue Leakage Detected';
-  else                  tier = 'Critical Leaks';
-
-  const bar = s => '█'.repeat(Math.round((s / 6) * 5)) + '░'.repeat(5 - Math.round((s / 6) * 5));
-  const sev = s => s >= 4 ? 'Major Gap' : s >= 2 ? 'Moderate' : 'Strong';
-
-  const noteBody = [
-    `☀️ Solar Business Scan Results`,
-    ``,
-    `Overall Score: ${total}/30 — ${tier}`,
-    `Annual Revenue at Risk: €${Math.round(annualLeak).toLocaleString('en-IE')}`,
-    ``,
-    `Speed to Lead:        ${bar(scores.speed)}  ${sev(scores.speed)}`,
-    `Quote Follow-Up:      ${bar(scores.quote)}  ${sev(scores.quote)}`,
-    `Survey Booking:       ${bar(scores.booking)}  ${sev(scores.booking)}`,
-    `Missed Call Coverage: ${bar(scores.calls)}  ${sev(scores.calls)}`,
-    `Reviews & Pipeline:   ${bar(scores.reviews)}  ${sev(scores.reviews)}`,
-  ].join('\n');
-
-  const response = await fetch(`https://services.leadconnectorhq.com/contacts/${contactId}/notes`, {
-    method:  'POST',
-    headers: {
-      'Authorization': `Bearer ${GHL_API_KEY}`,
-      'Content-Type':  'application/json',
-      'Version':       '2021-07-28',
-    },
-    body: JSON.stringify({ body: noteBody }),
-  });
-
-  if (!response.ok) {
-    const text = await response.text();
-    throw new Error(`GHL Notes ${response.status}: ${text}`);
+    throw new Error(`GHL Webhook ${response.status}: ${text}`);
   }
 }
 
@@ -237,7 +144,7 @@ async function sendReportEmail(p) {
     body: JSON.stringify({
       from:    'FlowBuild AI <scan@flowbuildai.ie>',
       to:      [p.email],
-      subject: 'Your Solar Business Scan Results — FlowBuild AI',
+      subject: 'Your Solar Scaling Roadmap — FlowBuild AI',
       html:    buildEmailHTML(p),
     }),
   });
@@ -318,7 +225,7 @@ function buildEmailHTML(p) {
   <tr><td style="padding:0 0 28px 0;">
     <table width="100%" cellpadding="0" cellspacing="0"><tr>
       <td><span style="font-size:15px;font-weight:800;letter-spacing:-0.02em;text-transform:uppercase;color:#ffffff;">FLOW<span style="color:#E8652A;">BUILD</span><span style="display:inline-block;background:#E8652A;color:#fff;font-size:8px;font-weight:800;padding:2px 5px;border-radius:2px;margin-left:4px;vertical-align:middle;">AI</span></span></td>
-      <td align="right"><span style="font-size:10px;letter-spacing:0.10em;text-transform:uppercase;color:rgba(255,255,255,0.28);">Solar Business Scan</span></td>
+      <td align="right"><span style="font-size:10px;letter-spacing:0.10em;text-transform:uppercase;color:rgba(255,255,255,0.28);">Solar Scaling Roadmap</span></td>
     </tr></table>
   </td></tr>
   <tr><td style="height:1px;background:rgba(255,255,255,0.07);padding:0;"></td></tr>
