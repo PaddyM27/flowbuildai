@@ -1,0 +1,1223 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>FlowBuild AI — Week 4 Social Posts</title>
+<link href="https://fonts.googleapis.com/css2?family=Syne:wght@700;800&family=EB+Garamond:ital,wght@0,400;0,500;0,600;0,700;1,400;1,500;1,600&family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+<style>
+  :root {
+    --charcoal: #1C1917;
+    --amber: #E8652A;
+    --cream: #FAF9F6;
+    --cream-dark: #F0EDE8;
+    --white: #FFFFFF;
+    --muted: #9E9189;
+    --slide-w: 360px;
+    --slide-h: 450px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+
+  body {
+    font-family: 'Inter', sans-serif;
+    background: #ECEAE6;
+    color: var(--charcoal);
+    padding: 48px 32px;
+  }
+
+  .page-header {
+    max-width: 1400px;
+    margin: 0 auto 56px;
+    display: flex;
+    align-items: baseline;
+    gap: 20px;
+    border-bottom: 1px solid #D4CFC9;
+    padding-bottom: 24px;
+  }
+  .page-logo {
+    font-family: 'Syne', sans-serif;
+    font-size: 20px;
+    font-weight: 800;
+    letter-spacing: -0.01em;
+    color: var(--charcoal);
+  }
+  .page-logo span { color: var(--amber); }
+  .page-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 28px;
+    font-weight: 400;
+    color: var(--charcoal);
+  }
+  .page-date {
+    margin-left: auto;
+    font-size: 12px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+
+  .post-block {
+    max-width: 1400px;
+    margin: 0 auto 72px;
+  }
+  .post-meta {
+    display: flex;
+    align-items: center;
+    gap: 12px;
+    margin-bottom: 20px;
+    flex-wrap: wrap;
+  }
+  .post-day {
+    font-family: 'Syne', sans-serif;
+    font-size: 11px;
+    font-weight: 800;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    background: var(--amber);
+    padding: 5px 12px;
+    border-radius: 2px;
+    color: white;
+  }
+  .post-platform {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--muted);
+  }
+  .post-pillar {
+    font-size: 11px;
+    font-weight: 500;
+    color: var(--charcoal);
+    border: 1px solid #C8C2BB;
+    padding: 4px 10px;
+    border-radius: 2px;
+  }
+  .post-format {
+    font-size: 11px;
+    font-weight: 600;
+    letter-spacing: 0.06em;
+    text-transform: uppercase;
+    color: var(--amber);
+  }
+  .post-title {
+    font-family: 'EB Garamond', serif;
+    font-size: 24px;
+    font-weight: 600;
+    color: var(--charcoal);
+    margin-bottom: 20px;
+  }
+
+  .slides-row {
+    display: flex;
+    gap: 12px;
+    flex-wrap: nowrap;
+    overflow-x: auto;
+    padding-bottom: 8px;
+    margin-bottom: 24px;
+    scrollbar-width: none;
+  }
+  .slides-row::-webkit-scrollbar { display: none; }
+
+  .slide {
+    width: var(--slide-w);
+    height: var(--slide-h);
+    flex-shrink: 0;
+    position: relative;
+    overflow: hidden;
+    border-radius: 4px;
+  }
+
+  .slide-num {
+    position: absolute;
+    top: 14px;
+    left: 16px;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    opacity: 0.45;
+    z-index: 10;
+  }
+
+  .slide-dark {
+    background: var(--charcoal);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 28px 28px 32px;
+  }
+  .slide-dark::after {
+    content: '';
+    position: absolute;
+    bottom: 0; left: 0; right: 0;
+    height: 3px;
+    background: var(--amber);
+  }
+  .slide-dark .slide-num { color: var(--white); }
+
+  .slide-cream {
+    background: var(--cream);
+    color: var(--charcoal);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 28px 28px 32px;
+  }
+  .slide-cream .slide-num { color: var(--charcoal); }
+
+  .slide-amber {
+    background: var(--amber);
+    color: var(--white);
+    display: flex;
+    flex-direction: column;
+    justify-content: flex-end;
+    padding: 28px 28px 32px;
+  }
+  .slide-amber .slide-num { color: rgba(255,255,255,0.6); }
+
+  .slide-logo {
+    position: absolute;
+    bottom: 14px;
+    right: 16px;
+    font-family: 'Syne', sans-serif;
+    font-weight: 800;
+    font-size: 9px;
+    letter-spacing: 0.02em;
+    display: flex;
+    align-items: center;
+    gap: 0;
+    line-height: 1;
+  }
+  .slide-dark .slide-logo { color: var(--white); }
+  .slide-dark .slide-logo .logo-b { color: var(--amber); }
+  .slide-cream .slide-logo { color: var(--charcoal); }
+  .slide-cream .slide-logo .logo-b { color: var(--amber); }
+  .slide-amber .slide-logo { color: rgba(255,255,255,0.7); }
+  .slide-amber .slide-logo .logo-b { color: white; }
+  .slide-logo .logo-badge {
+    font-size: 7px;
+    background: var(--amber);
+    color: white;
+    padding: 1px 3px;
+    border-radius: 1px;
+    margin-left: 3px;
+    letter-spacing: 0.06em;
+  }
+  .slide-amber .slide-logo .logo-badge { background: rgba(255,255,255,0.25); }
+
+  .big-stat {
+    font-family: 'EB Garamond', serif;
+    font-weight: 700;
+    font-size: 100px;
+    line-height: 0.85;
+    color: var(--amber);
+    letter-spacing: -0.03em;
+    margin-bottom: 12px;
+  }
+  .big-stat-sm { font-size: 72px; }
+  .big-stat-med { font-size: 84px; }
+  .slide-amber .big-stat { color: rgba(255,255,255,0.3); }
+
+  .anchor-num {
+    font-family: 'EB Garamond', serif;
+    font-size: 72px;
+    font-weight: 700;
+    color: var(--amber);
+    line-height: 0.85;
+    letter-spacing: -0.03em;
+    position: absolute;
+    top: 24px;
+    right: 24px;
+    opacity: 0.18;
+  }
+  .slide-cream .anchor-num { color: var(--amber); }
+
+  .amber-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.14em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 8px;
+  }
+  .slide-amber .amber-label { color: rgba(255,255,255,0.7); }
+
+  .slide-heading {
+    font-family: 'EB Garamond', serif;
+    font-weight: 700;
+    font-size: 26px;
+    line-height: 1.15;
+    letter-spacing: -0.02em;
+    margin-bottom: 8px;
+  }
+  .slide-heading em { font-style: italic; color: var(--amber); }
+  .slide-dark .slide-heading { color: var(--white); }
+  .slide-cream .slide-heading { color: var(--charcoal); }
+  .slide-amber .slide-heading { color: var(--white); }
+  .slide-amber .slide-heading em { color: rgba(255,255,255,0.7); }
+
+  .slide-body {
+    font-size: 13px;
+    line-height: 1.6;
+    font-weight: 400;
+  }
+  .slide-dark .slide-body { color: rgba(250,249,246,0.80); }
+  .slide-cream .slide-body { color: #4A403A; }
+  .slide-amber .slide-body { color: rgba(255,255,255,0.85); }
+
+  .amber-rule {
+    width: 32px;
+    height: 2px;
+    background: var(--amber);
+    margin-bottom: 12px;
+    flex-shrink: 0;
+  }
+  .slide-amber .amber-rule { background: rgba(255,255,255,0.5); }
+
+  .bullet-list {
+    list-style: none;
+    margin-top: 10px;
+  }
+  .bullet-list li {
+    font-size: 13px;
+    line-height: 1.5;
+    padding-left: 16px;
+    position: relative;
+    margin-bottom: 4px;
+  }
+  .slide-dark .bullet-list li { color: rgba(250,249,246,0.85); }
+  .slide-cream .bullet-list li { color: #4A403A; }
+  .bullet-list li::before {
+    content: '—';
+    color: var(--amber);
+    position: absolute;
+    left: 0;
+    font-weight: 600;
+  }
+
+  .check-list {
+    list-style: none;
+    margin-top: 10px;
+  }
+  .check-list li {
+    font-size: 13px;
+    line-height: 1.5;
+    padding-left: 18px;
+    position: relative;
+    margin-bottom: 5px;
+  }
+  .slide-dark .check-list li { color: rgba(250,249,246,0.85); }
+  .slide-cream .check-list li { color: #4A403A; }
+  .slide-amber .check-list li { color: rgba(255,255,255,0.9); }
+  .check-list li::before {
+    content: '✓';
+    color: var(--amber);
+    position: absolute;
+    left: 0;
+    font-weight: 700;
+    font-size: 11px;
+  }
+  .slide-amber .check-list li::before { color: white; }
+
+  .slide-cta {
+    display: inline-block;
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.08em;
+    text-transform: uppercase;
+    color: var(--amber);
+    border: 1px solid var(--amber);
+    padding: 6px 12px;
+    border-radius: 2px;
+    margin-top: 12px;
+  }
+  .slide-amber .slide-cta { color: white; border-color: rgba(255,255,255,0.6); }
+
+  .ghost-num {
+    position: absolute;
+    font-family: 'EB Garamond', serif;
+    font-size: 240px;
+    font-weight: 700;
+    line-height: 1;
+    color: var(--amber);
+    opacity: 0.06;
+    top: -30px;
+    right: -20px;
+    pointer-events: none;
+    user-select: none;
+  }
+  .slide-cream .ghost-num { opacity: 0.05; }
+
+  .stat-row {
+    display: flex;
+    gap: 0;
+    margin-top: 14px;
+    border-top: 1px solid rgba(250,249,246,0.12);
+    padding-top: 14px;
+  }
+  .slide-cream .stat-row { border-top-color: rgba(28,25,23,0.1); }
+  .stat-item { flex: 1; }
+  .stat-item + .stat-item { border-left: 1px solid rgba(250,249,246,0.12); padding-left: 12px; }
+  .slide-cream .stat-item + .stat-item { border-left-color: rgba(28,25,23,0.1); }
+  .stat-num {
+    font-family: 'EB Garamond', serif;
+    font-size: 22px;
+    font-weight: 700;
+    color: var(--amber);
+    line-height: 1;
+  }
+  .stat-label {
+    font-size: 10px;
+    color: rgba(250,249,246,0.55);
+    margin-top: 3px;
+    line-height: 1.3;
+  }
+  .slide-cream .stat-label { color: rgba(28,25,23,0.5); }
+
+  .warning-tag {
+    display: inline-block;
+    font-size: 9px;
+    font-weight: 700;
+    letter-spacing: 0.1em;
+    text-transform: uppercase;
+    background: rgba(232,101,42,0.15);
+    color: var(--amber);
+    padding: 3px 8px;
+    border-radius: 2px;
+    margin-bottom: 8px;
+  }
+
+  .time-label {
+    font-family: 'EB Garamond', serif;
+    font-size: 52px;
+    font-weight: 700;
+    font-style: italic;
+    color: var(--amber);
+    line-height: 1;
+    letter-spacing: -0.02em;
+    margin-bottom: 10px;
+  }
+
+  .funnel-flow {
+    display: flex;
+    flex-direction: column;
+    gap: 4px;
+    margin-top: 10px;
+  }
+  .funnel-step {
+    display: flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .funnel-num {
+    font-family: 'EB Garamond', serif;
+    font-size: 18px;
+    font-weight: 700;
+    color: var(--amber);
+    line-height: 1;
+    min-width: 52px;
+  }
+  .funnel-label {
+    font-size: 11px;
+    color: rgba(250,249,246,0.7);
+    line-height: 1.3;
+  }
+  .slide-cream .funnel-label { color: rgba(28,25,23,0.6); }
+  .slide-cream .funnel-num { color: var(--charcoal); }
+  .funnel-arrow {
+    font-size: 10px;
+    color: rgba(232,101,42,0.5);
+    padding-left: 4px;
+  }
+
+  .caption-block {
+    background: white;
+    border-left: 3px solid var(--amber);
+    padding: 20px 24px;
+    border-radius: 0 4px 4px 0;
+    margin-bottom: 12px;
+  }
+  .caption-label {
+    font-size: 10px;
+    font-weight: 700;
+    letter-spacing: 0.12em;
+    text-transform: uppercase;
+    color: var(--amber);
+    margin-bottom: 10px;
+  }
+  .caption-text {
+    font-size: 14px;
+    line-height: 1.7;
+    color: var(--charcoal);
+    white-space: pre-line;
+  }
+  .hashtags {
+    font-size: 12px;
+    color: #7A6E66;
+    margin-top: 10px;
+    line-height: 1.6;
+  }
+
+  .section-rule {
+    max-width: 1400px;
+    margin: 0 auto 56px;
+    border: none;
+    border-top: 1px solid #D4CFC9;
+  }
+
+  @media print {
+    body { background: white; padding: 0; }
+  }
+</style>
+</head>
+<body>
+
+<header class="page-header">
+  <div class="page-logo">FLOW<span>BUILD</span> <span style="font-size:11px;background:var(--amber);color:white;padding:2px 5px;border-radius:2px;vertical-align:middle;margin-left:2px;">AI</span></div>
+  <div class="page-title">Week 4 Social Posts — Growth, Leads & Ops</div>
+  <div class="page-date">5 carousels · 1 static · 40 slides</div>
+</header>
+
+
+<!-- ═══════════════════════════════════════════
+     POST 1 — MONDAY · CAROUSEL · TOP 10%
+     ═══════════════════════════════════════════ -->
+<div class="post-block">
+  <div class="post-meta">
+    <span class="post-day">Monday</span>
+    <span class="post-platform">LinkedIn + Instagram</span>
+    <span class="post-format">Carousel · 8 Slides</span>
+    <span class="post-pillar">Pillar — Benchmarking</span>
+  </div>
+  <div class="post-title">"What the Top 10% of Irish Solar Companies Do Differently"</div>
+
+  <div class="slides-row">
+
+    <!-- Slide 1 — Cover (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">1 / 8</span>
+      <div class="ghost-num">10%</div>
+      <div class="amber-label">Benchmark</div>
+      <div class="slide-heading" style="font-size:24px;">The difference between 1 install a week and 5 installs a week isn't the leads.<br><em>It's the ops.</em></div>
+      <div class="slide-body" style="margin-top:6px;">5 habits that separate the top 10% of Irish solar companies from everyone else.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 2 — Habit 1: Speed (cream) -->
+    <div class="slide slide-cream">
+      <span class="slide-num">2 / 8</span>
+      <div class="anchor-num">01</div>
+      <div class="amber-label">Habit 01 — Speed to Lead</div>
+      <div class="slide-heading">They respond in minutes, not days.</div>
+      <div class="slide-body">The first company to reply wins 78% of jobs. Top-performing installers have an automated response that fires in under 60 seconds — before their team even sees the notification.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 3 — Habit 2: Follow-Up (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">3 / 8</span>
+      <div class="anchor-num">02</div>
+      <div class="amber-label">Habit 02 — Quote Follow-Up</div>
+      <div class="slide-heading">They never manually chase a quote.</div>
+      <div class="slide-body">Quote goes out. Automated sequence starts. Day 1, Day 3, Day 7. The lead stays warm without anyone picking up the phone. Most installers send one quote and hope for the best.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 4 — Habit 3: Survey Confirmation (cream) -->
+    <div class="slide slide-cream">
+      <span class="slide-num">4 / 8</span>
+      <div class="anchor-num">03</div>
+      <div class="amber-label">Habit 03 — Survey Confirmation</div>
+      <div class="slide-heading">No-shows are rare. Not lucky.</div>
+      <div class="slide-body">Survey booked → confirmation sent → reminder the night before → reminder the morning of. Every time. Automatically. Driving to an empty house costs an hour and a job. They've fixed it.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 5 — Habit 4: Reviews (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">5 / 8</span>
+      <div class="anchor-num">04</div>
+      <div class="amber-label">Habit 04 — Review Collection</div>
+      <div class="slide-heading">They collect a review after every single install.</div>
+      <div class="slide-body">Automated request fires 48 hours post-install. Not occasionally. Not when they remember. Every install. A Google profile that converts cold traffic before a competitor even quotes.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 6 — Habit 5: Referrals (cream) -->
+    <div class="slide slide-cream">
+      <span class="slide-num">6 / 8</span>
+      <div class="anchor-num">05</div>
+      <div class="amber-label">Habit 05 — Referral System</div>
+      <div class="slide-heading">They turn every happy customer into the next job.</div>
+      <div class="slide-body">30 days after install: "Know anyone who'd be a good fit for solar?" Automated. Personal-feeling. 40 installs a year × 50% referral rate = 20 free leads. Most installers leave all of them on the table.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 7 — The Point (amber) -->
+    <div class="slide slide-amber">
+      <span class="slide-num">7 / 8</span>
+      <div class="slide-heading">None of this requires more staff.<br><em>It requires a system.</em></div>
+      <div class="slide-body" style="margin-top:10px;">The top 10% aren't working harder. They're not chasing more aggressively. They've built infrastructure that handles the follow-up while they're on the tools. The work is the same. The outcome isn't.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 8 — CTA (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">8 / 8</span>
+      <div style="margin-bottom:auto;padding-top:28px;">
+        <div class="amber-label">Free · 2 minutes · No sales pitch</div>
+      </div>
+      <div class="amber-rule"></div>
+      <div class="slide-heading">See which of these 5 habits your business is missing.</div>
+      <div class="slide-body" style="margin-top:6px;">The Solar Scaling Roadmap is free and takes 2 minutes. You'll know exactly where your ops are costing you installs.</div>
+      <div style="font-size:13px;font-weight:600;color:var(--amber);margin-top:10px;">flowbuildai.ie/audit</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Caption — LinkedIn + Instagram</div>
+    <div class="caption-text">Most installers I speak to assume the top-performing solar companies in Ireland are just getting more leads.
+
+They're not. They're converting the ones they already have.
+
+Here are the 5 operational habits that separate the top 10% from everyone else — and none of them require a single extra hire.
+
+👉 Swipe to see which ones your business is missing.</div>
+    <div class="hashtags">#IrishSolar #SolarIreland #SolarInstaller #BusinessGrowth #IrishBusiness #SolarEnergy #AIAutomation #LeadConversion #SolarBusiness #SEAI</div>
+  </div>
+</div>
+
+<hr class="section-rule">
+
+
+<!-- ═══════════════════════════════════════════
+     POST 2 — TUESDAY · CAROUSEL · SHARED LEADS
+     ═══════════════════════════════════════════ -->
+<div class="post-block">
+  <div class="post-meta">
+    <span class="post-day">Tuesday</span>
+    <span class="post-platform">LinkedIn + Instagram</span>
+    <span class="post-format">Carousel · 6 Slides</span>
+    <span class="post-pillar">Pillar — Lead Quality</span>
+  </div>
+  <div class="post-title">"You're Paying for Leads That Went to 4 Other Companies at the Same Time"</div>
+
+  <div class="slides-row">
+
+    <!-- Slide 1 — Cover (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">1 / 6</span>
+      <div class="ghost-num">4</div>
+      <div class="amber-label">Lead Quality</div>
+      <div class="slide-heading" style="font-size:24px;">You paid €80 for that lead.<br><em>So did four of your competitors.</em></div>
+      <div class="slide-body" style="margin-top:6px;">Shared leads. The dirty secret of solar lead generation in Ireland.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 2 — What a shared lead is (cream) -->
+    <div class="slide slide-cream">
+      <span class="slide-num">2 / 6</span>
+      <div class="amber-label">What a shared lead actually is</div>
+      <div class="slide-heading">One homeowner. Five installers. One phone.</div>
+      <div class="slide-body">A homeowner fills a form on a comparison site. That enquiry gets sold to 5 installers simultaneously. You all paid. You're all calling the same person within the next hour. The race has already started — and you don't know it.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 3 — The maths (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">3 / 6</span>
+      <div class="amber-label">The maths on shared leads</div>
+      <div class="slide-heading">Shared leads close at less than 5%.</div>
+      <div class="slide-body">20 leads at €80 each = €1,600. One closes. You paid €1,600 for one job.</div>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-num">&lt;5%</div>
+          <div class="stat-label">Shared lead close rate</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">15–25%</div>
+          <div class="stat-label">Own-channel close rate</div>
+        </div>
+      </div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 4 — The race (cream) -->
+    <div class="slide slide-cream">
+      <span class="slide-num">4 / 6</span>
+      <div style="font-family:'EB Garamond',serif;font-size:80px;font-weight:700;color:var(--charcoal);opacity:0.07;position:absolute;top:-10px;right:8px;line-height:1;">78%</div>
+      <div class="amber-label">The race</div>
+      <div class="slide-heading">The fastest caller wins 78% of shared leads.</div>
+      <div class="slide-body">You can't out-quality a shared lead. You can only out-speed it. The installer who calls within 5 minutes wins. The ones who call 2 hours later are paying for leads they'll never close.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 5 — The real problem (amber) -->
+    <div class="slide slide-amber">
+      <span class="slide-num">5 / 6</span>
+      <div class="slide-heading">Speed is now the product.<br><em>Not the install.</em></div>
+      <div class="slide-body" style="margin-top:10px;">And if you're on the tools when that lead hits your inbox, you lose. Every time. Unless you have a system that fires first — one that replies in 60 seconds before you even see the notification.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 6 — CTA (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">6 / 6</span>
+      <div style="margin-bottom:auto;padding-top:28px;">
+        <div class="amber-label">Stop competing for shared leads</div>
+      </div>
+      <div class="amber-rule"></div>
+      <div class="slide-heading">Build the system that wins the race — every time.</div>
+      <div class="slide-body" style="margin-top:6px;">We build automated first-response systems for Irish solar companies. Every lead gets a reply in under 60 seconds, whether you're in a meeting or on a rooftop.</div>
+      <div style="font-size:13px;font-weight:600;color:var(--amber);margin-top:10px;">flowbuildai.ie</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Caption — LinkedIn + Instagram</div>
+    <div class="caption-text">Shared leads have a dirty secret.
+
+You pay €80 for a lead. So do four of your competitors. That homeowner gets 5 calls in the next hour. The first installer to get through wins the job.
+
+This isn't lead generation. It's a speed contest with a €400 entry fee.
+
+Here's what the maths actually looks like — and why own-channel leads change everything.
+
+👉 Swipe.</div>
+    <div class="hashtags">#IrishSolar #LeadGeneration #SolarInstaller #SolarIreland #BusinessGrowth #SolarBusiness #IrishBusiness #AIAutomation</div>
+  </div>
+</div>
+
+<hr class="section-rule">
+
+
+<!-- ═══════════════════════════════════════════
+     POST 3 — WEDNESDAY · CAROUSEL · 5-MINUTE RULE
+     ═══════════════════════════════════════════ -->
+<div class="post-block">
+  <div class="post-meta">
+    <span class="post-day">Wednesday</span>
+    <span class="post-platform">Instagram + Facebook</span>
+    <span class="post-format">Carousel · 7 Slides</span>
+    <span class="post-pillar">Pillar — Speed to Lead</span>
+  </div>
+  <div class="post-title">"The 5-Minute Rule"</div>
+
+  <div class="slides-row">
+
+    <!-- Slide 1 — Cover (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">1 / 7</span>
+      <div class="big-stat">80%</div>
+      <div class="amber-label">The 5-Minute Rule</div>
+      <div class="slide-heading" style="font-size:22px;">Lead value drops by 80% after 5 minutes.</div>
+      <div class="slide-body">Most Irish solar installers reply in 2–3 days.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 2 — The data (cream) -->
+    <div class="slide slide-cream">
+      <span class="slide-num">2 / 7</span>
+      <div class="amber-label">Where this comes from</div>
+      <div class="slide-heading">This isn't a sales opinion. It's measured data.</div>
+      <div class="slide-body">MIT research: responding within 5 minutes vs. 1 hour makes you <strong>21× more likely</strong> to qualify a lead. Responding within 5 minutes vs. 24 hours: <strong>100× more likely</strong> to make contact. The drop-off starts immediately.</div>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-num">21×</div>
+          <div class="stat-label">More likely vs. 1-hour reply</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">100×</div>
+          <div class="stat-label">More likely vs. 24-hour reply</div>
+        </div>
+      </div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 3 — Minute 0 (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">3 / 7</span>
+      <div style="font-family:'EB Garamond',serif;font-size:80px;font-weight:700;font-style:italic;color:var(--amber);opacity:0.12;position:absolute;top:20px;right:16px;line-height:1;">0:00</div>
+      <div class="amber-label">Minute 0</div>
+      <div class="slide-heading">They submit the form. They want solar.</div>
+      <div class="slide-body">Partner beside them. Coffee on the table. Your competitor's website is open in the next tab. They'll reply to whoever contacts them first. Right now, that window is wide open.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 4 — Minute 5 (cream) -->
+    <div class="slide slide-cream">
+      <span class="slide-num">4 / 7</span>
+      <div style="font-family:'EB Garamond',serif;font-size:120px;font-weight:700;font-style:italic;color:var(--charcoal);opacity:0.06;position:absolute;top:-10px;right:8px;line-height:1;">5</div>
+      <div class="warning-tag" style="background:rgba(232,101,42,0.12);color:var(--amber);">Danger Zone</div>
+      <div class="amber-label">Minute 5</div>
+      <div class="slide-heading">The lead is already worth 80% less.</div>
+      <div class="slide-body">They haven't left. But they've moved. Second tab open. That initial intent — the heat of the decision — is cooling fast. In five minutes they've already started comparing you to someone else.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 5 — Hour 1 (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">5 / 7</span>
+      <div style="font-family:'EB Garamond',serif;font-size:72px;font-weight:700;font-style:italic;color:var(--amber);opacity:0.1;position:absolute;top:20px;right:16px;line-height:1;">1hr</div>
+      <div class="amber-label">Hour 1</div>
+      <div class="slide-heading">A competitor just qualified them by phone.</div>
+      <div class="slide-body">The installer who replied in 12 minutes has already asked about the roof, confirmed the SEAI grant applies, and booked a site survey. The homeowner feels looked after. You still haven't called.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 6 — Day 3 (amber) -->
+    <div class="slide slide-amber">
+      <span class="slide-num">6 / 7</span>
+      <div class="amber-label">Day 3 — Most Irish solar installers</div>
+      <div class="slide-heading">"Hi, just following up on your enquiry..."</div>
+      <div class="slide-body" style="margin-top:10px;">The install was booked Tuesday evening. The homeowner has already set up a WhatsApp group about the solar install they're getting. You're calling about a lead that closed two days ago.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 7 — CTA (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">7 / 7</span>
+      <div style="margin-bottom:auto;padding-top:28px;">
+        <div class="amber-label">The fix is simpler than you think</div>
+      </div>
+      <div class="amber-rule"></div>
+      <div class="slide-heading">What if every lead got a reply in under 60 seconds?</div>
+      <div class="slide-body" style="margin-top:6px;">Our system fires an automated response the moment a lead hits your inbox. Personalised, on-brand, and moves them toward booking — while you're still on the tools.</div>
+      <div style="font-size:13px;font-weight:600;color:var(--amber);margin-top:10px;">flowbuildai.ie</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Caption — Instagram + Facebook</div>
+    <div class="caption-text">MIT research showed that responding to a lead within 5 minutes vs. 1 hour makes you 21× more likely to qualify them.
+
+5 minutes vs. 24 hours: 100× more likely.
+
+Most Irish solar installers reply in 2–3 days.
+
+Swipe to see what happens to your lead between the form fill and your first phone call.
+
+👉</div>
+    <div class="hashtags">#IrishSolar #SolarInstaller #LeadResponse #SolarIreland #BusinessGrowth #IrishBusiness #AIAutomation #SolarBusiness</div>
+  </div>
+</div>
+
+<hr class="section-rule">
+
+
+<!-- ═══════════════════════════════════════════
+     POST 4 — THURSDAY · CAROUSEL · THE REFERRAL
+     ═══════════════════════════════════════════ -->
+<div class="post-block">
+  <div class="post-meta">
+    <span class="post-day">Thursday</span>
+    <span class="post-platform">Instagram</span>
+    <span class="post-format">Carousel · 6 Slides</span>
+    <span class="post-pillar">Pillar — Post-Install Revenue</span>
+  </div>
+  <div class="post-title">"The Referral You Never Asked For"</div>
+
+  <div class="slides-row">
+
+    <!-- Slide 1 — Cover (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">1 / 6</span>
+      <div class="ghost-num" style="font-size:180px;top:-10px;">×3</div>
+      <div class="amber-label">Post-Install Revenue</div>
+      <div class="slide-heading" style="font-size:24px;">Every install you complete is worth 2–3 more.<br><em>Most Irish solar companies never see them.</em></div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 2 — The maths (cream) -->
+    <div class="slide slide-cream">
+      <span class="slide-num">2 / 6</span>
+      <div class="amber-label">The maths</div>
+      <div class="slide-heading">40 installs a year. 50% would refer. That's 20 free leads.</div>
+      <div class="slide-body">Word of mouth drives more than 50% of solar purchasing decisions in Ireland. Half your happy customers would send you someone — if you asked. Most installers never do. Not because they don't want to. Because there's no system.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 3 — Why it doesn't happen (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">3 / 6</span>
+      <div class="amber-label">Why it doesn't happen</div>
+      <div class="slide-heading">It's not that installers forget. There's just no moment.</div>
+      <div class="slide-body">Install's done. Van's packed. You're already on to the next one. You mean to send a thank-you and a referral ask. You don't. Six months later, the neighbour gets solar done by someone else.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 4 — The sequence (cream) -->
+    <div class="slide slide-cream">
+      <span class="slide-num">4 / 6</span>
+      <div class="amber-label">The automated sequence</div>
+      <div class="slide-heading">Day 3. Day 30. Automated. Personal-feeling.</div>
+      <ul class="bullet-list" style="margin-top:12px;">
+        <li><strong>Day 3:</strong> "Hope you're loving the panels. Would you mind leaving us a quick Google review? Means the world."</li>
+        <li style="margin-top:8px;"><strong>Day 30:</strong> "How's everything going with the solar? If you know anyone who'd be a good fit, we'd love the introduction."</li>
+      </ul>
+      <div class="slide-body" style="margin-top:10px;">Simple. Non-pushy. Runs itself.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 5 — The number (amber) -->
+    <div class="slide slide-amber">
+      <span class="slide-num">5 / 6</span>
+      <div class="slide-heading">20 referral leads × 50% close rate = 10 extra installs a year.</div>
+      <div class="slide-body" style="margin-top:10px;">That's €70,000–€100,000 in revenue you're currently leaving behind — from customers who already trust you, already love the result, and would have sent someone if you'd only asked.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 6 — CTA (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">6 / 6</span>
+      <div style="margin-bottom:auto;padding-top:28px;">
+        <div class="amber-label">The cheapest lead gen you'll ever run</div>
+      </div>
+      <div class="amber-rule"></div>
+      <div class="slide-heading">The referral system is free to run. It just needs to be built.</div>
+      <div class="slide-body" style="margin-top:6px;">We build post-install automation for Irish solar companies. Reviews, referrals, and pipeline management — set up once, runs itself.</div>
+      <div style="font-size:13px;font-weight:600;color:var(--amber);margin-top:10px;">flowbuildai.ie</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Caption — Instagram</div>
+    <div class="caption-text">40 installs a year. Half your happy customers would refer someone — if you asked.
+
+That's 20 free leads. 10 extra installs. €70k–€100k in revenue that costs you nothing to generate.
+
+Most installers leave all of it behind because there's no system in place to capture it.
+
+Swipe to see the 2-message automated sequence that changes that.
+
+👉</div>
+    <div class="hashtags">#IrishSolar #SolarInstaller #SolarIreland #CustomerReferrals #BusinessGrowth #SolarBusiness #IrishBusiness #WordOfMouth</div>
+  </div>
+</div>
+
+<hr class="section-rule">
+
+
+<!-- ═══════════════════════════════════════════
+     POST 5 — FRIDAY · CAROUSEL · ADS + OPS
+     ═══════════════════════════════════════════ -->
+<div class="post-block">
+  <div class="post-meta">
+    <span class="post-day">Friday</span>
+    <span class="post-platform">LinkedIn + Instagram</span>
+    <span class="post-format">Carousel · 7 Slides</span>
+    <span class="post-pillar">Pillar — Paid Ads + Ops</span>
+  </div>
+  <div class="post-title">"Your Ads Are Working. Your Ops Are Losing the Jobs."</div>
+
+  <div class="slides-row">
+
+    <!-- Slide 1 — Cover (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">1 / 7</span>
+      <div class="amber-label">Paid Ads + Ops</div>
+      <div class="slide-heading" style="font-size:24px;">Your ads are working.<br><em>Your ops are losing the jobs.</em></div>
+      <div class="slide-body" style="margin-top:8px;">You're spending money on Meta ads. The leads are coming in. So why aren't the installs following?</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 2 — The funnel (cream) -->
+    <div class="slide slide-cream">
+      <span class="slide-num">2 / 7</span>
+      <div class="amber-label">Your funnel right now</div>
+      <div class="slide-heading">100 leads. 4 installs. Where did the other 96 go?</div>
+      <div class="funnel-flow" style="margin-top:12px;">
+        <div class="funnel-step">
+          <div class="funnel-num" style="color:var(--charcoal);">100</div>
+          <div class="funnel-label">leads from ads</div>
+        </div>
+        <div class="funnel-step"><div class="funnel-arrow" style="color:rgba(28,25,23,0.3);padding-left:8px;">↓</div></div>
+        <div class="funnel-step">
+          <div class="funnel-num" style="color:var(--charcoal);">40</div>
+          <div class="funnel-label">opened the quote</div>
+        </div>
+        <div class="funnel-step"><div class="funnel-arrow" style="color:rgba(28,25,23,0.3);padding-left:8px;">↓</div></div>
+        <div class="funnel-step">
+          <div class="funnel-num" style="color:var(--charcoal);">15</div>
+          <div class="funnel-label">replied to follow-up</div>
+        </div>
+        <div class="funnel-step"><div class="funnel-arrow" style="color:rgba(28,25,23,0.3);padding-left:8px;">↓</div></div>
+        <div class="funnel-step">
+          <div class="funnel-num" style="color:var(--amber);">4</div>
+          <div class="funnel-label">signed contracts</div>
+        </div>
+      </div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 3 — Where 96 went (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">3 / 7</span>
+      <div class="ghost-num" style="font-size:180px;">96</div>
+      <div class="amber-label">Where the other 96 went</div>
+      <div class="slide-heading">It wasn't the ad. It was what happened after the click.</div>
+      <ul class="bullet-list" style="margin-top:8px;">
+        <li>Slow first response — moved on before you replied</li>
+        <li>Quote sent, never followed up</li>
+        <li>Site survey booked, they no-showed — no reminder sent</li>
+        <li>Form fill at 9pm — not seen until Monday morning</li>
+      </ul>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 4 — The ad spend maths (cream) -->
+    <div class="slide slide-cream">
+      <span class="slide-num">4 / 7</span>
+      <div class="amber-label">The maths on your ad spend</div>
+      <div class="slide-heading">€18k/year in ads. For 48 installs. Or 96.</div>
+      <div class="slide-body">Same ad spend. Same leads. If your ops system doubled your conversion rate, you'd be closing 96 installs for €18k — cutting your cost per install in half. Your ads don't need to get better. Your ops do.</div>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-num">€375</div>
+          <div class="stat-label">Cost per install today</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">€188</div>
+          <div class="stat-label">With ops system</div>
+        </div>
+      </div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 5 — Fixed funnel (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">5 / 7</span>
+      <div class="amber-label">Same ads. Same leads. Different ops.</div>
+      <div class="slide-heading">100 leads. 3× the outcome.</div>
+      <div class="funnel-flow" style="margin-top:12px;">
+        <div class="funnel-step">
+          <div class="funnel-num">100</div>
+          <div class="funnel-label" style="color:rgba(250,249,246,0.6);">leads from ads</div>
+        </div>
+        <div class="funnel-step"><div class="funnel-arrow">↓</div></div>
+        <div class="funnel-step">
+          <div class="funnel-num">72</div>
+          <div class="funnel-label" style="color:rgba(250,249,246,0.6);">opened the quote</div>
+        </div>
+        <div class="funnel-step"><div class="funnel-arrow">↓</div></div>
+        <div class="funnel-step">
+          <div class="funnel-num">38</div>
+          <div class="funnel-label" style="color:rgba(250,249,246,0.6);">replied to follow-up</div>
+        </div>
+        <div class="funnel-step"><div class="funnel-arrow">↓</div></div>
+        <div class="funnel-step">
+          <div class="funnel-num" style="color:var(--amber);">14</div>
+          <div class="funnel-label" style="color:rgba(250,249,246,0.6);">signed contracts</div>
+        </div>
+      </div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 6 — The truth (amber) -->
+    <div class="slide slide-amber">
+      <span class="slide-num">6 / 7</span>
+      <div class="slide-heading">Every euro you spend on ads is only as good as the system behind it.</div>
+      <div class="slide-body" style="margin-top:10px;">You can't out-advertise a broken follow-up process. Fix the back-end before you spend another euro on ads.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 7 — CTA (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">7 / 7</span>
+      <div style="margin-bottom:auto;padding-top:28px;">
+        <div class="amber-label">Free · 2 minutes · No sales pitch</div>
+      </div>
+      <div class="amber-rule"></div>
+      <div class="slide-heading">Find out exactly where your pipeline is leaking.</div>
+      <div class="slide-body" style="margin-top:6px;">The Solar Scaling Roadmap is free, takes 2 minutes, and shows you where leads are going quiet — and what it's worth to your business annually.</div>
+      <div style="font-size:13px;font-weight:600;color:var(--amber);margin-top:10px;">flowbuildai.ie/audit</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Caption — LinkedIn + Instagram</div>
+    <div class="caption-text">Running Meta ads for solar?
+
+Your ads are probably working fine. Most of the problem is what happens after the click.
+
+100 leads → 4 installs. That's the average conversion for an Irish solar company running paid ads without an ops system behind them.
+
+Here's where the other 96 went — and what fixing it does to your cost per install.
+
+👉 Swipe.</div>
+    <div class="hashtags">#IrishSolar #MetaAds #SolarInstaller #SolarIreland #BusinessGrowth #PaidAds #LeadGeneration #IrishBusiness #AIAutomation</div>
+  </div>
+</div>
+
+<hr class="section-rule">
+
+
+<!-- ═══════════════════════════════════════════
+     BONUS — STATIC IMAGE · €220K PIPELINE
+     ═══════════════════════════════════════════ -->
+<div class="post-block">
+  <div class="post-meta">
+    <span class="post-day">Bonus</span>
+    <span class="post-platform">Instagram</span>
+    <span class="post-format">Static Image · 1 Slide</span>
+    <span class="post-pillar">Pillar — Social Proof / Case Study</span>
+  </div>
+  <div class="post-title">"What a €220,000 Solar Pipeline Actually Looks Like" — Static</div>
+
+  <div class="slides-row">
+    <!-- Static slide (dark) -->
+    <div class="slide slide-dark" style="width:450px;height:450px;">
+      <div style="font-family:'EB Garamond',serif;font-size:200px;font-weight:700;color:var(--amber);opacity:0.07;position:absolute;top:-30px;right:-30px;line-height:1;letter-spacing:-0.04em;">€</div>
+      <div class="amber-label">Real Pipeline Audit — Irish Solar</div>
+      <div class="big-stat" style="font-size:72px;margin-bottom:8px;">€220k</div>
+      <div class="slide-heading" style="font-size:20px;line-height:1.2;">47 leads. €220,000 in potential revenue. Sitting in a spreadsheet. Uncontacted.</div>
+      <div class="slide-body" style="margin-top:8px;">This is what we found in one Irish solar company's CRM. Not old leads. Recent ones.</div>
+      <div style="font-size:11px;font-weight:600;color:rgba(232,101,42,0.7);margin-top:10px;letter-spacing:0.06em;text-transform:uppercase;">The OS behind your solar. — flowbuildai.ie</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Caption — Instagram</div>
+    <div class="caption-text">We pulled a solar company's CRM last month.
+
+Found 47 recent leads. Uncontacted. €220,000 in potential revenue sitting in a spreadsheet going cold.
+
+The ads were working. The website had traffic. Homeowners were filling forms.
+
+And then nothing.
+
+This isn't unusual. It happens in Irish solar companies every month.
+
+The issue isn't leads. It's ops.
+
+Comment OS if you want to see what we'd fix first in your business.</div>
+    <div class="hashtags">#IrishSolar #SolarInstaller #SolarIreland #BusinessGrowth #AIAutomation #IrishBusiness #LeadGeneration #SolarBusiness</div>
+  </div>
+</div>
+
+<hr class="section-rule">
+
+
+<!-- ═══════════════════════════════════════════
+     BONUS — CAROUSEL · €220K PIPELINE STORY
+     ═══════════════════════════════════════════ -->
+<div class="post-block">
+  <div class="post-meta">
+    <span class="post-day">Bonus</span>
+    <span class="post-platform">LinkedIn + Instagram</span>
+    <span class="post-format">Carousel · 6 Slides</span>
+    <span class="post-pillar">Pillar — Case Study</span>
+  </div>
+  <div class="post-title">"What a €220,000 Solar Pipeline Actually Looks Like" — Carousel</div>
+
+  <div class="slides-row">
+
+    <!-- Slide 1 — Cover (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">1 / 6</span>
+      <div class="ghost-num" style="font-size:160px;top:-10px;">€</div>
+      <div class="amber-label">Real Pipeline Audit</div>
+      <div class="big-stat big-stat-sm" style="margin-bottom:8px;">€220k</div>
+      <div class="slide-heading" style="font-size:20px;">47 leads. €220,000 in potential revenue. Uncontacted. This is what we found in one Irish solar company's CRM.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 2 — The audit (cream) -->
+    <div class="slide slide-cream">
+      <span class="slide-num">2 / 6</span>
+      <div class="amber-label">What the audit found</div>
+      <div class="slide-heading">47 leads. Average job value: €4,700. Total pipeline: €220,900.</div>
+      <div class="slide-body" style="margin-top:8px;">Not leads from 6 months ago. Recent. Some from the past 3 weeks. Every single one uncontacted — no call, no text, no email. Just sitting there.</div>
+      <div class="stat-row">
+        <div class="stat-item">
+          <div class="stat-num">47</div>
+          <div class="stat-label">Uncontacted leads</div>
+        </div>
+        <div class="stat-item">
+          <div class="stat-num">€4,700</div>
+          <div class="stat-label">Average job value</div>
+        </div>
+      </div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 3 — What went wrong (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">3 / 6</span>
+      <div class="amber-label">What went wrong</div>
+      <div class="slide-heading">The ads were working. The product was good. The ops weren't.</div>
+      <ul class="bullet-list" style="margin-top:10px;">
+        <li>Leads came into a shared inbox nobody monitored consistently</li>
+        <li>Follow-up depended on whoever had time that day</li>
+        <li>Quotes sent with no reminder sequence attached</li>
+        <li>Pipeline tracked in a spreadsheet updated manually — when remembered</li>
+      </ul>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 4 — What was recovered (cream) -->
+    <div class="slide slide-cream">
+      <span class="slide-num">4 / 6</span>
+      <div class="amber-label">What happened next</div>
+      <div class="slide-heading">We built the system. Then recontacted every lead.</div>
+      <div class="slide-body">Automated reactivation sequence went out to all 47. 9 replied within 48 hours. 4 booked site surveys. This wasn't clever marketing. It was just showing up — systematically — when competitors assumed those leads were cold.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 5 — The bigger point (amber) -->
+    <div class="slide slide-amber">
+      <span class="slide-num">5 / 6</span>
+      <div class="slide-heading">This isn't a one-off. It happens in Irish solar companies every month.</div>
+      <div class="slide-body" style="margin-top:10px;">Not because owners don't care. Because the system isn't built to catch what the ads are sending. The leads are there. The pipeline is full. The ops is what's broken.</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+    <!-- Slide 6 — CTA (dark) -->
+    <div class="slide slide-dark">
+      <span class="slide-num">6 / 6</span>
+      <div style="margin-bottom:auto;padding-top:28px;">
+        <div class="amber-label">Free · No obligation</div>
+      </div>
+      <div class="amber-rule"></div>
+      <div class="slide-heading">What's sitting uncontacted in your pipeline right now?</div>
+      <div class="slide-body" style="margin-top:6px;">We audit Irish solar businesses for free. You'll see exactly where leads are going quiet and what it's costing you annually.</div>
+      <div style="font-size:13px;font-weight:600;color:var(--amber);margin-top:10px;">flowbuildai.ie/audit</div>
+      <div class="slide-logo">FLOW<span class="logo-b">BUILD</span><span class="logo-badge">AI</span></div>
+    </div>
+
+  </div>
+
+  <div class="caption-block">
+    <div class="caption-label">Caption — LinkedIn</div>
+    <div class="caption-text">We pulled a solar company's CRM and found 47 uncontacted leads from the last few weeks.
+
+€220,000 in potential revenue. Sitting there. Going cold.
+
+The ads were working. The website was getting traffic. Homeowners were filling forms.
+
+And then nothing — no call, no text, no email.
+
+This isn't a leads problem. It's an ops problem. And it's more common than you'd think.
+
+👉 Swipe to see what we found, what we fixed, and what happened when we recontacted every lead.</div>
+    <div class="hashtags">#IrishSolar #SolarInstaller #SolarIreland #BusinessGrowth #AIAutomation #IrishBusiness #LeadGeneration #SolarBusiness #CRM</div>
+  </div>
+</div>
+
+</body>
+</html>
